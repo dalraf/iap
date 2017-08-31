@@ -5,6 +5,8 @@ from django.shortcuts import render
 
 from giap.forms import formaddcliente, formaddcentral, formsetcentral
 
+from giap.models import central
+
 # Create your views here.
 
 def default(request):
@@ -26,7 +28,7 @@ def addcooperativa(request):
             'fosetcentral': fosetcentral, 
         })
 
-    fosetcentral = formsetcentral()
+    fosetcentral = formsetcentral(queryset=central.objects.order_by("sigla_central"))
     return render(request, 'addcooperativa.html',
     {
         'fosetcentral': fosetcentral, 
