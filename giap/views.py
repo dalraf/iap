@@ -10,4 +10,4 @@ def default(request):
 
 
 def addcliente(request):
-    return render(request, 'addclient.html',)
+    return render(request, 'addcliente.html',)
