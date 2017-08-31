@@ -4,13 +4,34 @@
         {% bootstrap_messages %}
         <form action="" method="post">
             {% csrf_token %}
-            {% bootstrap_form foaddcentral size='small'%}
-            {% bootstrap_formset fosetcentral size='small'%} 
+            <div class="row">
+                <hr/>{{ fosetcentral.management_form }}
+                <div class="col-md-12">
+                    <table class="table table-bordered table-striped">
+                        {% for form in fosetcentral.forms %} {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %} {% if forloop.first %}
+                        <thead class="thead-default" style="background-color: #BEBEBE">
+                            {%for field in form.visible_fields %}
+                            <th>{{ field.label_tag }}</th>
+                            {% endfor %}
+                        </thead>
+                        <tbody>
+                            {% endif %}
+                            <tr>
+                                {% for field in form.visible_fields %}
+                                <td>
+                                    {{ field }}
+                                </td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             {% buttons %}
             <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "star" %} Submit
-            </button> 
-            {% endbuttons %}
+            </button> {% endbuttons %}
         </form>
     </div>
 </div>

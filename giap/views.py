@@ -17,21 +17,17 @@ def addcliente(request):
 
 def addcooperativa(request):
     if request.method == 'POST':
-        foaddcentral = formaddcentral(request.POST)
-        if foaddcentral.is_valid():
-            foaddcentral.save
-        foaddcentral = formaddcentral()
+        fosetcentral = formsetcentral(request.POST)
+        if fosetcentral.is_valid():
+            fosetcentral.save()
         fosetcentral = formsetcentral()
         return render(request, 'addcooperativa.html',
         {
-            'foaddcentral': foaddcentral,
             'fosetcentral': fosetcentral, 
         })
 
-    foaddcentral = formaddcentral()
     fosetcentral = formsetcentral()
     return render(request, 'addcooperativa.html',
     {
-        'foaddcentral': foaddcentral,
         'fosetcentral': fosetcentral, 
         })

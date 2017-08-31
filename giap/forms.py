@@ -13,6 +13,7 @@ formaddcentral = modelform_factory(central,
 
 formsetcentral = modelformset_factory(central,
     fields=("sigla_central", "numcentral",),
+    can_delete=True,
     )
 
 
