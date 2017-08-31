@@ -7,7 +7,7 @@ formaddcliente = modelform_factory(cliente,
     fields=("pa", "tipodepessoa", "numcpfcpnj", "nome_cliente"),
     )
 
-formsaddcentral = modelform_factory(central,
+formaddcentral = modelform_factory(central,
     fields=("sigla_central", "numcentral",),
     )
 

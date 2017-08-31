@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from giap.forms import formaddcliente, formaddcooperativa, formaddcentral, formaddpa
+from giap.forms import formaddcliente, formaddcentral, formsetcentral
 
 # Create your views here.
 
@@ -20,28 +20,18 @@ def addcooperativa(request):
         foaddcentral = formaddcentral(request.POST)
         if foaddcentral.is_valid():
             foaddcentral.save
-        foaddcoop = formaddcooperativa(request.POST)
-        if foaddcoop.is_valid():
-            foaddcoop.save
-        foaddpa = formaddpa(request.POST)
-        if foaddpa.is_valid():
-            foaddpa.save
         foaddcentral = formaddcentral()
-        foaddcoop = formaddcooperativa()
-        foaddpa = formaddpa()
+        fosetcentral = formsetcentral()
         return render(request, 'addcooperativa.html',
         {
-            'foaddcentral': foaddcentral, 
-            'foaddcoop': foaddcoop,
-            'foaddpa': foaddpa,
+            'foaddcentral': foaddcentral,
+            'fosetcentral': fosetcentral, 
         })
 
     foaddcentral = formaddcentral()
-    foaddcoop = formaddcooperativa()
-    foaddpa = formaddpa()
+    fosetcentral = formsetcentral()
     return render(request, 'addcooperativa.html',
     {
-        'foaddcentral': foaddcentral, 
-        'foaddcoop': foaddcoop,
-        'foaddpa': foaddpa,
+        'foaddcentral': foaddcentral,
+        'fosetcentral': fosetcentral, 
         })

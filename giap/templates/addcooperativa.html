@@ -3,10 +3,9 @@
     <div class='col-md-12'>
         {% bootstrap_messages %}
         <form action="" method="post">
-            {% csrf_token %} 
-            {% bootstrap_formset foaddcentral size='small'%} 
-            {% bootstrap_formset foaddcoop size='small'%} 
-            {% bootstrap_formset foaddpa size='small'%} 
+            {% csrf_token %}
+            {% bootstrap_form foaddcentral size='small'%}
+            {% bootstrap_formset fosetcentral size='small'%} 
             {% buttons %}
             <button type="submit" class="btn btn-primary">
                 {% bootstrap_icon "star" %} Submit
