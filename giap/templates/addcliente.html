@@ -1,3 +1,6 @@
 {% extends 'base.html' %} {% block content %}
-GAPI
+<form action="" method="post">
+    {{ formadd.as_ul }}
+    <button type="submit" class="btn btn-primary|secondary|success|info|warning|danger">Submit</button>
+</form>
 {% endblock content %}

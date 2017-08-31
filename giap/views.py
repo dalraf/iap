@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
+from giap.forms import formaddcliente
+
 # Create your views here.
 
 def default(request):
@@ -10,4 +12,5 @@ def default(request):
 
 
 def addcliente(request):
-    return render(request, 'addcliente.html',)
+    formadd = formaddcliente()
+    return render(request, 'addcliente.html',{'formadd': formadd,})
