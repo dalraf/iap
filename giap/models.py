@@ -7,15 +7,15 @@ from django.db import models
 
 class cooperativa(models.Model):
     sigla_cooperativa = models.CharField('Nome da Cooperativa',max_length=50,)
-    numcooperativa = models.IntegerField('Número da Cooperativa', max_length=6)
+    numcooperativa = models.DecimalField('Número da Cooperativa',max_digits=4, decimal_places=0)
     sigla_central = models.CharField('Nome da Central',max_length=50,)
-    numcentral = models.IntegerField('Numero da Central', max_length=6)
+    numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0)
 
     def __unicode__(self):
         return self.sigla_cooperativa
     
 class pa(models.Model):
-    numpa = models.IntegerField('Número do PA', max_length=3)
+    numpa = models.DecimalField('Número do PA',max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
 
     def __unicode__(self):
@@ -30,7 +30,7 @@ PFPJ = (
 class cliente(models.Model):
     pa = models.ForeignKey('pa', verbose_name = 'Cooperativa-PA', on_delete=models.CASCADE)
     tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,)
-    numcpfcpnj = models.IntegerField('Número do CPF/CNPJ',max_length=10,)
+    numcpfcpnj = models.DecimalField('Número do CPF/CNPJ',max_digits=10, decimal_places=0)
     nome_cliente = models.CharField('Nome da Cooperativa',max_length=50,)
 
 class usuario(models.Model):
