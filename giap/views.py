@@ -7,3 +7,7 @@ from django.shortcuts import render
 
 def default(request):
     return render(request, 'default.html',)
+
+
+def addcliente(request):
+    return render(request, 'addclient.html',)

@@ -21,48 +21,49 @@ class pa(models.Model):
     def __unicode__(self):
         return self.cooperativa + "-" + self.numpa
 
- PFPJ = (
+
+PFPJ = (
     (0,'PF'),
     (1,'PJ'),
     )
 
-class cliente(models.Model)
+class cliente(models.Model):
     pa = models.ForeignKey('pa', verbose_name = 'Cooperativa-PA', on_delete=models.CASCADE)
     tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,)
     numcpfcpnj = models.IntegerField('Número do CPF/CNPJ',max_length=10,)
     nome_cliente = models.CharField('Nome da Cooperativa',max_length=50,)
 
-class usuario(models,Model)
+class usuario(models.Model):
     nome = models.CharField('Nome da Cooperativa',max_length=50,)   
 
- GRUPOPRODUTOS = (
-    (0,'Menor de 4000'),
-    (1,'Mais de 4000'),
+GRUPOPRODUTOS = (
+        (0,'Menor de 4000'),
+        (1,'Mais de 4000'),
+        )
+
+TIPOPRODUTO = (
+    (0,'Empréstimo'), 
+    (2,'Financiamento'), 
+    (3,'Pré aprovado'), 
+    (4,'Credito Rural'), 
+    (5,'Cheque Especial'),
+    (6,'Cartão de credito'), 
+    (7,'Cartão de Debito'), 
+    (8,'RDC'), 
+    (9,'Poupança'), 
+    (10,'Consórcio'), 
+    (11,'Sicoob-Previ'), 
+    (12,'Sipag'), 
+    (13,'Demais seguros'), 
+    (14,'Débito Automático'), 
+    (15,'Empréstimo'), 
     )
 
- TIPOPRODUTO = (
-     (0,'Empréstimo'),
-     (2,'Financiamento'),
-     (3,'Pré aprovado'),
-     (4,'Credito Rural'),
-     (5,'Cheque Especial'),
-     (6,'Cartão de credito'),
-     (7,'Cartão de Debito'),
-     (8,'RDC'),
-     (9,'Poupança'),
-     (10,'Consórcio'),
-     (11,'Sicoob-Previ'),
-     (12,'Sipag'),
-     (13,'Demais seguros'),
-     (14,'Débito Automático'),
-     (15,'Empréstimo'),
- )
-
-class transacao(models.Model)
+class transacao(models.Model):
     usuario = models.ForeignKey('usuario', verbose_name = 'Usuário', on_delete=models.CASCADE)
     cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     qtde_produto = models.IntegerField('Quantidade de produtos')
     produto = models.IntegerField('Grupos',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupos',choices=GRUPOPRODUTOS,)
-    data = models.datetime('Data e Hora')
+    data = models.DateTimeField('Data e Hora')
 
