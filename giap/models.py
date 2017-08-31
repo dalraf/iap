@@ -32,27 +32,37 @@ class cliente(models.Model)
     numcpfcpnj = models.IntegerField('Número do CPF/CNPJ',max_length=10,)
     nome_cliente = models.CharField('Nome da Cooperativa',max_length=50,)
 
+class usuario(models,Model)
+    nome = models.CharField('Nome da Cooperativa',max_length=50,)   
+
  GRUPOPRODUTOS = (
     (0,'Menor de 4000'),
     (1,'Mais de 4000'),
     )
 
-class produto(models.Model)
-    tem_emprestimo = models.BooleanField('Empréstimo')
-    tem_financiamento = models.BooleanField('Financiamento')
-    tem_preaprovado = models.BooleanField('Pré aprovado')
-    tem_creditorural = models.BooleanField('Credito Rural')
-    tem_chequeespecial = models.BooleanField('Cheque Especial')
-    tem_cartaocredito = models.BooleanField('Cartão de credito')
-    tem_cartaodebito = models.BooleanField('Cartão de Debito')
-    tem_rdc = models.BooleanField('RDC')
-    tem_poupanca = models.BooleanField('Poupança')
-    tem_consorcio = models.BooleanField('Consórcio')
-    tem_sicoobprevi = models.BooleanField('Sicoob-Previ')
-    tem_sipag = models.BooleanField('Sipag')
-    tem_demaisseguros = models.BooleanField('Demais seguros')
-    tem_segurovida = models.BooleanField('Seguro vida')
-    tem_debitoautomatico = models.BooleanField('Débito Automático')
+ TIPOPRODUTO = (
+     (0,'Empréstimo'),
+     (2,'Financiamento'),
+     (3,'Pré aprovado'),
+     (4,'Credito Rural'),
+     (5,'Cheque Especial'),
+     (6,'Cartão de credito'),
+     (7,'Cartão de Debito'),
+     (8,'RDC'),
+     (9,'Poupança'),
+     (10,'Consórcio'),
+     (11,'Sicoob-Previ'),
+     (12,'Sipag'),
+     (13,'Demais seguros'),
+     (14,'Débito Automático'),
+     (15,'Empréstimo'),
+ )
+
+class transacao(models.Model)
+    usuario = models.ForeignKey('usuario', verbose_name = 'Usuário', on_delete=models.CASCADE)
+    cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     qtde_produto = models.IntegerField('Quantidade de produtos')
+    produto = models.IntegerField('Grupos',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupos',choices=GRUPOPRODUTOS,)
+    data = models.datetime('Data e Hora')
 
