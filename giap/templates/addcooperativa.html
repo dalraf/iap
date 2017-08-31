@@ -1,11 +1,20 @@
 {% extends 'base.html' %} {% block content %} {% load bootstrap3 %}
-<div class='row'>
-    <div class='col-md-12'>
-        {% bootstrap_messages %}
-        <form action="" method="post">
-            {% csrf_token %}
+<form action="" method="post">
+    <div class="row">
+        <div class='col-md-1'>
+        </div>
+        <div class='col-md-8'>
+            {% bootstrap_form foaddcentral layout='inline' size='small' %}
+        </div>
+    </div>
+    <hr/>
+    <div class='row'>
+        <div class='col-md-1'>
+        </div>
+        <div class='col-md-8'>
+            {% bootstrap_messages %} {% csrf_token %}
             <div class="row">
-                <hr/>{{ fosetcentral.management_form }}
+                {{ fosetcentral.management_form }}
                 <div class="col-md-12">
                     <table class="table table-bordered table-striped">
                         {% for form in fosetcentral.forms %} {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %} {% if forloop.first %}
@@ -19,7 +28,7 @@
                             <tr>
                                 {% for field in form.visible_fields %}
                                 <td>
-                                    {{ field }}
+                                    {% bootstrap_field field show_label=False %}
                                 </td>
                                 {% endfor %}
                             </tr>
@@ -30,9 +39,9 @@
             </div>
             {% buttons %}
             <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Submit
+                {% bootstrap_icon "star" %} Salvar
             </button> {% endbuttons %}
-        </form>
+        </div>
     </div>
-</div>
+</form>
 {% endblock content %}
