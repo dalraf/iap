@@ -5,16 +5,24 @@ from django.db import models
 
 # Create your models here.
 
-class cooperativa(models.Model):
-    sigla_cooperativa = models.CharField('Nome da Cooperativa',max_length=50,)
-    numcooperativa = models.DecimalField('Número da Cooperativa',max_digits=4, decimal_places=0)
+class central(models.Model):
     sigla_central = models.CharField('Nome da Central',max_length=50,)
     numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0)
 
     def __unicode__(self):
         return self.sigla_cooperativa
+
+
+class cooperativa(models.Model):
+    sigla_cooperativa = models.CharField('Nome da Cooperativa',max_length=50,)
+    numcooperativa = models.DecimalField('Número da Cooperativa',max_digits=4, decimal_places=0)
+    central = models.ForeignKey('central', verbose_name = 'Central', on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.sigla_cooperativa
     
 class pa(models.Model):
+    sigla_pa = models.CharField('Nome do PA',max_length=50,)
     numpa = models.DecimalField('Número do PA',max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
 

@@ -1,0 +1,20 @@
+{% extends 'base.html' %} {% block content %} {% load bootstrap3 %}
+<div class='row'>
+    <div class='col-md-1'>
+    </div>
+    <div class='col-md-6'>
+        {% bootstrap_messages %}
+        <form action="" method="post">
+            {% csrf_token %} 
+            {% bootstrap_formset foaddcentral layout='horizontal' size='small'%} 
+            {% bootstrap_formset foaddcoop layout='horizontal' size='small'%} 
+            {% bootstrap_formset foaddpa layout='horizontal' size='small'%} 
+            {% buttons %}
+            <button type="submit" class="btn btn-primary">
+                {% bootstrap_icon "star" %} Submit
+            </button> 
+            {% endbuttons %}
+        </form>
+    </div>
+</div>
+{% endblock content %}
