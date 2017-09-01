@@ -22,7 +22,7 @@ def addcooperativa(request):
         fosetcentral = formsetcentral(request.POST)
         foaddcentral = formaddcentral(request.POST)
         if foaddcentral.is_valid():
-            if foaddcentral.cleaned_data['sigla_central'] != "" and foaddcentral.cleaned_data['numcentral'] != "" :
+            if foaddcentral.cleaned_data['sigla_central'] and foaddcentral.cleaned_data['numcentral'] :
                 foaddcentral.save()
         if fosetcentral.is_valid():
             fosetcentral.save()
