@@ -34,8 +34,14 @@ def editaddcentral(request, id=None):
             request.session['id'] = id       
     return render(request, 'editaddcentral.html',
     {
+        'id': id,
         'form': form,
         })
+
+def deletarcentral(request,id):
+    central.objects.filter(id=id).delete()
+    return redirect('listarcentral',)
+
 
 
 def listarcentral(request):
