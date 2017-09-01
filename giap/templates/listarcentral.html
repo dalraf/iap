@@ -1,0 +1,36 @@
+{% extends 'base.html' %} {% block content %}
+<div class="row">
+    <div class="col-md-2">
+        <h4>Lista de centrais</h4>
+    </div>
+    <div class="col-md-2">
+        <a class="btn btn-info" role="button" href="{% url 'editaddcentral' %}">Adicionar</a>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <td>
+                        Sigla central
+                    </td>
+                    <td>
+                        Número da central
+                    </td>
+                </tr>
+            </thead>
+            {% for central in centrallist %}
+            <tr>
+                <td>
+                    {{ central.sigla_central }}
+                </td>
+                <td>
+                    {{ central.numcentral }}
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock content %}

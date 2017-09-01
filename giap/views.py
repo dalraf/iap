@@ -1,35 +1,34 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from giap.forms import formaddcliente, formaddcentral, formsetcentral
+from giap.forms import formcentral
 
 from giap.models import central
+
+from django.views.generic.edit import FormView
 
 # Create your views here.
 
 def default(request):
     return render(request, 'default.html',)
 
-
-def addcliente(request):
-    formadd = formaddcliente()
-    return render(request, 'addcliente.html',{'formadd': formadd,})
-
-def addcooperativa(request):
+def editaddcentral(request):
     if request.method == 'POST':
-        foaddcentral = formaddcentral(request.POST)
-        if foaddcentral.is_valid():
-                foaddcentral.save()
-        foaddcentral = formaddcentral()
-        return render(request, 'addcooperativa.html',
-        {
-            'foaddcentral': foaddcentral,
-        })
+        form = formcentral(request.POST)
+        if form.is_valid():
+                form.save()
+        form = formcentral()
+        return redirect('listarcentral',)
     
-    foaddcentral = formaddcentral()
-    return render(request, 'addcooperativa.html',
+    form = formcentral()
+    return render(request, 'editaddcentral.html',
     {
-        'foaddcentral': foaddcentral,
+        'form': form,
         })
+
+
+def listarcentral(request):
+    centrallist = central.objects.all()
+    return render(request,'listarcentral.html', {'centrallist': centrallist})

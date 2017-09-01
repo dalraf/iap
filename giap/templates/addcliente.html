@@ -5,7 +5,7 @@
     <div class='col-md-6'>
         {% bootstrap_messages %}
         <form action="" method="post">
-            {% csrf_token %} {% bootstrap_form formadd size='small'%} {% buttons %}
+            {% csrf_token %} {% bootstrap_form formadd %} {% buttons %}
             <button type="submit" class="btn btn-primary">
       {% bootstrap_icon "star" %} Submit
     </button> {% endbuttons %}

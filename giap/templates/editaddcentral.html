@@ -5,11 +5,9 @@
         <div class='col-md-1'>
         </div>
         <div class='col-md-8'>
-            {% for field in foaddcentral %}
-            <div class="row">
-                {% bootstrap_field field layout='inline' %}
-            </div>
-            {% endfor %}
+            <table class="table">
+            {{  form  }}
+            </table>
         </div>
     </div>
     <hr/>
@@ -18,7 +16,7 @@
         </div>
         <div class='col-md-8'>
             {% buttons %}
-            <button type="submit" class="btn btn-primary">Adicionar</button> {% endbuttons %}
+            <button type="submit" class="btn btn-info">Salvar</button> {% endbuttons %}
         </div>
     </div>
     </div>
