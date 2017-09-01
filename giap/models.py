@@ -6,8 +6,8 @@ from django.db import models
 # Create your models here.
 
 class central(models.Model):
-    sigla_central = models.CharField('Nome da Central',max_length=50, blank=True, null=True )
-    numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0, blank=True, null=True )
+    sigla_central = models.CharField('Nome da Central',max_length=50,)
+    numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0, )
 
     def __unicode__(self):
         return self.sigla_cooperativa

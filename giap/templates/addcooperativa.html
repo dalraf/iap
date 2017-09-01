@@ -1,10 +1,15 @@
-{% extends 'base.html' %} {% block content %} {% load bootstrap3 %}
-<form action="" method="post">
+{% extends 'base.html' %} {% block content %} {% load bootstrap3 %} {% bootstrap_messages %}
+<form class="form-inline" action="" method="post">
+    {% csrf_token %}
     <div class="row">
         <div class='col-md-1'>
         </div>
         <div class='col-md-8'>
-            {% bootstrap_form foaddcentral layout='inline' size='small' %}
+            {% for field in foaddcentral %}
+            <div class="row">
+                {% bootstrap_field field layout='inline' %}
+            </div>
+            {% endfor %}
         </div>
     </div>
     <hr/>
@@ -12,36 +17,12 @@
         <div class='col-md-1'>
         </div>
         <div class='col-md-8'>
-            {% bootstrap_messages %} {% csrf_token %}
-            <div class="row">
-                {{ fosetcentral.management_form }}
-                <div class="col-md-12">
-                    <table class="table table-bordered table-striped">
-                        {% for form in fosetcentral.forms %} {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %} {% if forloop.first %}
-                        <thead class="thead-default" style="background-color: #BEBEBE">
-                            {%for field in form.visible_fields %}
-                            <th>{{ field.label_tag }}</th>
-                            {% endfor %}
-                        </thead>
-                        <tbody>
-                            {% endif %}
-                            <tr>
-                                {% for field in form.visible_fields %}
-                                <td>
-                                    {% bootstrap_field field show_label=False %}
-                                </td>
-                                {% endfor %}
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
             {% buttons %}
-            <button type="submit" class="btn btn-primary">
-                {% bootstrap_icon "star" %} Salvar
-            </button> {% endbuttons %}
+            <button type="submit" class="btn btn-primary">Adicionar</button> {% endbuttons %}
         </div>
+    </div>
+    </div>
+    </div>
     </div>
 </form>
 {% endblock content %}
