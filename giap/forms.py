@@ -1,7 +1,7 @@
-from django.forms import modelform_factory, modelform_factory, modelformset_factory
+from django.forms import modelform_factory, HiddenInput
 from giap.models import cliente, cooperativa, central, pa
 
 
 formcentral = modelform_factory(central,
-    fields=("sigla_central", "numcentral",),
+    fields=("sigla_central", "numcentral", "id"),
     )

@@ -6,6 +6,7 @@ from django.db import models
 # Create your models here.
 
 class central(models.Model):
+    id = models.AutoField(primary_key=True)
     sigla_central = models.CharField('Nome da Central',max_length=50,)
     numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0, )
 
@@ -22,6 +23,7 @@ class cooperativa(models.Model):
         return self.sigla_cooperativa
     
 class pa(models.Model):
+    id = models.AutoField(primary_key=True)
     sigla_pa = models.CharField('Nome do PA',max_length=50,)
     numpa = models.DecimalField('Número do PA',max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
