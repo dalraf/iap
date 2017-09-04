@@ -24,15 +24,20 @@ def editaddcentral(request, id=None):
                 if request.session['id'] == 'new':
                     novoreg = form.save()                
                     request.session['id'] = novoreg.id
-                    mensagem = 'Registro Adicionado'   
+                    request.session['confirmadelecao'] = 'Não'
+                    mensagem = 'Registro Adicionado'
+                    textoformato = 'text-info'
                 else:
                     inst = form.save(commit=False)
                     inst.id = request.session['id']
                     inst.save()
+                    request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
+                    textoformato = 'text-info'
                 return render(request, 'editaddcentral.html',{
                     'form': form,
                     'mensagem' : mensagem,
+                    'textoformato': textoformato,
                     })
             elif 'Deletar' in request.POST:
                 if request.session['confirmadelecao'] == 'Sim':
@@ -43,9 +48,11 @@ def editaddcentral(request, id=None):
                 else:
                     request.session['confirmadelecao'] = 'Sim'
                     mensagem = 'Confirma deleção?'
+                    textoformato = 'text-danger'
                     return render(request, 'editaddcentral.html',{
                     'form': form,
                     'mensagem': mensagem,
+                    'textoformato': textoformato,
                     })
         else:
             return render(request, 'editaddcentral.html',{
