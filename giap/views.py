@@ -57,11 +57,6 @@ def editaddcentral(request, id=None):
             'form': form,
             })
 
-def deletarcentral(request,id):
-    central.objects.filter(id=id).delete()
-    return redirect('listarcentral',)
-
-
 
 def listarcentral(request):
     centrallist = modelformset_factory(central, fields=("sigla_central", "numcentral", "id"), extra=0)
