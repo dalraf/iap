@@ -35,9 +35,18 @@ def editaddcentral(request, id=None):
                     'mensagem' : mensagem,
                     })
             elif 'Deletar' in request.POST:
-                central.objects.filter(id=request.session['id']).delete()
-                request.session['id'] == ''
-                return redirect('listarcentral',)
+                if request.session['confirmadelecao'] == 'Sim':
+                    central.objects.filter(id=request.session['id']).delete()
+                    request.session['id'] == ''
+                    request.session['confirmadelecao'] = 'Não'
+                    return redirect('listarcentral',)
+                else:
+                    request.session['confirmadelecao'] = 'Sim'
+                    mensagem = 'Confirma deleção?'
+                    return render(request, 'editaddcentral.html',{
+                    'form': form,
+                    'mensagem': mensagem,
+                    })
         else:
             return render(request, 'editaddcentral.html',{
             'form': form,
@@ -51,7 +60,8 @@ def editaddcentral(request, id=None):
         else:
             objeto = get_object_or_404(central, id=id)
             form = formcentral(request.POST or None, instance=objeto)
-            request.session['id'] = id       
+            request.session['id'] = id
+            request.session['confirmadelecao'] = 'Não'     
         return render(request, 'editaddcentral.html',
         {
             'id': id,
