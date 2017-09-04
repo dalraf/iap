@@ -22,8 +22,8 @@ def editaddcentral(request, id=None):
         if form.is_valid():
             if 'Salvar' in request.POST:
                 if request.session['id'] == 'new':
-                    form.save()
-                    request.session['id'] = form.clean_data['id']                    
+                    novoreg = form.save()                
+                    request.session['id'] = novoreg.id   
                 else:
                     inst = form.save(commit=False)
                     inst.id = request.session['id']
@@ -33,9 +33,6 @@ def editaddcentral(request, id=None):
                     })
             elif 'Deletar' in request.POST:
                 central.objects.filter(id=request.session['id']).delete()
-                request.session['id'] == ''
-                return redirect('listarcentral',)
-            elif 'Voltar' in request.POST:
                 request.session['id'] == ''
                 return redirect('listarcentral',)
         else:
