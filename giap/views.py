@@ -23,13 +23,16 @@ def editaddcentral(request, id=None):
             if 'Salvar' in request.POST:
                 if request.session['id'] == 'new':
                     novoreg = form.save()                
-                    request.session['id'] = novoreg.id   
+                    request.session['id'] = novoreg.id
+                    mensagem = 'Registro Adicionado'   
                 else:
                     inst = form.save(commit=False)
                     inst.id = request.session['id']
                     inst.save()
+                    mensagem = 'Registro Atualizado'
                 return render(request, 'editaddcentral.html',{
                     'form': form,
+                    'mensagem' : mensagem,
                     })
             elif 'Deletar' in request.POST:
                 central.objects.filter(id=request.session['id']).delete()
