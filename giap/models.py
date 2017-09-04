@@ -15,6 +15,7 @@ class central(models.Model):
 
 
 class cooperativa(models.Model):
+    id = models.AutoField(primary_key=True)
     sigla_cooperativa = models.CharField('Nome da Cooperativa',max_length=50,)
     numcooperativa = models.DecimalField('Número da Cooperativa',max_digits=4, decimal_places=0)
     central = models.ForeignKey('central', verbose_name = 'Central', on_delete=models.CASCADE)
