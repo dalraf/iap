@@ -1,9 +1,10 @@
 {% extends 'base.html' %} {% block content %} {% load bootstrap3 %} {% bootstrap_messages %}
-<div class="row">
+<form class="form-inline" action="" method="post">
+    <div class="row">
         <div class="col-md-1">
         </div>
         <div class="col-md-2">
-            <a class="btn btn-info" role="button" href="{% url 'listarcentral' %}">Voltar</a>
+            <input type="submit" name="Voltar" value="Voltar" class="btn btn-info">
         </div>
         <div class="col-md-2">
         </div>
@@ -11,9 +12,8 @@
             <h3><b>CENTRAIS</b></h3>
         </div>
     </div>
-<hr/>
-<div class="row">
-    <form class="form-inline" action="" method="post">
+    <hr/>
+    <div class="row">
         {% csrf_token %}
         <div class="row">
             <div class='col-md-3'>
@@ -24,12 +24,10 @@
                 </table>
             </div>
             <div class='col-md-3'>
-                <button type="submit" class="btn btn-info">Salvar</button>
-                {% if id != 'new' %}
-                <a class="btn btn-danger" role="button" href="{% url 'deletarcentral' id=id %}">Deletar</a> 
-                {% endif %}
+                <input type="submit" name="Salvar" value="Salvar" class="btn btn-info"> {% if id != 'new' %}
+                <input type="submit" name="Deletar" value="Deletar" class="btn btn-danger"> {% endif %}
             </div>
         </div>
-    </form>
-</div>
+    </div>
+</form>
 {% endblock content %}

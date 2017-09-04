@@ -20,14 +20,29 @@ def editaddcentral(request, id=None):
     if request.method == 'POST':
         form = formcentral(request.POST)
         if form.is_valid():
-            if request.session['id'] != 'new':
-                inst = form.save(commit=False)
-                inst.id = request.session['id']
-                inst.save()
+            if 'Salvar' in request.POST:
+                if request.session['id'] != 'new':
+                    inst = form.save(commit=False)
+                    inst.id = request.session['id']
+                    inst.save()
+                else:
+                    form.save()
+                return render(request, 'editaddcentral.html',{
+                    'form': form,
+                    })
+            elif 'Deletar' in request.POST:
+                central.objects.filter(id=request.session['id']).delete()
+                request.session['id'] == ''
+                return redirect('listarcentral',)
+            elif 'Voltar' in request.POST:
+                request.session['id'] == ''
+                return redirect('listarcentral',)
             else:
-                form.save()
-        request.session['id'] == ''
-        return redirect('listarcentral',)
+                return render(request, 'editaddcentral.html',{
+                'form': form,
+                })
+
+ 
     if request.method == 'GET' and id:
         if id == 'new':
             request.session['id'] = 'new'
