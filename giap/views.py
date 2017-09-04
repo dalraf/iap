@@ -37,10 +37,10 @@ def editaddcentral(request, id=None):
             elif 'Voltar' in request.POST:
                 request.session['id'] == ''
                 return redirect('listarcentral',)
-            else:
-                return render(request, 'editaddcentral.html',{
-                'form': form,
-                })
+        else:
+            return render(request, 'editaddcentral.html',{
+            'form': form,
+            })
 
  
     if request.method == 'GET' and id:
