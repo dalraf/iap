@@ -5,7 +5,7 @@
     <div class="col-md-6">
         <table class="table table-bordered table-striped">
             {% for form in centrallist %} {% if forloop.first %}
-            <thead class="thead">
+            <thead class="thead-inverse">
                 <tr>
                     <th>
                         <h5 class="text-center">{{ form.sigla_central.label }}</h5>
@@ -33,7 +33,7 @@
         </table>
     </div>
     <div class="col-md-3">
-            <a class="btn btn-info" role="button" href="{% url 'editaddcentral' id='new' %}">Adicionar</a>
+            <a class="btn btn-default" role="button" href="{% url 'editaddcentral' id='new' %}">Adicionar</a>
     </div>
 </div>
 {% endblock content %}
