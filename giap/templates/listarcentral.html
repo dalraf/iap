@@ -24,13 +24,13 @@
         <table class="table table-bordered table-striped">
             {% for form in centrallist %}
             {% if forloop.first %}
-            <thead>
+            <thead class="thead">
                 <tr>
                     <th>
-                        {{ form.sigla_central.label }}
+                        <h5 class="text-center">{{ form.sigla_central.label }}</h5>
                     </th>
                     <th>
-                        {{ form.numcentral.label }}
+                        <h5 class="text-center">{{ form.numcentral.label }}</h5>
                      </th>
                 </tr>
             </thead>
@@ -38,10 +38,13 @@
             {% endif %}
             <tr>
                 <td>
-                    <a href="{% url 'editaddcentral' id=form.id.value %}"> {{ form.sigla_central.value }}</a>
+                    <p class="text-center">{{ form.sigla_central.value }}</p>
                 </td>
                 <td>
-                    {{ form.numcentral.value }}
+                    <p class="text-center">{{ form.numcentral.value }}</p>
+                </td>
+                <td>
+                    <a href="{% url 'editaddcentral' id=form.id.value %}"><span class="glyphicon glyphicon-pencil"></span></a>
                 </td>
             </tr>
             {% endfor %}
