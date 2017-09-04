@@ -19,16 +19,30 @@
     </div>
     <div class="col-md-6">
         <table class="table table-bordered table-striped">
-            {% for central in centrallist %}
+            {% for form in centrallist %}
+            {% if forloop.first %}
+            <thead>
+                <tr>
+                    <th>
+                        {{ form.sigla_central.label_tag }}
+                    </th>
+                    <th>
+                        {{ form.numcentral.label_tag }}
+                     </th>
+                </tr>
+            </thead>
+            <tbody>
+            {% endif %}
             <tr>
                 <td>
-                    <a href="{% url 'editaddcentral' id=central.pk %}"> {{ central.sigla_central }}</a>
+                    <a href="{% url 'editaddcentral' id=form.id.value %}"> {{ form.sigla_central.value }}</a>
                 </td>
                 <td>
-                    {{ central.numcentral }}
+                    {{ form.numcentral.value }}
                 </td>
             </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 </div>

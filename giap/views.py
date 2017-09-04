@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 
+from django.forms import modelformset_factory
+
 from giap.forms import formcentral
 
 from giap.models import central
@@ -47,5 +49,5 @@ def deletarcentral(request,id):
 
 
 def listarcentral(request):
-    centrallist = central.objects.all()
+    centrallist = modelformset_factory(central, fields=("sigla_central", "numcentral", "id"), extra=0)
     return render(request,'listarcentral.html', {'centrallist': centrallist})
