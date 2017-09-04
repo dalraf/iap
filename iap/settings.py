@@ -101,6 +101,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Crispy Template
+
+CRISPY_TEMPLATE_PACK = 'bootstrap'
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
