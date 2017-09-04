@@ -1,11 +1,16 @@
 {% extends 'base.html' %} {% block content %} {% load bootstrap3 %} {% bootstrap_messages %}
 <div class="row">
-    <div class="col-md-3">
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-2">
+            <a class="btn btn-info" role="button" href="{% url 'listarcentral' %}">Voltar</a>
+        </div>
+        <div class="col-md-2">
+        </div>
+        <div class="col-md-2">
+            <h3><b>CENTRAIS</b></h3>
+        </div>
     </div>
-    <div class="col-md-4">
-        <h3><b>Edição de Centrais</b></h3>
-    </div>
-</div>
 <hr/>
 <div class="row">
     <form class="form-inline" action="" method="post">
@@ -18,15 +23,11 @@
                     {{ form }}
                 </table>
             </div>
-            <div class='col-md-1'>
-                <a class="btn btn-info" role="button" href="{% url 'listarcentral' %}">Voltar</a>
-            </div>
-            <div class='col-md-1'>
+            <div class='col-md-3'>
                 <button type="submit" class="btn btn-info">Salvar</button>
-            </div>
-            <div class='col-md-1'>
                 {% if id != 'new' %}
-                <a class="btn btn-danger" role="button" href="{% url 'deletarcentral' id=id %}">Deletar</a> {% endif %}
+                <a class="btn btn-danger" role="button" href="{% url 'deletarcentral' id=id %}">Deletar</a> 
+                {% endif %}
             </div>
         </div>
     </form>
