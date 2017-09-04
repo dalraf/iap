@@ -7,8 +7,8 @@ from django.db import models
 
 class central(models.Model):
     id = models.AutoField(primary_key=True)
-    sigla_central = models.CharField('Nome da Central',max_length=50,)
-    numcentral = models.DecimalField('Numero da Central',max_digits=4, decimal_places=0, )
+    sigla_central = models.CharField('Nome',help_text='Nome da cooperativa',max_length=50,)
+    numcentral = models.DecimalField('Número',help_text='Número da cooperativa, máx. 4 dígitos', max_digits=4, decimal_places=0, )
 
     def __unicode__(self):
         return self.sigla_cooperativa
