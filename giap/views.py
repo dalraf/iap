@@ -21,12 +21,13 @@ def editaddcentral(request, id=None):
         form = formcentral(request.POST)
         if form.is_valid():
             if 'Salvar' in request.POST:
-                if request.session['id'] != 'new':
+                if request.session['id'] == 'new':
+                    form.save()
+                    request.session['id'] = form.clean_data['id']                    
+                else:
                     inst = form.save(commit=False)
                     inst.id = request.session['id']
                     inst.save()
-                else:
-                    form.save()
                 return render(request, 'editaddcentral.html',{
                     'form': form,
                     })
