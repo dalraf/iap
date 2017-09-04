@@ -6,24 +6,31 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>GIAP</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3"
+        crossorigin="anonymous">
 </head>
 
 <body>
     <div class="container-fluid">
         <nav class="navbar navbar-default">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbargiap">
                               <span class="icon-bar"></span>
                               <span class="icon-bar"></span>
                               <span class="icon-bar"></span> 
                             </button>
                 <a class="navbar-brand" href="{% url 'default' %}">GIAP</a>
             </div>
-            <div class="collapse navbar-collapse" id="myNavbar">
+            <div class="collapse navbar-collapse" id="navbargiap">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'default' %}">Home</a></li>
-                    <li><a href="{% url 'listarcentral' %}">Centrais</a></li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                          <li><a href="{% url 'listarcentral' %}">Centrais</a></li>
+                          <li><a href="#">Cooperativas</a></li>
+                          <li><a href="#">PA</a></li>
+                        </ul>
+                      </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -32,9 +39,8 @@
             </div>
         </nav>
     </div>
-    {% block content %} 
-    {% endblock %}
-</div>
+    {% block content %} {% endblock %}
+    </div>
 
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
