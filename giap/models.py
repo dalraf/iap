@@ -11,7 +11,7 @@ class central(models.Model):
     numcentral = models.DecimalField('Número',help_text='Número da Central, máx. 4 dígitos', max_digits=4, decimal_places=0, )
 
     def __unicode__(self):
-        return self.sigla_cooperativa
+        return self.sigla_central
 
 
 class cooperativa(models.Model):

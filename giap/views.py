@@ -13,7 +13,7 @@ from django.views.generic.edit import FormView
 
 # Create your views here.
 
-def editadd(request,id,formmodel,templateedit,urlretorno):
+def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
         form = formmodel(request.POST)
         if form.is_valid():
@@ -65,7 +65,7 @@ def editadd(request,id,formmodel,templateedit,urlretorno):
             request.session['id'] = 'new'
             form = formmodel()
         else:
-            objeto = get_object_or_404(central, id=id)
+            objeto = get_object_or_404(modelo, id=id)
             form = formmodel(request.POST or None, instance=objeto)
             request.session['id'] = id
             request.session['confirmadelecao'] = 'Não'     
@@ -81,7 +81,7 @@ def default(request):
     return render(request, 'default.html',)
 
 def editaddcentral(request, id=None):
-    return editadd(request,id,formcentral,'editadd.html','listarcentral')
+    return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
 
 def listarcentral(request):
     templatelist = 'lista.html'
@@ -90,7 +90,7 @@ def listarcentral(request):
     return render(request,templatelist, {'editurl': editurl,'formset': formset})
 
 def editaddcooperativa(request, id=None):
-    return editadd(request,id,formcooperativa,'editadd.html','listarcooperativa')
+    return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
 
 def listarcooperativa(request):
     templatelist = 'lista.html'
