@@ -3,37 +3,37 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
+        {% for form in formset %} {% if forloop.first %}
         <table class="table table-bordered table-striped">
-            {% for form in centrallist %} {% if forloop.first %}
             <thead class="thead-inverse">
                 <tr>
+                    {%for field in form.visible_fields %}
                     <th>
-                        <h5 class="text-center"><b>{{ form.sigla_central.label }}</b></h5>
+                        <h5 class="text-center"><b>{{ field.label }}</b></h5>
                     </th>
-                    <th>
-                        <h5 class="text-center"><b>{{ form.numcentral.label }}</b></h5>
-                    </th>
+                    {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% endif %}
                 <tr>
+                    {%for field in form.visible_fields %}
                     <td>
-                        <p class="text-center">{{ form.sigla_central.value }}</p>
+                        <p class="text-center">{{ field.value }}</p>
                     </td>
-                    <td>
-                        <p class="text-center">{{ form.numcentral.value }}</p>
-                    </td>
+                    {% endfor %}
                     <td style="text-align:center">
-                        <a href="{% url 'editaddcentral' id=form.id.value %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{% url editurl id=form.id.value %}"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                 </tr>
-                {% endfor %}
+                {% if forloop.last %}
             </tbody>
         </table>
+        {% endif %}
+        {% endfor %} 
     </div>
     <div class="col-md-3">
-            <a class="btn btn-default" role="button" href="{% url 'editaddcentral' id='new' %}">Adicionar</a>
+        <a class="btn btn-default" role="button" href="{% url editurl id='new' %}">Adicionar</a>
     </div>
 </div>
 {% endblock content %}
