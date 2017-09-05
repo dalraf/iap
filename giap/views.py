@@ -83,6 +83,7 @@ def editaddcentral(request, id=None):
     return editadd(request,id,formcentral,'editadd.html','listarcentral')
 
 def listarcentral(request):
+    templatelist = 'lista.html'
     editurl = 'editaddcentral'
     formset = modelformset_factory(central, fields=("sigla_central", "numcentral"), extra=0)
-    return render(request,'listarcentral.html', {'editurl': editurl,'formset': formset})
+    return render(request,templatelist, {'editurl': editurl,'formset': formset})
