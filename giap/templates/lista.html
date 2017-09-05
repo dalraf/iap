@@ -3,20 +3,34 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
+        {% for form in formset %} {% if forloop.first %}
         <table class="table table-bordered table-striped">
-            {% for lista in queryset %}
-            <tr>
-                {%for key, values in lista.items %} {% if key != 'id' %}
-                <td>
-                    <p class="text-center">{{ values }}</p>
-                </td>
-                {% endif %} {% endfor %}
-                <td style="text-align:center">
-                    <a href="{% url editurl id=lista.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
-                </td>
-            </tr>
-            {% endfor %}
+            <thead class="thead-inverse">
+                <tr>
+                    {%for widget in form.visible_fields %}
+                    <th>
+                        <h5 class="text-center"><b>{{ widget.label }}</b></h5>
+                    </th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% endif %}
+                <tr>
+                    {%for widget in form.visible_fields %}
+                    <td>
+                        <p class="text-center">{{ widget.value}}</p>
+                    </td>
+                    {% endfor %}
+                    <td style="text-align:center">
+                        <a href="{% url editurl id=form.id.value %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                    </td>
+                </tr>
+                {% if forloop.last %}
+            </tbody>
         </table>
+        {% endif %}
+        {% endfor %} 
     </div>
     <div class="col-md-3">
         <a class="btn btn-default" role="button" href="{% url editurl id='new' %}">Adicionar</a>
