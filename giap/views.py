@@ -95,5 +95,6 @@ def editaddcooperativa(request, id=None):
 def listarcooperativa(request):
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
-    formset = modelformset_factory(cooperativa, fields=("sigla_cooperativa", "numcooperativa",), extra=0)
-    return render(request,templatelist, {'editurl': editurl,'formset': formset})
+    queryset = cooperativa.objects.all().values()
+    #formset = modelformset_factory(cooperativa, fields=("sigla_cooperativa", "numcooperativa",), extra=0)
+    return render(request,templatelist, {'editurl': editurl,'queryset': queryset})
