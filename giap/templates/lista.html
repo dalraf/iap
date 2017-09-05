@@ -3,27 +3,31 @@
     <div class="col-md-3">
     </div>
     <div class="col-md-6">
-        {% for form in formset %} {% if forloop.first %}
+        {% for i in lista %} {% if forloop.first %}
         <table class="table table-bordered table-striped">
             <thead class="thead-inverse">
                 <tr>
-                    {%for widget in form.visible_fields %}
+                    {%for key,value in i.items %}
+                    {% if key != 'id' %}
                     <th>
-                        <h5 class="text-center"><b>{{ widget.label }}</b></h5>
+                        <h5 class="text-center"><b>{{ key }}</b></h5>
                     </th>
+                    {% endif %}
                     {% endfor %}
                 </tr>
             </thead>
             <tbody>
                 {% endif %}
                 <tr>
-                    {%for widget in form.visible_fields %}
+                    {%for key,value in i.items %}
+                    {% if key != 'id' %}
                     <td>
-                        <p class="text-center">{{ widget.value}}</p>
+                        <p class="text-center">{{ value}}</p>                        
                     </td>
+                    {% endif %}
                     {% endfor %}
                     <td style="text-align:center">
-                        <a href="{% url editurl id=form.id.value %}"><span class="glyphicon glyphicon-pencil"></span></a>
+                        <a href="{% url editurl id=i.id %}"><span class="glyphicon glyphicon-pencil"></span></a>
                     </td>
                 </tr>
                 {% if forloop.last %}
