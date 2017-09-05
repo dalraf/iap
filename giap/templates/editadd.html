@@ -9,7 +9,7 @@
                 {% crispy  form %}
             </div>
             <div class='col-md-3'>
-                <a class="btn btn-default" role="button" href="{% url 'listarcentral' %}">Voltar</a>
+                <a class="btn btn-default" role="button" href="{% url urlretorno %}">Voltar</a>
                 <input type="submit" name="Salvar" value="Salvar" class="btn btn-default"> {% if request.session.id != 'new'%}
                 <input type="submit" name="Deletar" value="Deletar" class="btn btn-danger"> {% endif %}
             </div>

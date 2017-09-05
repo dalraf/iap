@@ -13,12 +13,9 @@ from django.views.generic.edit import FormView
 
 # Create your views here.
 
-def default(request):
-    return render(request, 'default.html',)
-
-def editaddcentral(request, id=None):
+def editadd(request,id,formmodel,templateedit,urlretorno):
     if request.method == 'POST':
-        form = formcentral(request.POST)
+        form = formmodel(request.POST)
         if form.is_valid():
             if 'Salvar' in request.POST:
                 if request.session['id'] == 'new':
@@ -34,28 +31,30 @@ def editaddcentral(request, id=None):
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
                     textoformato = 'text-info'
-                return render(request, 'editaddcentral.html',{
+                return render(request, templateedit,{
                     'form': form,
                     'mensagem' : mensagem,
                     'textoformato': textoformato,
+                    'urlretorno': urlretorno,
                     })
             elif 'Deletar' in request.POST:
                 if request.session['confirmadelecao'] == 'Sim':
                     central.objects.filter(id=request.session['id']).delete()
                     request.session['id'] == ''
                     request.session['confirmadelecao'] = 'Não'
-                    return redirect('listarcentral',)
+                    return redirect(urlretorno,)
                 else:
                     request.session['confirmadelecao'] = 'Sim'
                     mensagem = 'Confirma deleção?'
                     textoformato = 'text-danger'
-                    return render(request, 'editaddcentral.html',{
+                    return render(request, templateedit,{
                     'form': form,
                     'mensagem': mensagem,
                     'textoformato': textoformato,
+                    'urlretorno': urlretorno,
                     })
         else:
-            return render(request, 'editaddcentral.html',{
+            return render(request, templateedit,{
             'form': form,
             })
 
@@ -63,18 +62,25 @@ def editaddcentral(request, id=None):
     if request.method == 'GET' and id:
         if id == 'new':
             request.session['id'] = 'new'
-            form = formcentral()
+            form = formmodel()
         else:
             objeto = get_object_or_404(central, id=id)
-            form = formcentral(request.POST or None, instance=objeto)
+            form = formmodel(request.POST or None, instance=objeto)
             request.session['id'] = id
             request.session['confirmadelecao'] = 'Não'     
-        return render(request, 'editaddcentral.html',
+        return render(request, templateedit,
         {
             'id': id,
             'form': form,
+            'urlretorno': urlretorno,
             })
 
+
+def default(request):
+    return render(request, 'default.html',)
+
+def editaddcentral(request, id=None):
+    return editadd(request,id,formcentral,'editadd.html','listarcentral')
 
 def listarcentral(request):
     centrallist = modelformset_factory(central, fields=("sigla_central", "numcentral", "id"), extra=0)
