@@ -39,7 +39,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     })
             elif 'Deletar' in request.POST:
                 if request.session['confirmadelecao'] == 'Sim':
-                    central.objects.filter(id=request.session['id']).delete()
+                    modelo.objects.filter(id=request.session['id']).delete()
                     request.session['id'] == ''
                     request.session['confirmadelecao'] = 'Não'
                     return redirect(urlretorno,)
