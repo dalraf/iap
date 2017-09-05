@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral
+from giap.forms import formcentral, formcooperativa
 
 from giap.models import central, cooperativa
 
@@ -90,7 +90,7 @@ def listarcentral(request):
     return render(request,templatelist, {'editurl': editurl,'formset': formset})
 
 def editaddcooperativa(request, id=None):
-    return editadd(request,id,formcentral,'editadd.html','listarcooperativa')
+    return editadd(request,id,formcooperativa,'editadd.html','listarcooperativa')
 
 def listarcooperativa(request):
     templatelist = 'lista.html'
