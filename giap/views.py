@@ -7,7 +7,7 @@ from django.forms import modelformset_factory
 
 from giap.forms import formcentral
 
-from giap.models import central
+from giap.models import central, cooperativa
 
 from django.views.generic.edit import FormView
 
@@ -87,4 +87,13 @@ def listarcentral(request):
     templatelist = 'lista.html'
     editurl = 'editaddcentral'
     formset = modelformset_factory(central, fields=("sigla_central", "numcentral"), extra=0)
+    return render(request,templatelist, {'editurl': editurl,'formset': formset})
+
+def editaddcooperativa(request, id=None):
+    return editadd(request,id,formcentral,'editadd.html','listarcooperativa')
+
+def listarcooperativa(request):
+    templatelist = 'lista.html'
+    editurl = 'editaddcooperativa'
+    formset = modelformset_factory(cooperativa, fields=("sigla_cooperativa", "numcooperativa", "central"), extra=0)
     return render(request,templatelist, {'editurl': editurl,'formset': formset})
