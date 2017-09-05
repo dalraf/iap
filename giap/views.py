@@ -56,6 +56,7 @@ def editadd(request,id,formmodel,templateedit,urlretorno):
         else:
             return render(request, templateedit,{
             'form': form,
+            'urlretorno': urlretorno,
             })
 
  
