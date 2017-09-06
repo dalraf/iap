@@ -7,8 +7,8 @@ from django.db import models
 
 class central(models.Model):
     id = models.AutoField(primary_key=True)
-    sigla_central = models.CharField('Nome',help_text='Nome da Central',max_length=50,)
-    numcentral = models.DecimalField('Número',help_text='Número da Central, máx. 4 dígitos', max_digits=4, decimal_places=0, )
+    sigla_central = models.CharField('Nome',unique=True,help_text='Nome da Central',max_length=50,)
+    numcentral = models.DecimalField('Número',unique=True,help_text='Número da Central, máx. 4 dígitos', max_digits=4, decimal_places=0, )
 
     def __unicode__(self):
         return self.sigla_central
@@ -16,8 +16,8 @@ class central(models.Model):
 
 class cooperativa(models.Model):
     id = models.AutoField(primary_key=True)
-    sigla_cooperativa = models.CharField('Nome',help_text='Nome da Cooperativa',max_length=50,)
-    numcooperativa = models.DecimalField('Número', help_text='Número da Cooperativa, máx. 4 dígitos', max_digits=4, decimal_places=0)
+    sigla_cooperativa = models.CharField('Nome',unique=True,help_text='Nome da Cooperativa',max_length=50,)
+    numcooperativa = models.DecimalField('Número',unique=True,help_text='Número da Cooperativa, máx. 4 dígitos', max_digits=4, decimal_places=0)
     central = models.ForeignKey('central', verbose_name = 'Central', on_delete=models.CASCADE)
 
     def __unicode__(self):
@@ -25,8 +25,8 @@ class cooperativa(models.Model):
     
 class pa(models.Model):
     id = models.AutoField(primary_key=True)
-    sigla_pa = models.CharField('Nome do PA',max_length=50,)
-    numpa = models.DecimalField('Número do PA',max_digits=4, decimal_places=0 )
+    sigla_pa = models.CharField('Nome do PA',unique=True,max_length=50,)
+    numpa = models.DecimalField('Número do PA',unique=True,max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
 
     def __unicode__(self):
