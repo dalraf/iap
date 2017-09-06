@@ -47,6 +47,8 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                 request.session['confirmadelecao'] = 'Sim'
                 mensagem = 'Confirma deleção?'
                 textoformato = 'text-danger'
+                objeto = get_object_or_404(modelo, id=request.session['id'])
+                form = formmodel(instance=objeto)
                 return render(request, templateedit,{
                 'form': form,
                 'mensagem': mensagem,
