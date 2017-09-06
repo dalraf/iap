@@ -141,6 +141,6 @@ def listarcliente(request):
         for key, value in i.iteritems():
             j[cliente._meta.get_field(key).verbose_name] = value
         idcentral = i['pa_id']
-        j['PA'] = pa.objects.get(id=idcentral).sigla_pa
+        j['Cooperativa/PA'] = pa.objects.get(id=idcentral).sigla_pa
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
