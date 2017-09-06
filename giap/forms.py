@@ -9,3 +9,8 @@ formcentral = modelform_factory(central,
 formcooperativa =  modelform_factory(cooperativa,
     fields=("sigla_cooperativa", "numcooperativa", "central"),
     )
+
+formpa =  modelform_factory(pa,
+    fields=("sigla_pa", "numpa", "cooperativa"),
+    )
+

@@ -5,9 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa
+from giap.forms import formcentral, formcooperativa, formpa
 
-from giap.models import central, cooperativa
+from giap.models import central, cooperativa, pa
 
 from django.views.generic.edit import FormView
 
@@ -107,5 +107,23 @@ def listarcooperativa(request):
             j[cooperativa._meta.get_field(key).verbose_name] = value
         idcentral = i['central_id']
         j['Central'] = central.objects.get(id=idcentral).sigla_central
+        lista.append(j)        
+    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+
+
+def editaddpa(request, id=None):
+    return editadd(request,id,pa,formpa,'editadd.html','listarpa')
+
+def listarpa(request):
+    templatelist = 'lista.html'
+    editurl = 'editaddpa'
+    listaget = list(pa.objects.all().values())
+    lista = []
+    for i in listaget:
+        j = {}
+        for key, value in i.iteritems():
+            j[pa._meta.get_field(key).verbose_name] = value
+        idcentral = i['cooperativa_id']
+        j['Cooperativa'] = cooperativa.objects.get(id=idcentral).sigla_cooperativa
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
