@@ -31,12 +31,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
                     textoformato = 'text-info'
-                return render(request, templateedit,{
-                    'form': form,
-                    'mensagem' : mensagem,
-                    'textoformato': textoformato,
-                    'urlretorno': urlretorno,
-                    })
+                return redirect(urlretorno)
             elif 'Deletar' in request.POST:
                 if request.session['confirmadelecao'] == 'Sim':
                     modelo.objects.filter(id=request.session['id']).delete()
