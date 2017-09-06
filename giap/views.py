@@ -86,8 +86,15 @@ def editaddcentral(request, id=None):
 def listarcentral(request):
     templatelist = 'lista.html'
     editurl = 'editaddcentral'
-    formset = modelformset_factory(central, fields=("sigla_central", "numcentral"), extra=0)
-    return render(request,templatelist, {'editurl': editurl,'formset': formset})
+    listaget = list(central.objects.all().values())
+    lista = []
+    for i in listaget:
+        j = {}
+        for key, value in i.iteritems():
+            j[central._meta.get_field(key).verbose_name] = value
+        lista.append(j)
+    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+
 
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
@@ -95,10 +102,13 @@ def editaddcooperativa(request, id=None):
 def listarcooperativa(request):
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
-    lista = list(cooperativa.objects.all().values())
-    for i in lista:
-        for key in i:
-            i[cooperativa._meta.get_field(key).verbose_name] = i.pop(key)
-        idcentral = i.pop('Central', None)
-        i['Central'] = central.objects.get(id=idcentral).sigla_central
+    listaget = list(cooperativa.objects.all().values())
+    lista = []
+    for i in listaget:
+        j = {}
+        for key, value in i.iteritems():
+            j[cooperativa._meta.get_field(key).verbose_name] = value
+        idcentral = i['central_id']
+        j['Central'] = central.objects.get(id=idcentral).sigla_central
+        lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
