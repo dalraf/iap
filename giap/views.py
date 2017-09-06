@@ -16,8 +16,8 @@ from django.views.generic.edit import FormView
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
         form = formmodel(request.POST)
-        if form.is_valid():
-            if 'Salvar' in request.POST:
+        if 'Salvar' in request.POST:
+            if form.is_valid():
                 if request.session['id'] == 'new':
                     novoreg = form.save()                
                     request.session['id'] = novoreg.id
@@ -32,27 +32,27 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     mensagem = 'Registro Atualizado'
                     textoformato = 'text-info'
                 return redirect(urlretorno)
-            elif 'Deletar' in request.POST:
-                if request.session['confirmadelecao'] == 'Sim':
-                    modelo.objects.filter(id=request.session['id']).delete()
-                    request.session['id'] == ''
-                    request.session['confirmadelecao'] = 'Não'
-                    return redirect(urlretorno,)
-                else:
-                    request.session['confirmadelecao'] = 'Sim'
-                    mensagem = 'Confirma deleção?'
-                    textoformato = 'text-danger'
-                    return render(request, templateedit,{
-                    'form': form,
-                    'mensagem': mensagem,
-                    'textoformato': textoformato,
-                    'urlretorno': urlretorno,
-                    })
-        else:
-            return render(request, templateedit,{
-            'form': form,
-            'urlretorno': urlretorno,
-            })
+            else:
+                return render(request, templateedit,{
+                'form': form,
+                'urlretorno': urlretorno,
+                })
+        elif 'Deletar' in request.POST:
+            if request.session['confirmadelecao'] == 'Sim':
+                modelo.objects.filter(id=request.session['id']).delete()
+                request.session['id'] == ''
+                request.session['confirmadelecao'] = 'Não'
+                return redirect(urlretorno,)
+            else:
+                request.session['confirmadelecao'] = 'Sim'
+                mensagem = 'Confirma deleção?'
+                textoformato = 'text-danger'
+                return render(request, templateedit,{
+                'form': form,
+                'mensagem': mensagem,
+                'textoformato': textoformato,
+                'urlretorno': urlretorno,
+                })
 
  
     if request.method == 'GET' and id:
