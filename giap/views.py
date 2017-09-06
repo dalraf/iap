@@ -98,6 +98,8 @@ def listarcooperativa(request):
     lista = list(cooperativa.objects.all().values())
     for i in lista:
         i['sigla_central'] = central.objects.get(id=i['central_id']).sigla_central
+        i.pop('central_id', None)
+        i['teste'] = i.pop('sigla_cooperativa')
 
     #formset = modelformset_factory(cooperativa, fields=("sigla_cooperativa", "numcooperativa",), extra=0)
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
