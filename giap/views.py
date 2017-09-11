@@ -130,8 +130,8 @@ def listarpa(request):
         j = {}
         for key, value in i.iteritems():
             j[pa._meta.get_field(key).verbose_name] = value
-        idcentral = i['cooperativa_id']
-        j['Cooperativa'] = cooperativa.objects.get(id=idcentral).sigla_cooperativa
+        idcooperativa = i['cooperativa_id']
+        j['Cooperativa'] = cooperativa.objects.get(id=idcooperativa).sigla_cooperativa
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
@@ -150,30 +150,12 @@ def listarcliente(request):
         j = {}
         for key, value in i.iteritems():
             j[cliente._meta.get_field(key).verbose_name] = value
-        idcentral = i['pa_id']
-        j['Cooperativa/PA'] = pa.objects.get(id=idcentral).sigla_pa
+        idpa = i['pa_id']
+        j['Cooperativa/PA'] = pa.objects.get(id=idpa).sigla_pa
         j['Tipo de Pessoa'] = tipodepessoadict[i['tipodepessoa']]
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
-@login_required
-def editaddpa(request, id=None):
-    return editadd(request,id,pa,formpa,'editadd.html','listarpa')
-
-@login_required
-def listarpa(request):
-    templatelist = 'lista.html'
-    editurl = 'editaddpa'
-    listaget = list(pa.objects.all().values())
-    lista = []
-    for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[pa._meta.get_field(key).verbose_name] = value
-        idcentral = i['cooperativa_id']
-        j['Cooperativa'] = cooperativa.objects.get(id=idcentral).sigla_cooperativa
-        lista.append(j)        
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
 @login_required
 def editaddtransacao(request, id=None):
@@ -191,8 +173,8 @@ def listartransacao(request):
         j = {}
         for key, value in i.iteritems():
             j[transacao._meta.get_field(key).verbose_name] = value
-        idcentral = i['cliente_id']
-        j['Cliente'] = cliente.objects.get(id=idcentral).nome_cliente
+        idcliente = i['cliente_id']
+        j['Cliente'] = cliente.objects.get(id=idcliente).nome_cliente
         j['Produto'] = produtodict[i['produto']]
         j['Grupo'] = grupodict[i['grupo']]
         lista.append(j)        
