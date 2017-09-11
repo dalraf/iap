@@ -11,6 +11,8 @@ from giap.models import central, cooperativa, pa, cliente
 
 from django.views.generic.edit import FormView
 
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
@@ -73,7 +75,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
             'urlretorno': urlretorno,
             })
 
-
+@login_required
 def default(request):
     return render(request, 'default.html',)
 
