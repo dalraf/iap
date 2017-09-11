@@ -82,9 +82,9 @@ TIPOPRODUTO = (
 
 class transacao(models.Model):
     id = models.AutoField(primary_key=True)
-    cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
+    cliente = models.ForeignKey('Cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     produto = models.IntegerField('Produto',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
-    usuario = models.CharField('Nome',max_length=150,)
+    usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora',auto_now_add=True)
 
