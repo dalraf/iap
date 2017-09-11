@@ -191,8 +191,8 @@ def listartransacao(request):
         j = {}
         for key, value in i.iteritems():
             j[transacao._meta.get_field(key).verbose_name] = value
-        idcentral = i['transao_id']
-        j['Cliente'] = cliente.objects.get(id=idcentral).nome
+        idcentral = i['cliente_id']
+        j['Cliente'] = cliente.objects.get(id=idcentral).nome_cliente
         j['Produto'] = produtodict[i['produto']]
         j['Grupo'] = grupodict[i['grupo']]
         lista.append(j)        
