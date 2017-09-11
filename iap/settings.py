@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'static/media')
 MEDIA_URL = '/media/'
 
+LOGIN_URL = '/giap/login/'
+LOGOUT_URL = '/giap/logout/'
