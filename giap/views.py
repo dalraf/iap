@@ -79,9 +79,11 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
 def default(request):
     return render(request, 'default.html',)
 
+@login_required
 def editaddcentral(request, id=None):
     return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
 
+@login_required
 def listarcentral(request):
     templatelist = 'lista.html'
     editurl = 'editaddcentral'
@@ -94,10 +96,11 @@ def listarcentral(request):
         lista.append(j)
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
-
+@login_required
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
 
+@login_required
 def listarcooperativa(request):
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
@@ -113,10 +116,11 @@ def listarcooperativa(request):
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
-
+@login_required
 def editaddpa(request, id=None):
     return editadd(request,id,pa,formpa,'editadd.html','listarpa')
 
+@login_required
 def listarpa(request):
     templatelist = 'lista.html'
     editurl = 'editaddpa'
@@ -131,9 +135,11 @@ def listarpa(request):
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
+@login_required
 def editaddcliente(request, id=None):
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente')
 
+@login_required
 def listarcliente(request):
     templatelist = 'lista.html'
     editurl = 'editaddcliente'
