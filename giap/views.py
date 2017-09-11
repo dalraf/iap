@@ -19,6 +19,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
         if 'Salvar' in request.POST:
             if request.session['id'] == 'new':
+                form = formmodel(request.POST)
                 if form.is_valid():
                     inst = form.save(commit=False)
                     inst.usuario = request.user.username
@@ -40,6 +41,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     inst = form.save(commit=False)
                     inst.usuario = request.user.username
                     inst.save()
+                    return redirect(urlretorno)
                 else:
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
