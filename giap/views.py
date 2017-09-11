@@ -5,9 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao
 
-from giap.models import central, cooperativa, pa, cliente
+from giap.models import central, cooperativa, pa, cliente, transacao
 
 from django.views.generic.edit import FormView
 
@@ -153,5 +153,47 @@ def listarcliente(request):
         idcentral = i['pa_id']
         j['Cooperativa/PA'] = pa.objects.get(id=idcentral).sigla_pa
         j['Tipo de Pessoa'] = tipodepessoadict[i['tipodepessoa']]
+        lista.append(j)        
+    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+
+@login_required
+def editaddpa(request, id=None):
+    return editadd(request,id,pa,formpa,'editadd.html','listarpa')
+
+@login_required
+def listarpa(request):
+    templatelist = 'lista.html'
+    editurl = 'editaddpa'
+    listaget = list(pa.objects.all().values())
+    lista = []
+    for i in listaget:
+        j = {}
+        for key, value in i.iteritems():
+            j[pa._meta.get_field(key).verbose_name] = value
+        idcentral = i['cooperativa_id']
+        j['Cooperativa'] = cooperativa.objects.get(id=idcentral).sigla_cooperativa
+        lista.append(j)        
+    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+
+@login_required
+def editaddtransacao(request, id=None):
+    return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao')
+
+@login_required
+def listartransacao(request):
+    templatelist = 'lista.html'
+    editurl = 'editaddtransacao'
+    listaget = list(transacao.objects.all().values())
+    produtodict = dict(transacao._meta.get_field('produto').flatchoices)
+    grupodict = dict(transacao._meta.get_field('grupo').flatchoices)
+    lista = []
+    for i in listaget:
+        j = {}
+        for key, value in i.iteritems():
+            j[transacao._meta.get_field(key).verbose_name] = value
+        idcentral = i['transao_id']
+        j['Cliente'] = cliente.objects.get(id=idcentral).nome
+        j['Produto'] = produtodict[i['produto']]
+        j['Grupo'] = grupodict[i['grupo']]
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})

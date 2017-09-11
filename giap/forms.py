@@ -1,5 +1,5 @@
 from django.forms import modelform_factory, HiddenInput
-from giap.models import cliente, cooperativa, central, pa
+from giap.models import cliente, cooperativa, central, pa, transacao
 
 
 formcentral = modelform_factory(central,
@@ -16,4 +16,8 @@ formpa =  modelform_factory(pa,
 
 formcliente =  modelform_factory(cliente,
     fields=("nome_cliente", "numcpfcpnj", "tipodepessoa", "pa"),
+    )
+
+formtransacao =  modelform_factory(transacao,
+    fields=("cliente", "produto", "grupo" ),
     )

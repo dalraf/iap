@@ -16,4 +16,6 @@ urlpatterns = [
     url(r'^editaddpa/(?P<id>[0-9]+|new)/$', editaddpa, name='editaddpa'),
     url(r'^listarcliente/$', listarcliente, name='listarcliente'),
     url(r'^editaddcliente/(?P<id>[0-9]+|new)/$', editaddcliente, name='editaddcliente'),
+    url(r'^listartransacao/$', listartransacao, name='listartransacao'),
+    url(r'^editaddtransacao/(?P<id>[0-9]+|new)/$', editaddtransacao, name='editaddtransacao'),
 ]
