@@ -21,8 +21,10 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
         if 'Salvar' in request.POST:
             if form.is_valid():
                 if request.session['id'] == 'new':
-                    novoreg = form.save()                
-                    request.session['id'] = novoreg.id
+                    inst = form.save(commit=False)
+                    inst.usuario == request.user.username
+                    inst.save()               
+                    request.session['id'] = inst.id
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Adicionado'
                     textoformato = 'text-info'
