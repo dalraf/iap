@@ -74,7 +74,6 @@ TIPOPRODUTO = (
 
 class transacao(models.Model):
     cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
-    qtde_produto = models.IntegerField('Quantidade de produtos')
     produto = models.IntegerField('Produto',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
     data = models.DateTimeField('Data e Hora')
