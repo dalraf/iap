@@ -46,7 +46,8 @@ class cliente(models.Model):
     nome_cliente = models.CharField('Nome',max_length=50,)
 
 class usuario(models.Model):
-    nome = models.CharField('Nome da Cooperativa',max_length=50,)   
+    id = models.AutoField(primary_key=True)
+    nome = models.CharField('Nome',max_length=50,)   
 
 GRUPOPRODUTOS = (
         (0,'Menor de 4000'),
