@@ -76,5 +76,5 @@ class transacao(models.Model):
     cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     produto = models.IntegerField('Produto',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
-    data = models.DateTimeField('Data e Hora')
+    data = models.DateTimeField('Data e Hora',auto_now_add=True)
 
