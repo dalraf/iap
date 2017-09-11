@@ -45,9 +45,6 @@ class cliente(models.Model):
     numcpfcpnj = models.DecimalField('Número do CPF/CNPJ',max_digits=10, decimal_places=0)
     nome_cliente = models.CharField('Nome',max_length=50,)
 
-class usuario(models.Model):
-    id = models.AutoField(primary_key=True)
-    nome = models.CharField('Nome',max_length=50,)   
 
 GRUPOPRODUTOS = (
         (0,'Menor de 4000'),
@@ -73,7 +70,6 @@ TIPOPRODUTO = (
     )
 
 class transacao(models.Model):
-    usuario = models.ForeignKey('usuario', verbose_name = 'Usuário', on_delete=models.CASCADE)
     cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     qtde_produto = models.IntegerField('Quantidade de produtos')
     produto = models.IntegerField('Grupos',choices=TIPOPRODUTO,)
