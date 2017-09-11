@@ -107,6 +107,7 @@ def listarcooperativa(request):
             j[cooperativa._meta.get_field(key).verbose_name] = value
         idcentral = i['central_id']
         j['Central'] = central.objects.get(id=idcentral).sigla_central
+
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
@@ -135,6 +136,7 @@ def listarcliente(request):
     templatelist = 'lista.html'
     editurl = 'editaddcliente'
     listaget = list(cliente.objects.all().values())
+    tipodepessoadict = dict(cliente._meta.get_field('tipodepessoa').flatchoices)
     lista = []
     for i in listaget:
         j = {}
@@ -142,5 +144,6 @@ def listarcliente(request):
             j[cliente._meta.get_field(key).verbose_name] = value
         idcentral = i['pa_id']
         j['Cooperativa/PA'] = pa.objects.get(id=idcentral).sigla_pa
+        j['Tipo de Pessoa'] = tipodepessoadict[i['tipodepessoa']]
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
