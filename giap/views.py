@@ -22,7 +22,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
             if form.is_valid():
                 if request.session['id'] == 'new':
                     inst = form.save(commit=False)
-                    inst.usuario == request.user.username
+                    inst.usuario = request.user.username
                     inst.save()               
                     request.session['id'] = inst.id
                     request.session['confirmadelecao'] = 'Não'
@@ -31,7 +31,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                 else:
                     inst = form.save(commit=False)
                     inst.id = request.session['id']
-                    inst.usuario == request.user.username
+                    inst.usuario = request.user.username
                     inst.save()
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
