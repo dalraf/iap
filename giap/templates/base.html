@@ -24,6 +24,7 @@
             <div class="collapse navbar-collapse" id="navbargiap">
                 <ul class="nav navbar-nav">
                     <li><a href="{% url 'default' %}">Home</a></li>
+                    {% if user.is_authenticated %}
                     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Cadastro<span class="caret"></span></a>
                         <ul class="dropdown-menu">
                             <li><a href="{% url 'listarcentral' %}">Centrais</a></li>
@@ -32,6 +33,7 @@
                             <li><a href="{% url 'listarcliente' %}">Clientes</a></li>
                         </ul>
                     </li>
+                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
