@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
+# Funcao edit add
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
         if 'Salvar' in request.POST:
@@ -86,10 +87,12 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
             'urlretorno': urlretorno,
             })
 
+# View default
 @login_required
 def default(request):
     return render(request, 'default.html',)
 
+# View Central
 @login_required
 def editaddcentral(request, id=None):
     return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
@@ -107,6 +110,7 @@ def listarcentral(request):
         lista.append(j)
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
+# View cooperativa
 @login_required
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
@@ -127,6 +131,7 @@ def listarcooperativa(request):
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
+# View PA
 @login_required
 def editaddpa(request, id=None):
     return editadd(request,id,pa,formpa,'editadd.html','listarpa')
@@ -146,6 +151,7 @@ def listarpa(request):
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
+# View Cliente
 @login_required
 def editaddcliente(request, id=None):
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente')
@@ -167,6 +173,7 @@ def listarcliente(request):
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
+# View transacao
 
 @login_required
 def editaddtransacao(request, id=None):
