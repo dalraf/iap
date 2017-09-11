@@ -17,31 +17,37 @@ from django.contrib.auth.decorators import login_required
 
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
-        modeloinstance = modelo.objects.get(id=request.session['id'])
-        form = formmodel(request.POST, instance=modeloinstance)
         if 'Salvar' in request.POST:
-            if form.is_valid():
-                if request.session['id'] == 'new':
+            if request.session['id'] == 'new':
+                if form.is_valid():
                     inst = form.save(commit=False)
                     inst.usuario = request.user.username
-                    inst.save()               
+                    inst.save()
+                    return redirect(urlretorno)
+                else:
                     request.session['id'] = inst.id
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Adicionado'
                     textoformato = 'text-info'
-                else:
+                    return render(request, templateedit,{
+                    'form': form,
+                    'urlretorno': urlretorno,
+                    })               
+            else:
+                modeloinstance = modelo.objects.get(id=request.session['id'])
+                form = formmodel(request.POST, instance=modeloinstance)
+                if form.is_valid():
                     inst = form.save(commit=False)
                     inst.usuario = request.user.username
                     inst.save()
+                else:
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Atualizado'
                     textoformato = 'text-info'
-                return redirect(urlretorno)
-            else:
-                return render(request, templateedit,{
-                'form': form,
-                'urlretorno': urlretorno,
-                })
+                    return render(request, templateedit,{
+                    'form': form,
+                    'urlretorno': urlretorno,
+                    })
         elif 'Deletar' in request.POST:
             if request.session['confirmadelecao'] == 'Sim':
                 modelo.objects.filter(id=request.session['id']).delete()
