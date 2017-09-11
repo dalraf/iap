@@ -17,7 +17,8 @@ from django.contrib.auth.decorators import login_required
 
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
     if request.method == 'POST':
-        form = formmodel(request.POST)
+        modeloinstance = modelo.objects.get(id=request.session['id'])
+        form = formmodel(request.POST, instance=modeloinstance)
         if 'Salvar' in request.POST:
             if form.is_valid():
                 if request.session['id'] == 'new':
@@ -30,7 +31,6 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     textoformato = 'text-info'
                 else:
                     inst = form.save(commit=False)
-                    inst.id = request.session['id']
                     inst.usuario = request.user.username
                     inst.save()
                     request.session['confirmadelecao'] = 'Não'
