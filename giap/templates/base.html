@@ -33,11 +33,11 @@
                             <li><a href="{% url 'listarcliente' %}">Clientes</a></li>
                         </ul>
                     </li>
-                    {% endif %}
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li><a href="{% url 'logout' %}"><span class="glyphicon glyphicon-log-in"></span> Logout</a></li>
                 </ul>
+                {% endif %}
             </div>
         </nav>
         <hr/> {% block content %} {% endblock %}
