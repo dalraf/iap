@@ -73,6 +73,7 @@ TIPOPRODUTO = (
     )
 
 class transacao(models.Model):
+    id = models.AutoField(primary_key=True)
     cliente = models.ForeignKey('cliente', verbose_name = 'Cliente', on_delete=models.CASCADE)
     produto = models.IntegerField('Produto',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
