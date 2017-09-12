@@ -131,8 +131,14 @@ def listarcooperativa(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
-
-    listaget = list(cooperativa.objects.all().values())
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(cooperativa.objects.filter(sigla_cooperativa__contains=filtro).values())
+    else:
+        form = pesquisa()
+        listaget = list(cooperativa.objects.all().values())
     lista = []
     for i in listaget:
         j = OrderedDict()
@@ -156,7 +162,14 @@ def listarpa(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddpa'
-    listaget = list(pa.objects.all().values())
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(pa.objects.filter(sigla_pa__contains=filtro).values())
+    else:
+        form = pesquisa()
+        listaget = list(pa.objects.all().values())
     lista = []
     for i in listaget:
         j = OrderedDict()
@@ -179,7 +192,14 @@ def listarcliente(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcliente'
-    listaget = list(cliente.objects.all().values())
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(cliente.objects.filter(nome_cliente__contains=filtro).values())
+    else:
+        form = pesquisa()
+        listaget = list(cliente.objects.all().values())
     tipodepessoadict = dict(cliente._meta.get_field('tipodepessoa').flatchoices)
     lista = []
     for i in listaget:
@@ -204,7 +224,14 @@ def listartransacao(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddtransacao'
-    listaget = list(transacao.objects.all().values())
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(transacao.objects.filter(usuario__contains=filtro).values())
+    else:
+        form = pesquisa()
+        listaget = list(transacao.objects.all().values())
     produtodict = dict(transacao._meta.get_field('produto').flatchoices)
     grupodict = dict(transacao._meta.get_field('grupo').flatchoices)
     lista = []
