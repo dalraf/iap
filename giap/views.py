@@ -18,16 +18,29 @@ from collections import OrderedDict
 # Create your views here.
 
 # Funcao edit add
-def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
+
+def savefilter(form):
+    return True
+
+def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter=savefilter):
     if request.method == 'POST':
         if 'Salvar' in request.POST:
             if request.session['id'] == 'new':
                 form = formmodel(request.POST)
                 if form.is_valid():
-                    inst = form.save(commit=False)
-                    inst.usuario = request.user.username
-                    inst.save()
-                    return redirect(urlretorno)
+                    if savefilter(form):
+                        inst = form.save(commit=False)
+                        inst.usuario = request.user.username
+                        inst.save()
+                        return redirect(urlretorno)
+                    else:
+                        request.session['confirmadelecao'] = 'Não'
+                        mensagem = 'Registro Adicionado'
+                        textoformato = 'text-info'
+                        return render(request, templateedit,{
+                        'form': form,
+                        'urlretorno': urlretorno,
+                        }) 
                 else:
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Adicionado'
