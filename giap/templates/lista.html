@@ -1,5 +1,6 @@
 {% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
 <form method="post" class="form">
+    {% csrf_token %}
     <div class="row">
         <div class="col-md-1">
         </div>
