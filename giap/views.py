@@ -13,6 +13,8 @@ from django.views.generic.edit import FormView
 
 from django.contrib.auth.decorators import login_required
 
+from collections import OrderedDict
+
 # Create your views here.
 
 # Funcao edit add
@@ -104,9 +106,11 @@ def listarcentral(request):
     listaget = list(central.objects.all().values())
     lista = []
     for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[central._meta.get_field(key).verbose_name] = value
+        j = OrderedDict()
+        j['id'] = i['id']
+        j[central._meta.get_field('sigla_central').verbose_name] = i['sigla_central']
+        j[central._meta.get_field('numcentral').verbose_name] = i['numcentral']
+        j[central._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
@@ -122,9 +126,11 @@ def listarcooperativa(request):
     listaget = list(cooperativa.objects.all().values())
     lista = []
     for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[cooperativa._meta.get_field(key).verbose_name] = value
+        j = OrderedDict()
+        j['id'] = i['id']
+        j[cooperativa._meta.get_field('sigla_cooperativa').verbose_name] = i['sigla_cooperativa']
+        j[cooperativa._meta.get_field('numcooperativa').verbose_name] = i['numcooperativa']
+        j[cooperativa._meta.get_field('data').verbose_name] = i['data']
         idcentral = i['central_id']
         j['Central'] = central.objects.get(id=idcentral).sigla_central
 
@@ -143,11 +149,13 @@ def listarpa(request):
     listaget = list(pa.objects.all().values())
     lista = []
     for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[pa._meta.get_field(key).verbose_name] = value
+        j = OrderedDict()
+        j['id'] = i['id']
+        j[pa._meta.get_field('sigla_pa').verbose_name] = i['sigla_pa']
+        j[pa._meta.get_field('numpa').verbose_name] = i['numpa']
         idcooperativa = i['cooperativa_id']
         j['Cooperativa'] = cooperativa.objects.get(id=idcooperativa).sigla_cooperativa
+        j[pa._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 
@@ -164,12 +172,13 @@ def listarcliente(request):
     tipodepessoadict = dict(cliente._meta.get_field('tipodepessoa').flatchoices)
     lista = []
     for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[cliente._meta.get_field(key).verbose_name] = value
+        j = OrderedDict()
+        j['id'] = i['id']
+        j[cliente._meta.get_field('nome_cliente').verbose_name] = i['nome_cliente']
+        j[cliente._meta.get_field('numcpfcpnj').verbose_name] = i['numcpfcpnj']
+        j[cliente._meta.get_field('tipodepessoa').verbose_name] = tipodepessoadict[i['tipodepessoa']]
         idpa = i['pa_id']
-        j['Cooperativa/PA'] = pa.objects.get(id=idpa).sigla_pa
-        j['Tipo de Pessoa'] = tipodepessoadict[i['tipodepessoa']]
+        j[cliente._meta.get_field('pa').verbose_name] = pa.objects.get(id=idpa).sigla_pa
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
 

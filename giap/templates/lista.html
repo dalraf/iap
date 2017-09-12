@@ -7,7 +7,7 @@
         <table class="table table-bordered table-striped table-condensed">
             <thead class="thead-inverse">
                 <tr>
-                    {%for key,value in i.items|dictsort:0 %}
+                    {%for key,value in i.items %}
                     {% if key != 'id' %}
                     <th>
                         <h5 class="text-center"><b>{{ key }}</b></h5>
@@ -19,7 +19,7 @@
             <tbody>
                 {% endif %}
                 <tr>
-                    {%for key,value in i.items|dictsort:0 %}
+                    {%for key,value in i.items %}
                     {% if key != 'id' %}
                     <td>
                         <p class="text-center">{{ value}}</p>                        
