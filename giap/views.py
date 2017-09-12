@@ -228,7 +228,7 @@ def listartransacao(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(transacao.objects.filter(usuario__contains=filtro).values())
+            listaget = list(transacao.objects.filter(cliente__nome_cliente__contains=filtro).values())
     else:
         form = pesquisa()
         listaget = list(transacao.objects.all().values())
