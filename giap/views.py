@@ -197,12 +197,13 @@ def listartransacao(request):
     grupodict = dict(transacao._meta.get_field('grupo').flatchoices)
     lista = []
     for i in listaget:
-        j = {}
-        for key, value in i.iteritems():
-            j[transacao._meta.get_field(key).verbose_name] = value
+        j = OrderedDict()
+        j['id'] = i['id']
         idcliente = i['cliente_id']
-        j['Cliente'] = cliente.objects.get(id=idcliente).nome_cliente
-        j['Produto'] = produtodict[i['produto']]
-        j['Grupo'] = grupodict[i['grupo']]
+        j[transacao._meta.get_field('cliente').verbose_name] = cliente.objects.get(id=idcliente).nome_cliente
+        j[transacao._meta.get_field('produto').verbose_name] = produtodict[i['produto']]
+        j[transacao._meta.get_field('grupo').verbose_name] = grupodict[i['grupo']]
+        j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
+        j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
     return render(request,templatelist, {'editurl': editurl,'lista': lista})
