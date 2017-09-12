@@ -29,7 +29,6 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno):
                     inst.save()
                     return redirect(urlretorno)
                 else:
-                    request.session['id'] = inst.id
                     request.session['confirmadelecao'] = 'Não'
                     mensagem = 'Registro Adicionado'
                     textoformato = 'text-info'
