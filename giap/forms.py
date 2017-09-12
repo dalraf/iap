@@ -4,7 +4,7 @@ from giap.models import cliente, cooperativa, central, pa, transacao
 
 
 class pesquisa(forms.Form):
-    filtro = forms.CharField(label='Filtrar', max_length=100)
+    filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
 
 
 formcentral = modelform_factory(central,

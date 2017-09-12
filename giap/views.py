@@ -103,7 +103,14 @@ def listarcentral(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcentral'
-    listaget = list(central.objects.all().values())
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(central.objects.filter(sigla_central__contains=filtro).values())
+    else:
+        form = pesquisa()
+        listaget = list(central.objects.all().values())
     lista = []
     for i in listaget:
         j = OrderedDict()
@@ -124,6 +131,7 @@ def listarcooperativa(request):
     form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
+
     listaget = list(cooperativa.objects.all().values())
     lista = []
     for i in listaget:
