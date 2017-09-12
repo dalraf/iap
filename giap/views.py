@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa
 
 from giap.models import central, cooperativa, pa, cliente, transacao
 
@@ -100,6 +100,7 @@ def editaddcentral(request, id=None):
 
 @login_required
 def listarcentral(request):
+    form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcentral'
     listaget = list(central.objects.all().values())
@@ -111,7 +112,7 @@ def listarcentral(request):
         j[central._meta.get_field('numcentral').verbose_name] = i['numcentral']
         j[central._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+    return render(request,templatelist, {'form': form,'editurl': editurl,'lista': lista})
 
 # View cooperativa
 @login_required
@@ -120,6 +121,7 @@ def editaddcooperativa(request, id=None):
 
 @login_required
 def listarcooperativa(request):
+    form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcooperativa'
     listaget = list(cooperativa.objects.all().values())
@@ -134,7 +136,7 @@ def listarcooperativa(request):
         j['Central'] = central.objects.get(id=idcentral).sigla_central
 
         lista.append(j)        
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+    return render(request,templatelist, {'form': form,'editurl': editurl,'lista': lista})
 
 # View PA
 @login_required
@@ -143,6 +145,7 @@ def editaddpa(request, id=None):
 
 @login_required
 def listarpa(request):
+    form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddpa'
     listaget = list(pa.objects.all().values())
@@ -156,7 +159,7 @@ def listarpa(request):
         j['Cooperativa'] = cooperativa.objects.get(id=idcooperativa).sigla_cooperativa
         j[pa._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+    return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})
 
 # View Cliente
 @login_required
@@ -165,6 +168,7 @@ def editaddcliente(request, id=None):
 
 @login_required
 def listarcliente(request):
+    form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddcliente'
     listaget = list(cliente.objects.all().values())
@@ -179,7 +183,7 @@ def listarcliente(request):
         idpa = i['pa_id']
         j[cliente._meta.get_field('pa').verbose_name] = pa.objects.get(id=idpa).sigla_pa
         lista.append(j)        
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+    return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})
 
 # View transacao
 
@@ -189,6 +193,7 @@ def editaddtransacao(request, id=None):
 
 @login_required
 def listartransacao(request):
+    form = pesquisa()
     templatelist = 'lista.html'
     editurl = 'editaddtransacao'
     listaget = list(transacao.objects.all().values())
@@ -205,4 +210,4 @@ def listartransacao(request):
         j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
-    return render(request,templatelist, {'editurl': editurl,'lista': lista})
+    return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})

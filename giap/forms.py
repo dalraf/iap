@@ -1,5 +1,10 @@
 from django.forms import modelform_factory, HiddenInput
+from django import forms
 from giap.models import cliente, cooperativa, central, pa, transacao
+
+
+class pesquisa(forms.Form):
+    filtro = forms.CharField(label='Filtrar', max_length=100)
 
 
 formcentral = modelform_factory(central,
