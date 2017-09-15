@@ -238,7 +238,7 @@ def listarcliente(request):
 def editaddtransacao(request, id=None):
     class savefilter(object):
         def __init__(self, form):
-            if transacao.objects.filter(produto=form.cleaned_data['produto']).count  > 0:
+            if transacao.objects.filter(produto=form.cleaned_data['produto']).exists():
                 self.saida = False
                 self.mensagem = "Produto já existe"
             else:
