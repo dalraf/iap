@@ -12,7 +12,7 @@ class central(models.Model):
     sigla_central = models.CharField('Nome',unique=True,help_text='Nome da Central',max_length=50,)
     numcentral = models.DecimalField('Número',unique=True,help_text='Número da Central, máx. 4 dígitos', max_digits=4, decimal_places=0, )
     usuario = models.CharField('Usuario',max_length=150,)
-    data = models.DateTimeField('Data e Hora',default=timezone.now)
+    data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
 
     def __unicode__(self):
         return self.sigla_central
@@ -24,7 +24,7 @@ class cooperativa(models.Model):
     numcooperativa = models.DecimalField('Número',unique=True,help_text='Número da Cooperativa, máx. 4 dígitos', max_digits=4, decimal_places=0)
     central = models.ForeignKey('central', verbose_name = 'Central', on_delete=models.CASCADE)
     usuario = models.CharField('Usuario',max_length=150,)
-    data = models.DateTimeField('Data e Hora',default=timezone.now)
+    data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
 
     def __unicode__(self):
         return self.sigla_cooperativa
@@ -35,7 +35,7 @@ class pa(models.Model):
     numpa = models.DecimalField('Número do PA',unique=True,max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
     usuario = models.CharField('Usuario',max_length=150,)
-    data = models.DateTimeField('Data e Hora',default=timezone.now)
+    data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
 
     def __unicode__(self):
         return self.cooperativa.sigla_cooperativa + "/" + self.sigla_pa 
@@ -53,7 +53,7 @@ class cliente(models.Model):
     numcpfcpnj = models.DecimalField('Número do CPF/CNPJ',max_digits=10, decimal_places=0)
     nome_cliente = models.CharField('Nome',max_length=50,)
     usuario = models.CharField('Usuario',max_length=150,)
-    data = models.DateTimeField('Data e Hora',default=timezone.now)
+    data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
 
     def __unicode__(self):
         return self.nome_cliente
@@ -88,6 +88,6 @@ class transacao(models.Model):
     produto = models.IntegerField('Produto',choices=TIPOPRODUTO,)
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
     usuario = models.CharField('Usuario',max_length=150,)
-    data = models.DateTimeField('Data e Hora',default=timezone.now)
+    data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
     vencimento = models.DateField('Vencimento')
 
