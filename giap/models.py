@@ -5,6 +5,8 @@ from django.db import models
 
 from django.utils import timezone
 
+from datetime import datetime, timedelta
+
 # Create your models here.
 
 class central(models.Model):
@@ -89,5 +91,5 @@ class transacao(models.Model):
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
-    vencimento = models.DateField('Vencimento')
+    vencimento = models.DateField('Vencimento', default=timezone.now()+timedelta(days=30))
 
