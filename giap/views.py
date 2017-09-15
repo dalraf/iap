@@ -41,10 +41,12 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     else:
                         request.session['confirmadelecao'] = 'Não'
                         mensagem = resultfilter.mensagem
-                        textoformato = 'text-info'
+                        textoformato = 'text-danger'
                         return render(request, templateedit,{
                         'form': form,
+                        'textoformato': textoformato,
                         'urlretorno': urlretorno,
+                        'mensagem': mensagem,
                         }) 
                 else:
                     request.session['confirmadelecao'] = 'Não'
