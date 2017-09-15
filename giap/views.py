@@ -165,10 +165,9 @@ def listarcooperativa(request):
         j['id'] = i['id']
         j[cooperativa._meta.get_field('sigla_cooperativa').verbose_name] = i['sigla_cooperativa']
         j[cooperativa._meta.get_field('numcooperativa').verbose_name] = i['numcooperativa']
-        j[cooperativa._meta.get_field('data').verbose_name] = i['data']
         idcentral = i['central_id']
         j['Central'] = central.objects.get(id=idcentral).sigla_central
-
+        j[cooperativa._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
     return render(request,templatelist, {'form': form,'editurl': editurl,'lista': lista})
 
