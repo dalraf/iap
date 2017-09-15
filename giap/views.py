@@ -15,6 +15,10 @@ from django.contrib.auth.decorators import login_required
 
 from collections import OrderedDict
 
+from django.utils import timezone
+
+import datetime
+
 # Create your views here.
 
 # Funcao edit add
@@ -281,6 +285,10 @@ def listartransacao(request):
         j[transacao._meta.get_field('produto').verbose_name] = produtodict[i['produto']]
         j[transacao._meta.get_field('grupo').verbose_name] = grupodict[i['grupo']]
         j[transacao._meta.get_field('vencimento').verbose_name] = i['vencimento']
+        datavencimento = i['vencimento']
+        datadehoje = timezone.now().date()
+        diasavencer = datavencimento - datadehoje
+        j['Dias para vencer'] = diasavencer.days
         j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
