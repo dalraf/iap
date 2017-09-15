@@ -1,6 +1,7 @@
 from django.forms import modelform_factory, HiddenInput
 from django import forms
 from giap.models import cliente, cooperativa, central, pa, transacao
+from django.forms.extras.widgets import SelectDateWidget
 
 
 class pesquisa(forms.Form):
@@ -25,4 +26,5 @@ formcliente =  modelform_factory(cliente,
 
 formtransacao =  modelform_factory(transacao,
     fields=("cliente", "produto", "grupo", "vencimento" ),
+    widgets={'vencimento': SelectDateWidget()}
     )

@@ -1,4 +1,5 @@
 {% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
+{{ form.media }}
 <form method="post" class="form">
 <div class="row">
     {% csrf_token %}
