@@ -19,8 +19,12 @@ from collections import OrderedDict
 
 # Funcao edit add
 
-def savefilter(form):
-    return True
+class savefilter(object):
+    def __init__(self, form):
+        pass
+    saida = True
+    mensagem = ""
+
 
 def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter=savefilter):
     if request.method == 'POST':
@@ -28,14 +32,15 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
             if request.session['id'] == 'new':
                 form = formmodel(request.POST)
                 if form.is_valid():
-                    if savefilter(form):
+                    resultfilter = savefilter(form)
+                    if resultfilter.saida:
                         inst = form.save(commit=False)
                         inst.usuario = request.user.username
                         inst.save()
                         return redirect(urlretorno)
                     else:
                         request.session['confirmadelecao'] = 'Não'
-                        mensagem = 'Registro Adicionado'
+                        mensagem = resultfilter.mensagem
                         textoformato = 'text-info'
                         return render(request, templateedit,{
                         'form': form,
@@ -227,10 +232,15 @@ def listarcliente(request):
     return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})
 
 # View transacao
-
 @login_required
 def editaddtransacao(request, id=None):
-    return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao')
+    class savefilter(object):
+        def __init__(self, form):
+            if transacao.objects.filter(produto=form.cleaned_data['produto']).count  > 0:
+                self.saida = False
+                self.mensagem = "Produto já existe"
+
+    return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
 @login_required
 def listartransacao(request):
