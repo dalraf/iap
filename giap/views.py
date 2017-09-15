@@ -137,7 +137,6 @@ def listarcentral(request):
         j['id'] = i['id']
         j[central._meta.get_field('sigla_central').verbose_name] = i['sigla_central']
         j[central._meta.get_field('numcentral').verbose_name] = i['numcentral']
-        j[central._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
     return render(request,templatelist, {'form': form,'editurl': editurl,'lista': lista})
 
@@ -167,7 +166,6 @@ def listarcooperativa(request):
         j[cooperativa._meta.get_field('numcooperativa').verbose_name] = i['numcooperativa']
         idcentral = i['central_id']
         j['Central'] = central.objects.get(id=idcentral).sigla_central
-        j[cooperativa._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
     return render(request,templatelist, {'form': form,'editurl': editurl,'lista': lista})
 
@@ -197,7 +195,6 @@ def listarpa(request):
         j[pa._meta.get_field('numpa').verbose_name] = i['numpa']
         idcooperativa = i['cooperativa_id']
         j['Cooperativa'] = cooperativa.objects.get(id=idcooperativa).sigla_cooperativa
-        j[pa._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        
     return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})
 
