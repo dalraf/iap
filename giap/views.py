@@ -272,6 +272,7 @@ def listartransacao(request):
         j[transacao._meta.get_field('cliente').verbose_name] = cliente.objects.get(id=idcliente).nome_cliente
         j[transacao._meta.get_field('produto').verbose_name] = produtodict[i['produto']]
         j[transacao._meta.get_field('grupo').verbose_name] = grupodict[i['grupo']]
+        j[transacao._meta.get_field('vencimento').verbose_name] = i['vencimento']
         j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)        

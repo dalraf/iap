@@ -89,4 +89,5 @@ class transacao(models.Model):
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora',default=timezone.now)
+    vencimento = models.DateField('Vencimento')
 

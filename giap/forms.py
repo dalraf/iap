@@ -24,5 +24,5 @@ formcliente =  modelform_factory(cliente,
     )
 
 formtransacao =  modelform_factory(transacao,
-    fields=("cliente", "produto", "grupo" ),
+    fields=("cliente", "produto", "grupo", "vencimento" ),
     )
