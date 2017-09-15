@@ -239,6 +239,9 @@ def editaddtransacao(request, id=None):
             if transacao.objects.filter(produto=form.cleaned_data['produto']).count  > 0:
                 self.saida = False
                 self.mensagem = "Produto já existe"
+            else:
+                self.saida = True
+                self.mensagem = ""
 
     return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
