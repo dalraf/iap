@@ -20,9 +20,9 @@
     <div class='col-md-4'>
         <a class="btn btn-default" role="button" href="{% url urlretorno %}">Voltar</a>
         <input type="submit" name="Salvar" value="Salvar" class="btn btn-default"> {% if request.session.id != 'new'%}
-        {% if request.session.confirmadelecao == 'Não' %}
+        {% if request.session.confirmadelecao == False %}
         <input type="submit" name="Deletar" value="Deletar" class="btn btn-danger">
-        {% elif request.session.confirmadelecao == 'Sim' %}
+        {% elif request.session.confirmadelecao == True %}
         <input type="submit" name="Cancelar" value="Cancelar" class="btn btn-info">
         <input type="submit" name="Confirmar" value="Confirmar" class="btn btn-danger">        
         {% endif %}

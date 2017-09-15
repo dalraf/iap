@@ -43,7 +43,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                         inst.save()
                         return redirect(urlretorno)
                     else:
-                        request.session['confirmadelecao'] = 'Não'
+                        request.session['confirmadelecao'] = False
                         mensagem = resultfilter.mensagem
                         textoformato = 'text-danger'
                         return render(request, templateedit,{
@@ -53,7 +53,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                         'mensagem': mensagem,
                         }) 
                 else:
-                    request.session['confirmadelecao'] = 'Não'
+                    request.session['confirmadelecao'] = False
                     mensagem = 'Registro Adicionado'
                     textoformato = 'text-info'
                     return render(request, templateedit,{
@@ -69,7 +69,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     inst.save()
                     return redirect(urlretorno)
                 else:
-                    request.session['confirmadelecao'] = 'Não'
+                    request.session['confirmadelecao'] = False
                     mensagem = 'Registro Atualizado'
                     textoformato = 'text-info'
                     return render(request, templateedit,{
@@ -77,7 +77,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     'urlretorno': urlretorno,
                     })
         elif 'Deletar' in request.POST:
-                request.session['confirmadelecao'] = 'Sim'
+                request.session['confirmadelecao'] = True
                 mensagem = 'Confirma deleção?'
                 textoformato = 'text-danger'
                 objeto = get_object_or_404(modelo, id=request.session['id'])
@@ -89,14 +89,14 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                 'urlretorno': urlretorno,
                 })
         elif 'Confirmar' in request.POST:
-            if request.session['confirmadelecao'] == 'Sim':
+            if request.session['confirmadelecao'] == True:
                 modelo.objects.filter(id=request.session['id']).delete()
                 request.session['id'] == ''
-                request.session['confirmadelecao'] = 'Não'
+                request.session['confirmadelecao'] = False
                 return redirect(urlretorno,)
         elif 'Cancelar' in request.POST:
-            if request.session['confirmadelecao'] == 'Sim':
-                request.session['confirmadelecao'] = 'Não'
+            if request.session['confirmadelecao'] == True:
+                request.session['confirmadelecao'] = False
                 mensagem = 'Deleção cancelada'
                 textoformato = 'text-info'
                 objeto = get_object_or_404(modelo, id=request.session['id'])
@@ -116,7 +116,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
             objeto = get_object_or_404(modelo, id=id)
             form = formmodel(request.POST or None, instance=objeto)
             request.session['id'] = id
-            request.session['confirmadelecao'] = 'Não'     
+            request.session['confirmadelecao'] = False     
         return render(request, templateedit,
         {
             'id': id,
