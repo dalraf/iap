@@ -1,4 +1,3 @@
 pip install --upgrade django
 pip install --upgrade django-bootstrap3
-pip install django-bootstrap3-datetimepicker
 ./manager.py runserver
