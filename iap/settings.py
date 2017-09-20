@@ -128,3 +128,4 @@ MEDIA_URL = '/media/'
 
 LOGIN_URL = '/giap/login/'
 LOGOUT_URL = '/giap/logout/'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
