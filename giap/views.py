@@ -241,7 +241,8 @@ def listarcliente(request):
         j[cliente._meta.get_field('numcpfcpnj').verbose_name] = i['numcpfcpnj']
         j[cliente._meta.get_field('tipodepessoa').verbose_name] = tipodepessoadict[i['tipodepessoa']]
         idpa = i['pa_id']
-        j[cliente._meta.get_field('pa').verbose_name] = pa.objects.get(id=idpa).sigla_pa
+        idcooperativa = pa.objects.get(id=idpa).cooperativa.id
+        j[cliente._meta.get_field('pa').verbose_name] = str(pa.objects.get(id=idpa).sigla_pa) + "/" + str(cooperativa.objects.get(id=idcooperativa).sigla_cooperativa)
         lista.append(j)        
     return render(request,templatelist, {'form': form, 'editurl': editurl,'lista': lista})
 
