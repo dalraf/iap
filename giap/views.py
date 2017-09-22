@@ -19,6 +19,8 @@ from django.utils import timezone
 
 import datetime
 
+from django.db.models import Q
+
 # Create your views here.
 
 # Funcao edit add
@@ -143,7 +145,7 @@ def listarcentral(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(central.objects.filter(sigla_central__contains=filtro).values())
+            listaget = list(central.objects.filter(Q(sigla_central__contains=filtro) | Q(numcentral__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(central.objects.all().values())
