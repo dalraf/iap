@@ -51,9 +51,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
 </body>
 <script>
-    $(document).ready(function () { 
+    $(document).ready(function () {
         var $seuCampoCpf = $("#id_numcpfcpnj");
         $seuCampoCpf.mask('000.000.000-00', {reverse: true});
     });
+    $('#id_tipodepessoa').change(function(){
+        if($(this).val() == '0'){ // or this.value == 'volvo'
+        var $seuCampoCpf = $("#id_numcpfcpnj");
+        $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+        }
+        if($(this).val() == '1'){ // or this.value == 'volvo'
+        var $seuCampoCpf = $("#id_numcpfcpnj");
+        $seuCampoCpf.mask('00.000.000/0000-00', {reverse: true});
+        }
+      });
 </script>
 </html>
