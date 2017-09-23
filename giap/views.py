@@ -221,6 +221,7 @@ def listarpa(request):
 # View Cliente
 @login_required
 def editaddcliente(request, id=None):
+    
     # Classe para verificação de cpnj e cpf
     class savefilter(object):
         def __init__(self, form):
@@ -228,8 +229,10 @@ def editaddcliente(request, id=None):
                 self.saida = False
                 self.mensagem = "CPF CPNJ Inválido"
             else:
-                self.saida = True
-                self.mensagem = ""
+                self.saida = False
+                self.mensagem = "teste"
+
+
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',savefilter)
 
 @login_required
