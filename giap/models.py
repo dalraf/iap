@@ -52,7 +52,7 @@ class cliente(models.Model):
     id = models.AutoField(primary_key=True)
     pa = models.ForeignKey('pa', verbose_name = 'Cooperativa/PA', on_delete=models.CASCADE)
     tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,)
-    numcpfcpnj = models.DecimalField('Número do CPF/CNPJ',max_digits=10, decimal_places=0)
+    numcpfcpnj = models.CharField('Número do CPF/CNPJ',max_length=11,)
     nome_cliente = models.CharField('Nome',max_length=50,)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
