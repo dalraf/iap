@@ -241,8 +241,8 @@ def editaddcliente(request, id=None):
                 self.saida = False
                 self.mensagem = "CPF CPNJ Inválido"
             else:
-                self.saida = False
-                self.mensagem = "teste"
+                self.saida = True
+                self.mensagem = ""
 
 
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',savefilter)
