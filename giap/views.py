@@ -68,10 +68,22 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                 modeloinstance = modelo.objects.get(id=request.session['id'])
                 form = formmodel(request.POST, instance=modeloinstance)
                 if form.is_valid():
-                    inst = form.save(commit=False)
-                    inst.usuario = request.user.username
-                    inst.save()
-                    return redirect(urlretorno)
+                    resultfilter = savefilter(form)
+                    if resultfilter.saida:
+                        inst = form.save(commit=False)
+                        inst.usuario = request.user.username
+                        inst.save()
+                        return redirect(urlretorno)
+                    else:
+                        request.session['confirmadelecao'] = False
+                        mensagem = resultfilter.mensagem
+                        textoformato = 'text-danger'
+                        return render(request, templateedit,{
+                        'form': form,
+                        'textoformato': textoformato,
+                        'urlretorno': urlretorno,
+                        'mensagem': mensagem,
+                        }) 
                 else:
                     request.session['confirmadelecao'] = False
                     mensagem = 'Registro Atualizado'
