@@ -7,6 +7,19 @@ from django.utils import timezone
 
 from datetime import datetime, timedelta
 
+from django.core.exceptions import ValidationError
+
+from django.utils.translation import ugettext_lazy as _
+
+from pycpfcnpj import cpfcnpj
+
+def validate_cpfcpnj(value):
+    if not cpfcnpj.validate(str(value)):
+        raise ValidationError(
+            _('%(value)s inválido'),
+            params={'value': value},
+        )
+
 # Create your models here.
 
 class central(models.Model):
@@ -52,7 +65,7 @@ class cliente(models.Model):
     id = models.AutoField(primary_key=True)
     pa = models.ForeignKey('pa', verbose_name = 'Cooperativa/PA', on_delete=models.CASCADE)
     tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,)
-    numcpfcpnj = models.CharField('Número do CPF/CNPJ',max_length=18,)
+    numcpfcpnj = models.CharField('Número do CPF/CNPJ',max_length=18,validators=[validate_cpfcpnj])
     nome_cliente = models.CharField('Nome',max_length=50,)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)

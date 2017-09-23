@@ -21,8 +21,6 @@ import datetime
 
 from django.db.models import Q
 
-from pycpfcnpj import cpfcnpj
-
 # Create your views here.
 
 # Funcao edit add
@@ -233,19 +231,7 @@ def listarpa(request):
 # View Cliente
 @login_required
 def editaddcliente(request, id=None):
-    
-    # Classe para verificação de cpnj e cpf
-    class savefilter(object):
-        def __init__(self, form):
-            if cpfcnpj.validate(str(form.cleaned_data['numcpfcpnj'])):
-                self.saida = True
-                self.mensagem = ""
-            else:
-                self.saida = False
-                self.mensagem = "CPF CPNJ Inválido"
-
-
-    return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',savefilter)
+    return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',)
 
 @login_required
 def listarcliente(request):
