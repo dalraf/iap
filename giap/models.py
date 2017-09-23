@@ -64,7 +64,7 @@ PFPJ = (
 class cliente(models.Model):
     id = models.AutoField(primary_key=True)
     pa = models.ForeignKey('pa', verbose_name = 'Cooperativa/PA', on_delete=models.CASCADE)
-    tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,)
+    tipodepessoa = models.IntegerField('Tipo de Pessoa',choices=PFPJ,default=0)
     numcpfcpnj = models.CharField('Número do CPF/CNPJ',max_length=18,validators=[validate_cpfcpnj])
     nome_cliente = models.CharField('Nome',max_length=50,)
     usuario = models.CharField('Usuario',max_length=150,)
