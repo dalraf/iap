@@ -238,11 +238,11 @@ def editaddcliente(request, id=None):
     class savefilter(object):
         def __init__(self, form):
             if cpfcnpj.validate(str(form.cleaned_data['numcpfcpnj'])):
-                self.saida = False
-                self.mensagem = "CPF CPNJ Inválido"
-            else:
                 self.saida = True
                 self.mensagem = ""
+            else:
+                self.saida = False
+                self.mensagem = "CPF CPNJ Inválido"
 
 
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',savefilter)
