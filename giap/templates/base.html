@@ -9,7 +9,6 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3"
         crossorigin="anonymous">
 </head>
-
 <body>
     <div class="container-fluid">
         <nav class="navbar navbar-default">
@@ -49,6 +48,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
 </body>
-
+<script>
+    $(document).ready(function () { 
+        var $seuCampoCpf = $("#id_numcpfcpnj");
+        $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+    });
+</script>
 </html>
