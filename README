@@ -1,3 +1,4 @@
 pip install --upgrade django
 pip install --upgrade django-bootstrap3
+pip install --upgrade pycpfcnpj
 ./manager.py runserver
