@@ -16,14 +16,14 @@ from pycpfcnpj import cpfcnpj
 def validate_cpfcpnj(value):
     if not cpfcnpj.validate(str(value)):
         raise ValidationError(
-            _('%(value)s inválido'),
+            _('%(value)s inválido (CPF/CNPJ Inválido)'),
             params={'value': value},
         )
 
 def validate_vencimento(value):
     if value <= timezone.now().date():
         raise ValidationError(
-            _('%(value)s vencimento inválido'),
+            _('%(value)s inválido (Data inferior a data atual)'),
             params={'value': value},
         )
 
