@@ -114,3 +114,6 @@ class transacao(models.Model):
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
     vencimento = models.DateField('Vencimento', default=timezone.now()+timedelta(days=30), validators=[validate_vencimento])
 
+    def clean(self):
+        if transacao.objects.filter(cliente=self.cliente,produto=self.produto).exists():
+            raise ValidationError(_('Produto já existe para esse cliente'))

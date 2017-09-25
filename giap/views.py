@@ -263,17 +263,6 @@ def listarcliente(request):
 # View transacao
 @login_required
 def editaddtransacao(request, id=None):
-    
-    # Classe para verificação de produto existente
-    class savefilter(object):
-        def __init__(self, form):
-            if transacao.objects.filter(cliente=form.cleaned_data['cliente'],produto=form.cleaned_data['produto']).exists():
-                self.saida = False
-                self.mensagem = "Produto já existe para esse cliente"
-            else:
-                self.saida = True
-                self.mensagem = ""
-
     return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
 @login_required
