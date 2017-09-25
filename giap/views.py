@@ -213,7 +213,7 @@ def listarpa(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(pa.objects.filter(sigla_pa__contains=filtro).values())
+            listaget = list(pa.objects.filter(Q(sigla_pa__contains=filtro) | Q(numpa__contains=filtro) | Q(cooperativa__sigla_cooperativa__contains=filtro) | Q(cooperativa__numcooperativa__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(pa.objects.all().values())

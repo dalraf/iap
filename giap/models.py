@@ -54,8 +54,8 @@ class cooperativa(models.Model):
     
 class pa(models.Model):
     id = models.AutoField(primary_key=True)
-    sigla_pa = models.CharField('Nome do PA',unique=True,max_length=50,)
-    numpa = models.DecimalField('Número do PA',unique=True,max_digits=4, decimal_places=0 )
+    sigla_pa = models.CharField('Nome do PA',max_length=50,)
+    numpa = models.DecimalField('Número do PA',max_digits=4, decimal_places=0 )
     cooperativa = models.ForeignKey('cooperativa', verbose_name = 'Cooperativa', on_delete=models.CASCADE)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
