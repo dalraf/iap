@@ -270,9 +270,6 @@ def editaddtransacao(request, id=None):
             if transacao.objects.filter(cliente=form.cleaned_data['cliente'],produto=form.cleaned_data['produto']).exists():
                 self.saida = False
                 self.mensagem = "Produto já existe para esse cliente"
-            elif form.cleaned_data['vencimento'] <= timezone.now().date():
-                self.saida = False
-                self.mensagem = "Data de Vencimento invalida"
             else:
                 self.saida = True
                 self.mensagem = ""

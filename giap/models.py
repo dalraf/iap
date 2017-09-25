@@ -20,6 +20,14 @@ def validate_cpfcpnj(value):
             params={'value': value},
         )
 
+def validate_vencimento(value):
+    if value <= timezone.now().date():
+        raise ValidationError(
+            _('%(value)s vencimento inválido'),
+            params={'value': value},
+        )
+
+
 # Create your models here.
 
 class central(models.Model):
@@ -104,5 +112,5 @@ class transacao(models.Model):
     grupo = models.IntegerField('Grupo',choices=GRUPOPRODUTOS,)
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
-    vencimento = models.DateField('Vencimento', default=timezone.now()+timedelta(days=30))
+    vencimento = models.DateField('Vencimento', default=timezone.now()+timedelta(days=30), validators=[validate_vencimento])
 
