@@ -184,7 +184,7 @@ def listarcooperativa(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(cooperativa.objects.filter(sigla_cooperativa__contains=filtro).values())
+            listaget = list(cooperativa.objects.filter(Q(sigla_cooperativa__contains=filtro) | Q(numcooperativa__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(cooperativa.objects.all().values())
