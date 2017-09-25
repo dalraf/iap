@@ -60,6 +60,10 @@ class pa(models.Model):
     usuario = models.CharField('Usuario',max_length=150,)
     data = models.DateTimeField('Data e Hora de inclusão',default=timezone.now)
 
+    def clean(self):
+        if pa.objects.filter(numpa=self.numpa,cooperativa=self.cooperativa).exists():
+            raise ValidationError(_('PA já existente para essa cooperativa'))
+
     def __unicode__(self):
         return self.cooperativa.sigla_cooperativa + "/" + self.sigla_pa 
 
