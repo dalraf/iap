@@ -242,7 +242,7 @@ def listarcliente(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(cliente.objects.filter(nome_cliente__contains=filtro).values())
+            listaget = list(cliente.objects.filter(Q(nome_cliente__contains=filtro) | Q(numcpfcpnj__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(cliente.objects.all().values())
