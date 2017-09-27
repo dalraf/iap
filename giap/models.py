@@ -13,6 +13,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from pycpfcnpj import cpfcnpj
 
+from django.db.models import Q
+
 def validate_cpfcpnj(value):
     if not cpfcnpj.validate(str(value)):
         raise ValidationError(
@@ -119,5 +121,5 @@ class transacao(models.Model):
     vencimento = models.DateField('Vencimento', default=timezone.now()+timedelta(days=30), validators=[validate_vencimento])
 
     def clean(self):
-        if transacao.objects.filter(cliente=self.cliente,produto=self.produto).exists():
+        if transacao.objects.filter(Q(cliente=self.cliente) & Q(produto=self.produto) & ~Q(id=self.id)).exists():
             raise ValidationError(_('Produto já existe para esse cliente'))
