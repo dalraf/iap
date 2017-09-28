@@ -81,22 +81,18 @@
         })
         $('#id_vencimento').datepicker();
         if($('#id_tipodepessoa').val() == '0'){ 
-            var $seuCampoCpf = $("#id_numcpfcpnj");
-            $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+           $("#id_numcpfcpnj").mask('000.000.000-00', {reverse: true});
             }
             if($('#id_tipodepessoa').val() == '1'){
-            var $seuCampoCpf = $("#id_numcpfcpnj");
-            $seuCampoCpf.mask('00.000.000/0000-00', {reverse: true});
+            $("#id_numcpfcpnj").mask('00.000.000/0000-00', {reverse: true});
             }
     });
     $('#id_tipodepessoa').change(function(){
         if($(this).val() == '0'){ 
-        var $seuCampoCpf = $("#id_numcpfcpnj");
-        $seuCampoCpf.mask('000.000.000-00', {reverse: true});
+        $("#id_numcpfcpnj").mask('000.000.000-00', {reverse: true});
         }
         if($(this).val() == '1'){
-        var $seuCampoCpf = $("#id_numcpfcpnj");
-        $seuCampoCpf.mask('00.000.000/0000-00', {reverse: true});
+        $("#id_numcpfcpnj").mask('00.000.000/0000-00', {reverse: true});
         }
       });
 </script>
