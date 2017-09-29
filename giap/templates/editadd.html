@@ -1,33 +1,29 @@
-{% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
-{{ form.media }}
+{% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %} {{ form.media }}
 <form method="post" class="form">
-<div class="row">
-    {% csrf_token %}
     <div class="row">
-        <div class='col-md-3'>
+        {% csrf_token %}
+        <div class="row">
+            <div class='col-md-3'>
+            </div>
+            <div class='col-md-6'>
+                {% bootstrap_form form size="small"%}
+            </div>
         </div>
-        <div class='col-md-6'>
-            {% bootstrap_form form size="small"%}
+    </div>
+    <div class="row">
+        <div class="col-md-5">
+        </div>
+        <div class="col-md-3">
+            <p class="{{ textoformato }}"><i>{{ mensagem }}</i></p>
+        </div>
+        <div class='col-md-4'>
+            <a class="btn btn-default" role="button" href="{% url urlretorno %}">Voltar</a>
+            <input type="submit" name="Salvar" value="Salvar" class="btn btn-default"> {% if request.session.id != 'new'%}
+            {% if request.session.confirmadelecao == False %}
+            <input type="submit" name="Deletar" value="Deletar" class="btn btn-danger"> {% elif request.session.confirmadelecao == True %}
+            <input type="submit" name="Cancelar" value="Cancelar" class="btn btn-info">
+            <input type="submit" name="Confirmar" value="Confirmar" class="btn btn-danger"> {% endif %} {% endif %}
         </div>
     </div>
-</div>
-<div class="row">
-    <div class="col-md-5">
-    </div>
-    <div class="col-md-3">
-        <p class="{{ textoformato }}"><i>{{ mensagem }}</i></p>
-    </div>
-    <div class='col-md-4'>
-        <a class="btn btn-default" role="button" href="{% url urlretorno %}">Voltar</a>
-        <input type="submit" name="Salvar" value="Salvar" class="btn btn-default"> {% if request.session.id != 'new'%}
-        {% if request.session.confirmadelecao == False %}
-        <input type="submit" name="Deletar" value="Deletar" class="btn btn-danger">
-        {% elif request.session.confirmadelecao == True %}
-        <input type="submit" name="Cancelar" value="Cancelar" class="btn btn-info">
-        <input type="submit" name="Confirmar" value="Confirmar" class="btn btn-danger">        
-        {% endif %}
-        {% endif %}
-    </div>
-</div>
 </form>
 {% endblock content %}

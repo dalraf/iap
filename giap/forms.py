@@ -9,21 +9,24 @@ class pesquisa(forms.Form):
 
 
 formcentral = modelform_factory(central,
-    fields=("sigla_central", "numcentral", "id"),
-    )
+                                fields=("sigla_central", "numcentral", "id"),
+                                )
 
-formcooperativa =  modelform_factory(cooperativa,
-    fields=("sigla_cooperativa", "numcooperativa", "central"),
-    )
+formcooperativa = modelform_factory(cooperativa,
+                                    fields=("sigla_cooperativa",
+                                            "numcooperativa", "central"),
+                                    )
 
-formpa =  modelform_factory(pa,
-    fields=("sigla_pa", "numpa", "cooperativa"),
-    )
+formpa = modelform_factory(pa,
+                           fields=("sigla_pa", "numpa", "cooperativa"),
+                           )
 
-formcliente =  modelform_factory(cliente,
-    fields=("nome_cliente", "numcpfcpnj", "tipodepessoa", "pa"),
-    )
+formcliente = modelform_factory(cliente,
+                                fields=("nome_cliente", "numcpfcpnj",
+                                        "tipodepessoa", "pa"),
+                                )
 
-formtransacao =  modelform_factory(transacao,
-    fields=("cliente", "produto", "grupo", "vencimento" ),
-    )
+formtransacao = modelform_factory(transacao,
+                                  fields=("cliente", "produto",
+                                          "grupo", "vencimento"),
+                                  )

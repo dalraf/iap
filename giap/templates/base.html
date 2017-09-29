@@ -9,28 +9,34 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/sandstone/bootstrap.min.css" rel="stylesheet" integrity="sha384-G3G7OsJCbOk1USkOY4RfeX1z27YaWrZ1YuaQ5tbuawed9IoreRDpWpTkZLXQfPm3"
         crossorigin="anonymous">
     <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" rel="stylesheet">
-        
+
 </head>
 <style>
     select.input-sm {
         width: 150px;
     }
-    input[type=number]{
+
+    input[type=number] {
         width: 150px;
     }
-    input[type=text]{
+
+    input[type=text] {
         width: 300px;
     }
-    input[type=password]{
+
+    input[type=password] {
         width: 300px;
-    }    
+    }
+
     #id_numcpfcpnj {
         width: 150px;
     }
+
     #id_vencimento {
         width: 100px;
     }
 </style>
+
 <body>
     <div class="container-fluid">
         <nav class="navbar navbar-default">
@@ -71,7 +77,8 @@
     <!-- Bootstrap JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/ui/1.12.0/jquery-ui.js" integrity="sha256-0YPKAwZP7Mp3ALMRVB2i8GXeEndvCq3eSl/WsAl1Ryk="
+        crossorigin="anonymous"></script>
 </body>
 <script>
     $(document).ready(function () {
@@ -80,23 +87,25 @@
             dateFormat: "dd/mm/yy",
             dayNames: ["Domingo", "Segunda", "Terça", "Quarte", "Quinta", "Sexta", "Sábado"],
             dayNamesMin: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"],
-            monthNames: ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro']
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro']
         })
         $('#id_vencimento').datepicker();
-        if($('#id_tipodepessoa').val() == '0'){ 
-           $("#id_numcpfcpnj").mask('000.000.000-00', {reverse: true});
-            }
-            if($('#id_tipodepessoa').val() == '1'){
-            $("#id_numcpfcpnj").mask('00.000.000/0000-00', {reverse: true});
-            }
+        if ($('#id_tipodepessoa').val() == '0') {
+            $("#id_numcpfcpnj").mask('000.000.000-00', { reverse: true });
+        }
+        if ($('#id_tipodepessoa').val() == '1') {
+            $("#id_numcpfcpnj").mask('00.000.000/0000-00', { reverse: true });
+        }
     });
-    $('#id_tipodepessoa').change(function(){
-        if($(this).val() == '0'){ 
-        $("#id_numcpfcpnj").mask('000.000.000-00', {reverse: true});
+    $('#id_tipodepessoa').change(function () {
+        if ($(this).val() == '0') {
+            $("#id_numcpfcpnj").mask('000.000.000-00', { reverse: true });
         }
-        if($(this).val() == '1'){
-        $("#id_numcpfcpnj").mask('00.000.000/0000-00', {reverse: true});
+        if ($(this).val() == '1') {
+            $("#id_numcpfcpnj").mask('00.000.000/0000-00', { reverse: true });
         }
-      });
+    });
+
 </script>
+
 </html>
