@@ -145,13 +145,13 @@ def default(request):
 
 # View Central
 @login_required
+@permission_required('giap_add_central')
+@permission_required('giap_change_central')
+@permission_required('giap_del_central')
 def editaddcentral(request, id=None):
     return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
 
 @login_required
-@permission_required('giap_add_central')
-@permission_required('giap_change_central')
-@permission_required('giap_del_central')
 def listarcentral(request):
     form = pesquisa()
     templatelist = 'lista.html'
@@ -175,13 +175,13 @@ def listarcentral(request):
 
 # View cooperativa
 @login_required
+@permission_required('giap_add_ccooperativa')
+@permission_required('giap_change_cooperativa')
+@permission_required('giap_del_cooperativa')
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
 
 @login_required
-@permission_required('giap_add_ccooperativa')
-@permission_required('giap_change_cooperativa')
-@permission_required('giap_del_cooperativa')
 def listarcooperativa(request):
     form = pesquisa()
     templatelist = 'lista.html'
@@ -207,13 +207,13 @@ def listarcooperativa(request):
 
 # View PA
 @login_required
+@permission_required('giap_add_pa')
+@permission_required('giap_change_pa')
+@permission_required('giap_del_pa')
 def editaddpa(request, id=None):
     return editadd(request,id,pa,formpa,'editadd.html','listarpa')
 
 @login_required
-@permission_required('giap_add_pa')
-@permission_required('giap_change_pa')
-@permission_required('giap_del_pa')
 def listarpa(request):
     form = pesquisa()
     templatelist = 'lista.html'
@@ -239,13 +239,13 @@ def listarpa(request):
 
 # View Cliente
 @login_required
+@permission_required('giap_add_cliente')
+@permission_required('giap_change_cliente')
+@permission_required('giap_del_cliente')
 def editaddcliente(request, id=None):
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',)
 
 @login_required
-@permission_required('giap_add_cliente')
-@permission_required('giap_change_cliente')
-@permission_required('giap_del_cliente')
 def listarcliente(request):
     form = pesquisa()
     templatelist = 'lista.html'
@@ -274,13 +274,13 @@ def listarcliente(request):
 
 # View transacao
 @login_required
+@permission_required('giap_add_transacao')
+@permission_required('giap_change_transacao')
+@permission_required('giap_del_transacao')
 def editaddtransacao(request, id=None):
     return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
 @login_required
-@permission_required('giap_add_transacao')
-@permission_required('giap_change_transacao')
-@permission_required('giap_del_transacao')
 def listartransacao(request):
     form = pesquisa()
     templatelist = 'lista.html'
