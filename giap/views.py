@@ -147,7 +147,7 @@ def default(request):
 @login_required
 @permission_required('giap.add_central')
 @permission_required('giap.change_central')
-@permission_required('giap.del_central')
+@permission_required('giap.delete_central')
 def editaddcentral(request, id=None):
     return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
 
@@ -177,7 +177,7 @@ def listarcentral(request):
 @login_required
 @permission_required('giap.add_ccooperativa')
 @permission_required('giap.change_cooperativa')
-@permission_required('giap.del_cooperativa')
+@permission_required('giap.delete_cooperativa')
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
 
@@ -209,7 +209,7 @@ def listarcooperativa(request):
 @login_required
 @permission_required('giap.add_pa')
 @permission_required('giap.change_pa')
-@permission_required('giap.del_pa')
+@permission_required('giap.delete_pa')
 def editaddpa(request, id=None):
     return editadd(request,id,pa,formpa,'editadd.html','listarpa')
 
@@ -241,7 +241,7 @@ def listarpa(request):
 @login_required
 @permission_required('giap.add_cliente')
 @permission_required('giap.change_cliente')
-@permission_required('giap.del_cliente')
+@permission_required('giap.delete_cliente')
 def editaddcliente(request, id=None):
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',)
 
@@ -276,7 +276,7 @@ def listarcliente(request):
 @login_required
 @permission_required('giap.add_transacao')
 @permission_required('giap.change_transacao')
-@permission_required('giap.del_transacao')
+@permission_required('giap.delete_transacao')
 def editaddtransacao(request, id=None):
     return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
