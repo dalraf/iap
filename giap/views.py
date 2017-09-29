@@ -145,9 +145,9 @@ def default(request):
 
 # View Central
 @login_required
-@permission_required('giap.add_central')
-@permission_required('giap.change_central')
-@permission_required('giap.delete_central')
+@permission_required('giap.add_central',raise_exception=True)
+@permission_required('giap.change_central',raise_exception=True)
+@permission_required('giap.delete_central',raise_exception=True)
 def editaddcentral(request, id=None):
     return editadd(request,id,central,formcentral,'editadd.html','listarcentral')
 
@@ -175,9 +175,9 @@ def listarcentral(request):
 
 # View cooperativa
 @login_required
-@permission_required('giap.add_ccooperativa')
-@permission_required('giap.change_cooperativa')
-@permission_required('giap.delete_cooperativa')
+@permission_required('giap.add_ccooperativa',raise_exception=True)
+@permission_required('giap.change_cooperativa',raise_exception=True)
+@permission_required('giap.delete_cooperativa',raise_exception=True)
 def editaddcooperativa(request, id=None):
     return editadd(request,id,cooperativa,formcooperativa,'editadd.html','listarcooperativa')
 
@@ -207,9 +207,9 @@ def listarcooperativa(request):
 
 # View PA
 @login_required
-@permission_required('giap.add_pa')
-@permission_required('giap.change_pa')
-@permission_required('giap.delete_pa')
+@permission_required('giap.add_pa',raise_exception=True)
+@permission_required('giap.change_pa',raise_exception=True)
+@permission_required('giap.delete_pa',raise_exception=True)
 def editaddpa(request, id=None):
     return editadd(request,id,pa,formpa,'editadd.html','listarpa')
 
@@ -239,9 +239,9 @@ def listarpa(request):
 
 # View Cliente
 @login_required
-@permission_required('giap.add_cliente')
-@permission_required('giap.change_cliente')
-@permission_required('giap.delete_cliente')
+@permission_required('giap.add_cliente',raise_exception=True)
+@permission_required('giap.change_cliente',raise_exception=True)
+@permission_required('giap.delete_cliente',raise_exception=True)
 def editaddcliente(request, id=None):
     return editadd(request,id,cliente,formcliente,'editadd.html','listarcliente',)
 
@@ -274,9 +274,9 @@ def listarcliente(request):
 
 # View transacao
 @login_required
-@permission_required('giap.add_transacao')
-@permission_required('giap.change_transacao')
-@permission_required('giap.delete_transacao')
+@permission_required('giap.add_transacao',raise_exception=True)
+@permission_required('giap.change_transacao',raise_exception=True)
+@permission_required('giap.delete_transacao',raise_exception=True)
 def editaddtransacao(request, id=None):
     return editadd(request,id,transacao,formtransacao,'editadd.html','listartransacao',savefilter)
 
