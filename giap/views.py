@@ -415,7 +415,9 @@ def processarsisbr(request):
                 lineform['Central'] = line['NUMCENTRAL']
                 lineform['Cooperativa'] = line['NUMCOOPERATIVA']
                 lineform['Pa'] = line['NUMPA']
-                lineform['CPF/CNPJ]'] = line['NUMCPFCNPJ']
+                if len(line['NUMCPFCNPJ']) == 11:
+                    cpf = line['NUMCPFCNPJ']
+                    lineform['CPF/CNPJ]'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
                 produtos = []
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
