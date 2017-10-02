@@ -128,8 +128,8 @@ TIPOPRODUTO = (
     (11, 'Sicoob-Previ'),
     (12, 'Sipag'),
     (13, 'Demais seguros'),
-    (14, 'Débito Automático'),
-    (15, 'Empréstimo'),
+    (14, 'Seguro de Vida'),
+    (15, 'Débito Automático'),
 )
 
 

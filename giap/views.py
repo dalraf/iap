@@ -395,7 +395,27 @@ def processarsisbr(request):
             csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','),dialect=csv.excel)
             for line in csvfileopen:
                 lineform = {}
+                lineform['Central'] = line['NUMCENTRAL']
                 lineform['Cooperativa'] = line['NUMCOOPERATIVA']
+                lineform['Pa'] = line['NUMPA']
+                lineform['CPF/CNPJ]'] = line['NUMCPFCNPJ']
+                TIPOPRODUTO = (
+                    (0, 'TEM_EMPRESTIMO'),
+                    (2, 'TEM_FINANCIAMENTO'),
+                    (3, 'TEM_PREAPROVADO'),
+                    (4, 'TEM_CREDITORURAL'),
+                    (5, 'TEM_CHEQUEESPECIAL'),
+                    (6, 'TEM_CARTAOCREDITO'),
+                    (7, 'TEM_CARTAODEBITO'),
+                    (8, 'TEM_RDC'),
+                    (9, 'TEM_POUPANCA,'),
+                    (10, 'TEM_CONSORCIO'),
+                    (11, 'TEM_SICOOBPREVI'),
+                    (12, 'TEM_SIPAG'),
+                    (13, 'TEM_DEMAISSEGUROS'),
+                    (14, 'TEM_SEGUROVIDA'),
+                    (15, 'TEM_DEBITOAUTOMATICO'),
+                )
                 csvdict.append(lineform)
     else:
         form = formprocessarsisbr()
