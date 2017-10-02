@@ -23,6 +23,10 @@ from django.db.models import Q
 
 from django.views.generic.list import ListView
 
+from django.conf import settings
+
+import csv
+
 # Create your views here.
 
 # Funcao edit add
@@ -382,8 +386,19 @@ def listarsisbrcsv(request):
 
 @login_required
 def processarsisbr(request):
-    form = formprocessarsisbr()
+    csvdict = []
+    if request.method == 'POST':
+        form = formprocessarsisbr(request.POST)
+        if form.is_valid():
+            csvquery= form.cleaned_data['datareferencia']
+            csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
+            csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
+            for line in csvfileopen:
+                csvdict.append(line)
+    else:
+        form = formprocessarsisbr()
     return render(request, 'processarsisbr.html',
                   {
                       'form': form,
+                      'csvdict': csvdict,
                   })
