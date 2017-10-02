@@ -39,7 +39,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
     if request.method == 'POST':
         if 'Salvar' in request.POST:
             if request.session['id'] == 'new':
-                form = formmodel(request.POST)
+                form = formmodel(request.POST, request.FILES)
                 if form.is_valid():
                     resultfilter = savefilter(form)
                     if resultfilter.saida:
