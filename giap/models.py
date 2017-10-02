@@ -144,3 +144,8 @@ class transacao(models.Model):
     def clean(self):
         if transacao.objects.filter(Q(cliente=self.cliente) & Q(produto=self.produto) & ~Q(id=self.id)).exists():
             raise ValidationError(_('Produto já existe para esse cliente'))
+
+
+class sisbrcsv(models.Model):
+    datareferencia = models.DateField('Data de referência',)
+    sisbrcsvfile = models.FileField('Arquivo csv',upload_to='csv/')

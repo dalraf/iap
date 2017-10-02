@@ -1,6 +1,6 @@
 from django.forms import modelform_factory, HiddenInput
 from django import forms
-from giap.models import cliente, cooperativa, central, pa, transacao
+from giap.models import cliente, cooperativa, central, pa, transacao, sisbrcsv
 from django.forms.extras.widgets import SelectDateWidget
 
 
@@ -29,4 +29,10 @@ formcliente = modelform_factory(cliente,
 formtransacao = modelform_factory(transacao,
                                   fields=("cliente", "produto",
                                           "grupo", "vencimento"),
+                                  )
+
+
+formsisbrcsv = modelform_factory(sisbrcsv,
+                                  fields=("datareferencia", "sisbrcsvfile",
+                                          ),
                                   )

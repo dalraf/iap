@@ -7,7 +7,7 @@ from django.forms import modelformset_factory
 
 from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa
 
-from giap.models import central, cooperativa, pa, cliente, transacao
+from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv
 
 from django.views.generic.edit import FormView
 
@@ -20,6 +20,8 @@ from django.utils import timezone
 import datetime
 
 from django.db.models import Q
+
+from django.views.generic.list import ListView
 
 # Create your views here.
 
@@ -342,3 +344,28 @@ def listartransacao(request):
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
     return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
+
+
+@login_required
+def listarsisbrcsv(request):
+    form = pesquisa()
+    templatelist = 'lista.html'
+    editurl = 'editaddsisbrcsv'
+    if request.method == 'POST':
+        form = pesquisa(request.POST)
+        if form.is_valid():
+            filtro = form.cleaned_data['filtro']
+            listaget = list(sisbrcsv.objects.filter(Q(sisbrcsvfile__contains=filtro)))
+    else:
+        form = pesquisa()
+        listaget = list(sisbrcsv.objects.all().values())
+    lista = []
+    for i in listaget:
+        j = OrderedDict()
+        j['id'] = i['id']
+        j[sisbrcsv._meta.get_field('datareferencia').verbose_name] = i['datareferencia']
+        j[sisbrcsv._meta.get_field('sisbrcsvfile').verbose_name] = i['sisbrcsvfile']
+    return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
+
+
+    
