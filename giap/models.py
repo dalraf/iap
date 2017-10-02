@@ -148,5 +148,5 @@ class transacao(models.Model):
 
 class sisbrcsv(models.Model):
     id = models.AutoField(primary_key=True)
-    datareferencia = models.DateField('Data de referência',)
+    datareferencia = models.DateField('Data de referência',default=timezone.now(),)
     sisbrcsvfile = models.FileField('Arquivo csv',upload_to='csv/')
