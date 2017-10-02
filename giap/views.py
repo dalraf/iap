@@ -392,7 +392,7 @@ def processarsisbr(request):
         if form.is_valid():
             csvquery= form.cleaned_data['datareferencia']
             csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
-            csvfileopen = csv.DictReader(open(csvfile).readlines()[1:], delimiter=str(u','),dialect=csv.excel)
+            csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','),dialect=csv.excel)
             for line in csvfileopen:
                 csvdict.append(line)
     else:
