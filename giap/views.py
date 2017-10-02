@@ -382,7 +382,7 @@ def listarsisbrcsv(request):
 
 @login_required
 def processarsisbr(request):
-    form = formprocessarsisbr(request.POST or None, instance=objeto)
+    form = formprocessarsisbr(request.POST)
     return render(request, 'processarsisbr.html',
                   {
                       'form': form,

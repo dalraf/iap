@@ -160,4 +160,4 @@ class sisbrcsv(models.Model):
     sisbrcsvfile = models.FileField('Arquivo csv',upload_to=update_filename)
 
     def __unicode__(self):
-        return self.datareferencia
+        return str(self.datareferencia)
