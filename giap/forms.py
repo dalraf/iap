@@ -1,4 +1,4 @@
-from django.forms import modelform_factory, HiddenInput
+from django.forms import modelform_factory, HiddenInput, ModelChoiceField
 from django import forms
 from giap.models import cliente, cooperativa, central, pa, transacao, sisbrcsv
 from django.forms.extras.widgets import SelectDateWidget
@@ -36,3 +36,6 @@ formsisbrcsv = modelform_factory(sisbrcsv,
                                   fields=("datareferencia", "sisbrcsvfile",
                                           ),
                                   )
+
+class formprocessarsisbr(forms.Form):
+    datareferencia = forms.ModelChoiceField(queryset=sisbrcsv.objects.all())

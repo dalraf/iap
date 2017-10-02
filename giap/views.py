@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr
 
 from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv
 
@@ -354,7 +354,6 @@ def editaddsisbrcsv(request, id=None):
     return editadd(request, id, sisbrcsv, formsisbrcsv, 'editadd.html', 'listarsisbrcsv', savefilter)
 
 
-
 @login_required
 def listarsisbrcsv(request):
     form = pesquisa()
@@ -364,7 +363,8 @@ def listarsisbrcsv(request):
         form = pesquisa(request.POST)
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
-            listaget = list(sisbrcsv.objects.filter(Q(sisbrcsvfile__contains=filtro)).values())
+            listaget = list(sisbrcsv.objects.filter(
+                Q(sisbrcsvfile__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(sisbrcsv.objects.all().values())
@@ -372,10 +372,18 @@ def listarsisbrcsv(request):
     for i in listaget:
         j = OrderedDict()
         j['id'] = i['id']
-        j[sisbrcsv._meta.get_field('datareferencia').verbose_name] = i['datareferencia']
-        j[sisbrcsv._meta.get_field('sisbrcsvfile').verbose_name] = i['sisbrcsvfile']
+        j[sisbrcsv._meta.get_field(
+            'datareferencia').verbose_name] = i['datareferencia']
+        j[sisbrcsv._meta.get_field(
+            'sisbrcsvfile').verbose_name] = i['sisbrcsvfile']
         lista.append(j)
     return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
 
 
-    
+@login_required
+def processarsisbr(request):
+    form = formprocessarsisbr(request.POST or None, instance=objeto)
+    return render(request, 'processarsisbr.html',
+                  {
+                      'form': form,
+                  })
