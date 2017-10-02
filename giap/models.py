@@ -161,3 +161,12 @@ class sisbrcsv(models.Model):
 
     def __unicode__(self):
         return str(self.datareferencia)
+
+
+class sisbrprocessa(models.Model):
+    id = models.AutoField(primary_key=True)
+    sisbrcsv = models.ForeignKey(
+        'sisbrcsv', verbose_name='Data de referência', on_delete=models.CASCADE)
+    numcpfcpnj = models.CharField(
+        'Número do CPF/CNPJ', max_length=18,)
+    produto = models.IntegerField('Produto',)
