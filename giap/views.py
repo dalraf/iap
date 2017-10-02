@@ -419,7 +419,7 @@ def processarsisbr(request):
                 produtos = []
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
-                        produtos.append[key]
+                        produtos.append(key)
                 lineform['produtos'] = produtos
                 csvdict.append(lineform)
     else:
