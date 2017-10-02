@@ -386,7 +386,7 @@ def listarsisbrcsv(request):
 
 @login_required
 def processarsisbr(request):
-    sisbrtipodeprodto = {
+    sisbrtipodeproduto = {
         0: 'TEM_EMPRESTIMO',
         2: 'TEM_FINANCIAMENTO',
         3: 'TEM_PREAPROVADO',
@@ -395,7 +395,7 @@ def processarsisbr(request):
         6: 'TEM_CARTAOCREDITO',
         7: 'TEM_CARTAODEBITO',
         8: 'TEM_RDC',
-        9: 'TEM_POUPANCA,',
+        9: 'TEM_POUPANCA',
         10: 'TEM_CONSORCIO',
         11: 'TEM_SICOOBPREVI',
         12: 'TEM_SIPAG',
@@ -416,6 +416,11 @@ def processarsisbr(request):
                 lineform['Cooperativa'] = line['NUMCOOPERATIVA']
                 lineform['Pa'] = line['NUMPA']
                 lineform['CPF/CNPJ]'] = line['NUMCPFCNPJ']
+                produtos = []
+                for key, value in sisbrtipodeproduto.items():
+                    if line[value] == '1':
+                        produtos.append[key]
+                lineform['produtos'] = produtos
                 csvdict.append(lineform)
     else:
         form = formprocessarsisbr()
