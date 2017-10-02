@@ -411,19 +411,20 @@ def processarsisbr(request):
             csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
             csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','),dialect=csv.excel)
             for line in csvfileopen:
-                lineform = {}
-                lineform['Central'] = line['NUMCENTRAL']
-                lineform['Cooperativa'] = line['NUMCOOPERATIVA']
-                lineform['Pa'] = line['NUMPA']
-                if len(line['NUMCPFCNPJ']) == 11:
-                    cpf = line['NUMCPFCNPJ']
-                    lineform['CPF/CNPJ]'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
-                produtos = []
-                for key, value in sisbrtipodeproduto.items():
-                    if line[value] == '1':
-                        produtos.append(key)
-                lineform['produtos'] = produtos
-                csvdict.append(lineform)
+                cpf = line['NUMCPFCNPJ']
+                if cpf != '':
+                    lineform = {}
+                    lineform['Central'] = line['NUMCENTRAL']
+                    lineform['Cooperativa'] = line['NUMCOOPERATIVA']
+                    lineform['Pa'] = line['NUMPA']
+                    if len(line['NUMCPFCNPJ']) == 11:        
+                        lineform['CPF/CNPJ]'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
+                    produtos = []
+                    for key, value in sisbrtipodeproduto.items():
+                        if line[value] == '1':
+                            produtos.append(key)
+                    lineform['produtos'] = produtos
+                    csvdict.append(lineform)
     else:
         form = formprocessarsisbr()
     return render(request, 'processarsisbr.html',

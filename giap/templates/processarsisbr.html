@@ -21,5 +21,34 @@
         </div>
     </div>
 </form>
-{{ csvdict }}
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        {% for i in csvdict %} {% if forloop.first %}
+        <table class="table table-bordered table-striped table-condensed table-responsive">
+            <thead class="thead-inverse">
+                <tr>
+                    {%for key,value in i.items %} {% if key != 'id' %}
+                    <th>
+                        <h5 class="text-center"><b>{{ key }}</b></h5>
+                    </th>
+                    {% endif %} {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% endif %}
+                <tr>
+                    {%for key,value in i.items %} {% if key != 'id' %}
+                    <td>
+                        <p class="text-center">{{ value}}</p>
+                    </td>
+                    {% endif %} {% endfor %}
+                </tr>
+                {% if forloop.last %}
+            </tbody>
+        </table>
+        {% endif %} {% endfor %}
+    </div>
+</div>
 {% endblock content %}
