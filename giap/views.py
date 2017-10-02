@@ -394,7 +394,9 @@ def processarsisbr(request):
             csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
             csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','),dialect=csv.excel)
             for line in csvfileopen:
-                csvdict.append(line)
+                lineform = {}
+                lineform['Cooperativa'] = line['NUMCOOPERATIVA']
+                csvdict.append(lineform)
     else:
         form = formprocessarsisbr()
     return render(request, 'processarsisbr.html',
