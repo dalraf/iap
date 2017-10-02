@@ -386,6 +386,7 @@ def listarsisbrcsv(request):
 
 @login_required
 def processarsisbr(request):
+    produtodict = dict(transacao._meta.get_field('produto').flatchoices)
     sisbrtipodeproduto = {
         0: 'TEM_EMPRESTIMO',
         2: 'TEM_FINANCIAMENTO',
@@ -413,17 +414,15 @@ def processarsisbr(request):
             for line in csvfileopen:
                 cpf = line['NUMCPFCNPJ']
                 if cpf != '':
-                    lineform = {}
-                    lineform['Central'] = line['NUMCENTRAL']
-                    lineform['Cooperativa'] = line['NUMCOOPERATIVA']
-                    lineform['Pa'] = line['NUMPA']
-                    if len(line['NUMCPFCNPJ']) == 11:        
-                        lineform['CPF/CNPJ]'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
-                    produtos = []
+                    lineform = OrderedDict()
                     for key, value in sisbrtipodeproduto.items():
                         if line[value] == '1':
-                            produtos.append(key)
-                    lineform['produtos'] = produtos
+                            lineform['Central'] = line['NUMCENTRAL']
+                            lineform['Cooperativa'] = line['NUMCOOPERATIVA']
+                            lineform['Pa'] = line['NUMPA']
+                            if len(line['NUMCPFCNPJ']) == 11:
+                                lineform['CPF/CNPJ]'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
+                            lineform['Produto'] = produtodict[key]
                     csvdict.append(lineform)
     else:
         form = formprocessarsisbr()
