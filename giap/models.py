@@ -15,6 +15,10 @@ from pycpfcnpj import cpfcnpj
 
 from django.db.models import Q
 
+import uuid
+
+import os
+
 
 def validate_cpfcpnj(value):
     if not cpfcnpj.validate(str(value)):
@@ -145,8 +149,12 @@ class transacao(models.Model):
         if transacao.objects.filter(Q(cliente=self.cliente) & Q(produto=self.produto) & ~Q(id=self.id)).exists():
             raise ValidationError(_('Produto já existe para esse cliente'))
 
+def update_filename(instance, filename):
+    ext = filename.split('.')[-1]
+    filename = "%s.%s" % (uuid.uuid4(), ext)
+    return os.path.join('csv/', filename)
 
 class sisbrcsv(models.Model):
     id = models.AutoField(primary_key=True)
     datareferencia = models.DateField('Data de referência',default=timezone.now().date().replace(day=1),)
-    sisbrcsvfile = models.FileField('Arquivo csv',upload_to='csv/')
+    sisbrcsvfile = models.FileField('Arquivo csv',upload_to=update_filename)
