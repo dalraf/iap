@@ -63,7 +63,11 @@
                             <li><a href="{% url 'listarpa' %}">PA</a></li>
                             <li><a href="{% url 'listarcliente' %}">Clientes</a></li>
                             <li><a href="{% url 'listartransacao' %}">Produtos</a></li>
-                            <li><a href="{% url 'listarsisbrcsv' %}">Processamento</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Processamento<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{% url 'listarsisbrcsv' %}">Importação SISBR</a></li>
                         </ul>
                     </li>
                 </ul>
