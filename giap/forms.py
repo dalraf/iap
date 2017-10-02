@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.forms import modelform_factory, HiddenInput, ModelChoiceField
 from django import forms
 from giap.models import cliente, cooperativa, central, pa, transacao, sisbrcsv
@@ -38,4 +39,4 @@ formsisbrcsv = modelform_factory(sisbrcsv,
                                   )
 
 class formprocessarsisbr(forms.Form):
-    datareferencia = forms.ModelChoiceField(queryset=sisbrcsv.objects.all())
+    datareferencia = forms.ModelChoiceField(label='Data de referência',queryset=sisbrcsv.objects.all(),required=False)
