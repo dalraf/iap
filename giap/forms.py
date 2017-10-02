@@ -39,4 +39,4 @@ formsisbrcsv = modelform_factory(sisbrcsv,
                                   )
 
 class formprocessarsisbr(forms.Form):
-    datareferencia = forms.ModelChoiceField(label='Data de referência',queryset=sisbrcsv.objects.all(),required=False)
+    datareferencia = forms.ModelChoiceField(label='Data de referência',queryset=sisbrcsv.objects.all(),required=False,empty_label=None)
