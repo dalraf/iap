@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv
 
 from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv
 
@@ -344,6 +344,15 @@ def listartransacao(request):
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
     return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
+
+
+@login_required
+@permission_required('giap.add_sisbrcsv', raise_exception=True)
+@permission_required('giap.change_sisbrcsv', raise_exception=True)
+@permission_required('giap.delete_sisbrcsv', raise_exception=True)
+def editaddsisbrcsv(request, id=None):
+    return editadd(request, id, sisbrcsv, formsisbrcsv, 'editadd.html', 'listarsisbrcsv', savefilter)
+
 
 
 @login_required
