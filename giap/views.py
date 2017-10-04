@@ -426,7 +426,12 @@ def processarsisbr(request):
                                 lineshow['CPF/CNPJ'] = "%s.%s.%s-%s" % (
                                     cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11])
                             lineshow['Produto'] = produtodict[key]
+                            if transacao.objects.filter(Q(cliente__numcpfcpnj=line['NUMCPFCNPJ']) & Q(produto=key)).exists():
+                                lineshow['Status'] = 'ok'
+                            else:
+                                lineshow['Status'] = 'Inv'  
                     csvdict.append(lineshow)
+       
     else:
         form = formprocessarsisbr()
     return render(request, 'processarsisbr.html',
