@@ -414,16 +414,16 @@ def processarsisbr(request):
             for line in csvfileopen:
                 cpf = line['NUMCPFCNPJ']
                 if cpf != '':
-                    lineform = OrderedDict()
+                    lineshow = OrderedDict()
                     for key, value in sisbrtipodeproduto.items():
                         if line[value] == '1':
-                            lineform['Central'] = line['NUMCENTRAL']
-                            lineform['Cooperativa'] = line['NUMCOOPERATIVA']
-                            lineform['Pa'] = line['NUMPA']
+                            lineshow['Central'] = line['NUMCENTRAL']
+                            lineshow['Cooperativa'] = line['NUMCOOPERATIVA']
+                            lineshow['Pa'] = line['NUMPA']
                             if len(line['NUMCPFCNPJ']) == 11:
-                                lineform['CPF/CNPJ'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
-                            lineform['Produto'] = produtodict[key]
-                    csvdict.append(lineform)
+                                lineshow['CPF/CNPJ'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
+                            lineshow['Produto'] = produtodict[key]
+                    csvdict.append(lineshow)
     else:
         form = formprocessarsisbr()
     return render(request, 'processarsisbr.html',
