@@ -71,7 +71,8 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     })
             else:
                 modeloinstance = modelo.objects.get(id=request.session['id'])
-                form = formmodel(request.POST, request.FILES, instance=modeloinstance)
+                form = formmodel(request.POST, request.FILES,
+                                 instance=modeloinstance)
                 if form.is_valid():
                     resultfilter = savefilter(form)
                     if resultfilter.saida:
@@ -408,9 +409,10 @@ def processarsisbr(request):
     if request.method == 'POST':
         form = formprocessarsisbr(request.POST)
         if form.is_valid():
-            csvquery= form.cleaned_data['datareferencia']
+            csvquery = form.cleaned_data['datareferencia']
             csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
-            csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','),dialect=csv.excel)
+            csvfileopen = csv.DictReader(
+                open(csvfile), delimiter=str(u','), dialect=csv.excel)
             for line in csvfileopen:
                 cpf = line['NUMCPFCNPJ']
                 if cpf != '':
@@ -421,7 +423,8 @@ def processarsisbr(request):
                             lineshow['Cooperativa'] = line['NUMCOOPERATIVA']
                             lineshow['Pa'] = line['NUMPA']
                             if len(line['NUMCPFCNPJ']) == 11:
-                                lineshow['CPF/CNPJ'] =  "%s.%s.%s-%s"%( cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11] ) 
+                                lineshow['CPF/CNPJ'] = "%s.%s.%s-%s" % (
+                                    cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11])
                             lineshow['Produto'] = produtodict[key]
                     csvdict.append(lineshow)
     else:
