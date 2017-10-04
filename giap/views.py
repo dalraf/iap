@@ -71,7 +71,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     })
             else:
                 modeloinstance = modelo.objects.get(id=request.session['id'])
-                form = formmodel(request.POST, instance=modeloinstance)
+                form = formmodel(request.POST, request.FILES, instance=modeloinstance)
                 if form.is_valid():
                     resultfilter = savefilter(form)
                     if resultfilter.saida:
