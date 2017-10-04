@@ -419,9 +419,6 @@ def processarsisbr(request):
                     lineshow = OrderedDict()
                     for key, value in sisbrtipodeproduto.items():
                         if line[value] == '1':
-                            lineshow['Central'] = line['NUMCENTRAL']
-                            lineshow['Cooperativa'] = line['NUMCOOPERATIVA']
-                            lineshow['Pa'] = line['NUMPA']
                             if len(line['NUMCPFCNPJ']) == 11:
                                 lineshow['CPF/CNPJ'] = "%s.%s.%s-%s" % (
                                     cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11])
