@@ -4,9 +4,9 @@ services:
   iapweb:
     build: .
     image: iapweb
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8002
     volumes:
       - .:/code
     ports:
-      - "8000:8000"
+      - "8002:8002"
     restart: unless-stopped
