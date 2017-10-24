@@ -162,6 +162,11 @@ class sisbrcsv(models.Model):
     def __unicode__(self):
         return str(self.datareferencia)
 
+    def save(self, *args, **kwargs):
+        super(sisbrcsv, self).save(*args, **kwargs)
+        
+        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv)
+
 
 class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
