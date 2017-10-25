@@ -390,6 +390,9 @@ def listarsisbrcsv(request):
 
 
 @method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('giap.add_sisbrcsv', raise_exception=True),name='dispatch')
+@method_decorator(permission_required('giap.change_sisbrcsv', raise_exception=True), name='dispatch')
+@method_decorator(permission_required('giap.delete_sisbrcsv', raise_exception=True), name='dispatch')
 class sisbrprocessalist(ListView):
     
     model = sisbrprocessa
