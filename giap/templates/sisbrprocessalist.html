@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
+{% extends 'base.html' %} {% block content %}{%load static%}{% load bootstrap3 %}{% bootstrap_messages %}{% load verbose_names %}
 <form method="get" class="form">
         {% csrf_token %}
         <div class="row">
@@ -16,26 +16,27 @@
     <div class="col-md-1">
     </div>
     <div class="col-md-8">
+        {% for sisbrprocessa in object_list %}  {% if forloop.first %}
         <table class="table table-bordered table-striped table-condensed table-responsive">
-                <thead class="thead-inverse">
+            <thead class="thead-inverse">
                         <tr>
                             <th>
-                                Data
+                                
                             </th>
                             <th>
-                                CPF/CNPF
+                                {% get_verbose_field_name sisbrprocessa "numcpfcpnj" %}
                             </th>
                             <th>
-                                Produto
+                                {% get_verbose_field_name sisbrprocessa "produto" %}
                             </th>
                             <th>
-                                Status
+                                {% get_verbose_field_name sisbrprocessa "status" %}
                             </th>
                         </tr>
                     </thead>
             <tbody>
-                {% for sisbrprocessa in object_list %}    
-                <tr>
+                    {% endif %}
+                 <tr>
                     <td>
                         {{ sisbrprocessa.sisbrcsv }}
                     </td>
@@ -49,10 +50,10 @@
                         {{ sisbrprocessa.status }}
                     </td>
                 </tr>
-                {% endfor %}
+                {% if forloop.last %}
             </tbody>
         </table>
-
+        {% endif %} {% endfor %}
     </div>
 
 </div>
