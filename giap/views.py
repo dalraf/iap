@@ -399,11 +399,17 @@ class sisbrprocessalist(ListView):
     template_name = 'sisbrprocessalist.html'
 
     def get_queryset(self):
-        filtro = self.request.GET.get('filtro', '')
+        if self.request.GET.get('filtro'):
+            filtro = self.request.GET.get('filtro')
+        else:
+            filtro = ''
         context = sisbrprocessa.objects.filter(numcpfcpnj__contains=filtro,)
         return context
 
     def get_context_data(self, **kwargs):
         context = super(sisbrprocessalist, self).get_context_data(**kwargs)
-        context['form'] = pesquisa(self.request.GET)
+        if self.request.GET.get('filtro'):
+            context['form'] = pesquisa(self.request.GET)
+        else:
+            context['form'] = pesquisa
         return context
