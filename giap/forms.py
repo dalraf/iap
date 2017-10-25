@@ -40,7 +40,3 @@ class formprocessarsisbr(forms.Form):
 
 class pesquisa(forms.Form):
     filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
-
-class pesquisaform(forms.Form):
-        filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
-        ordem = forms.CharField(label='Ordem', required=False, max_length=100)
