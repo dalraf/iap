@@ -20,5 +20,5 @@ urlpatterns = [
     url(r'^editaddtransacao/(?P<id>[0-9]+|new)/$', editaddtransacao, name='editaddtransacao'),
     url(r'^editaddsisbrcsv/(?P<id>[0-9]+|new)/$', editaddsisbrcsv, name='editaddsisbrcsv'),
     url(r'^listarsisbrcsv/$', listarsisbrcsv, name='listarsisbrcsv'),
-    url(r'^processarsisbr/$', processarsisbr, name='processarsisbr'),
+    url(r'^processarsisbr/$', processarsisbr.as_view(), name='processarsisbr'),
 ]

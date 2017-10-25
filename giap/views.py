@@ -27,6 +27,8 @@ from django.conf import settings
 
 import csv
 
+from django.views.generic.list import ListView
+
 # Create your views here.
 
 # Funcao edit add
@@ -386,53 +388,10 @@ def listarsisbrcsv(request):
 
 
 @login_required
-def processarsisbr(request):
-    produtodict = dict(transacao._meta.get_field('produto').flatchoices)
-    sisbrtipodeproduto = {
-        0: 'TEM_EMPRESTIMO',
-        2: 'TEM_FINANCIAMENTO',
-        3: 'TEM_PREAPROVADO',
-        4: 'TEM_CREDITORURAL',
-        5: 'TEM_CHEQUEESPECIAL',
-        6: 'TEM_CARTAOCREDITO',
-        7: 'TEM_CARTAODEBITO',
-        8: 'TEM_RDC',
-        9: 'TEM_POUPANCA',
-        10: 'TEM_CONSORCIO',
-        11: 'TEM_SICOOBPREVI',
-        12: 'TEM_SIPAG',
-        13: 'TEM_DEMAISSEGUROS',
-        14: 'TEM_SEGUROVIDA',
-        15: 'TEM_DEBITOAUTOMATICO',
-    }
-    csvdict = []
-    if request.method == 'POST':
-        form = formprocessarsisbr(request.POST)
-        if form.is_valid():
-            csvquery = form.cleaned_data['datareferencia']
-            csvfile = settings.MEDIA_ROOT + "/" + csvquery.sisbrcsvfile.name
-            csvfileopen = csv.DictReader(
-                open(csvfile), delimiter=str(u','), dialect=csv.excel)
-            for line in csvfileopen:
-                cpf = line['NUMCPFCNPJ']
-                if cpf != '':
-                    lineshow = OrderedDict()
-                    for key, value in sisbrtipodeproduto.items():
-                        if line[value] == '1':
-                            if len(line['NUMCPFCNPJ']) == 11:
-                                lineshow['CPF/CNPJ'] = "%s.%s.%s-%s" % (
-                                    cpf[0:3], cpf[3:6], cpf[6:9], cpf[9:11])
-                            lineshow['Produto'] = produtodict[key]
-                            if transacao.objects.filter(Q(cliente__numcpfcpnj=lineshow['CPF/CNPJ']) & Q(produto=key)).exists():
-                                lineshow['Status'] = 'ok'
-                            else:
-                                lineshow['Status'] = 'Inv'  
-                    csvdict.append(lineshow)
-       
-    else:
-        form = formprocessarsisbr()
-    return render(request, 'processarsisbr.html',
-                  {
-                      'form': form,
-                      'csvdict': csvdict,
-                  })
+class processarsisbr(ListView):
+    
+    model = Article
+
+    def get_context_data(self, **kwargs):
+        context = super(ArticleListView, self).get_context_data(**kwargs)
+        return context
