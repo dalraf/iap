@@ -199,7 +199,7 @@ class sisbrcsv(models.Model):
                     if line[value] == '1':
                         produto = key
                         if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
-                            transacao_val = transacao.objects.get(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key))
+                            transacao_val = transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).first()
                             status = True
                         else:
                             transacao_val = None
