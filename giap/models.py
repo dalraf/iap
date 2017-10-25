@@ -168,6 +168,7 @@ class sisbrcsv(models.Model):
 
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
+        sisbrprocessa.objects.filter(sisbrcsv=self).delete()
         sisbrtipodeproduto = {
         0: 'TEM_EMPRESTIMO',
         2: 'TEM_FINANCIAMENTO',
