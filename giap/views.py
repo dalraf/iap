@@ -5,7 +5,7 @@ from django.shortcuts import get_object_or_404, redirect, render, reverse
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr, pesquisaform
 
 from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv, sisbrprocessa
 
@@ -394,8 +394,19 @@ class sisbrprocessalist(ListView):
     
     model = sisbrprocessa
 
+    paginate_by = 10
+
     template_name = 'sisbrprocessalist.html'
+
+    def get_queryset(self):
+        filter_val = self.request.GET.get('filter', '')
+        order = self.request.GET.get('orderby', 'numcpfcpnj')
+        new_context = sisbrprocessa.objects.filter(
+            numcpfcpnj=filter_val,
+        ).order_by(order)
+        return new_context
 
     def get_context_data(self, **kwargs):
         context = super(sisbrprocessalist, self).get_context_data(**kwargs)
+        context['form'] = pesquisaform
         return context

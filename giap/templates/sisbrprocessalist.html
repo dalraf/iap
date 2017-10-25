@@ -1,4 +1,17 @@
 {% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
+<form method="get" class="form">
+        {% csrf_token %}
+        <div class="row">
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-8">
+                {% bootstrap_form form size="small"%}
+            </div>
+            <div class="col-md-3">
+                <input type="submit" name="Salvar" value="Filtrar" class="btn btn-default">
+            </div>
+        </div>
+    </form>
 <div class="row">
     <div class="col-md-1">
     </div>

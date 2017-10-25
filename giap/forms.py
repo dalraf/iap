@@ -5,10 +5,6 @@ from giap.models import cliente, cooperativa, central, pa, transacao, sisbrcsv
 from django.forms.extras.widgets import SelectDateWidget
 
 
-class pesquisa(forms.Form):
-    filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
-
-
 formcentral = modelform_factory(central,
                                 fields=("sigla_central", "numcentral", "id"),
                                 )
@@ -40,3 +36,11 @@ formsisbrcsv = modelform_factory(sisbrcsv,
 
 class formprocessarsisbr(forms.Form):
     datareferencia = forms.ModelChoiceField(label='Data de referência',queryset=sisbrcsv.objects.all(),required=False,empty_label=None)
+
+
+class pesquisa(forms.Form):
+    filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
+
+class pesquisaform(forms.Form):
+        filtro = forms.CharField(label='Filtrar', required=False, max_length=100)
+        ordem = forms.CharField(label='Ordem', required=False, max_length=100)
