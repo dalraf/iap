@@ -195,7 +195,11 @@ class sisbrcsv(models.Model):
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
                         produto = produtodict[key]
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv,numcpfcpnj=numcpfcpnj,produto=produto)
+                        if transacao.objects.filter(Q(cliente__numcpfcpnj=lineshow['CPF/CNPJ']) & Q(produto=key)).exists():
+                            status = True
+                        else:
+                            status = False  
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv,numcpfcpnj=numcpfcpnj,produto=produto,status=status)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
@@ -205,3 +209,4 @@ class sisbrprocessa(models.Model):
     numcpfcpnj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
     produto = models.IntegerField('Produto',)
+    status = models.BooleanField('Status',)
