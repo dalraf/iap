@@ -24,13 +24,13 @@
                                 
                             </th>
                             <th>
-                                {% get_verbose_field_name sisbrprocessa "numcpfcpnj" %}
+                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "numcpfcpnj" %}</b></h5>
                             </th>
                             <th>
-                                {% get_verbose_field_name sisbrprocessa "produto" %}
+                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
                             </th>
                             <th>
-                                {% get_verbose_field_name sisbrprocessa "status" %}
+                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "status" %}</b></h5>
                             </th>
                         </tr>
                     </thead>
@@ -38,16 +38,16 @@
                     {% endif %}
                  <tr>
                     <td>
-                        {{ sisbrprocessa.sisbrcsv }}
+                        <p class="text-center">{{ sisbrprocessa.sisbrcsv }}</p>
                     </td>
                     <td>
-                        {{ sisbrprocessa.numcpfcpnj }}
+                        <p class="text-center">{{ sisbrprocessa.numcpfcpnj }}</p>
                     </td>
                     <td>
-                        {{ sisbrprocessa.produto }}
+                        <p class="text-center">{{ sisbrprocessa.produto }}</p>
                     </td>
                     <td>
-                        {{ sisbrprocessa.status }}
+                        <p class="text-center">{{ sisbrprocessa.status }}</p>
                     </td>
                 </tr>
                 {% if forloop.last %}
