@@ -7,7 +7,7 @@ from django.forms import modelformset_factory
 
 from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr
 
-from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv
+from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv, sisbrprocessa
 
 from django.views.generic.edit import FormView
 
@@ -388,10 +388,10 @@ def listarsisbrcsv(request):
 
 
 @login_required
-class processarsisbr(ListView):
+class sisbrprocessalist(ListView):
     
-    model = Article
+    model = sisbrprocessa
 
     def get_context_data(self, **kwargs):
-        context = super(ArticleListView, self).get_context_data(**kwargs)
+        context = super(sisbrprocessalist, self).get_context_data(**kwargs)
         return context
