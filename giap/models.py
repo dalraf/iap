@@ -168,7 +168,6 @@ class sisbrcsv(models.Model):
 
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
-        produtodict = dict(transacao._meta.get_field('produto').flatchoices)
         sisbrtipodeproduto = {
         0: 'TEM_EMPRESTIMO',
         2: 'TEM_FINANCIAMENTO',
@@ -194,12 +193,12 @@ class sisbrcsv(models.Model):
                     numcpfcpnj = "%s.%s.%s-%s" % ( line['NUMCPFCNPJ'][0:3], line['NUMCPFCNPJ'][3:6], line['NUMCPFCNPJ'][6:9], line['NUMCPFCNPJ'][9:11])
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
-                        produto = produtodict[key]
+                        produto = key
                         if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
                             status = True
                         else:
                             status = False  
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv,numcpfcpnj=numcpfcpnj,produto=produto,status=status)
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,status=status)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
