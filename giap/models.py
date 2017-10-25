@@ -149,6 +149,9 @@ class transacao(models.Model):
     vencimento = models.DateField('Vencimento', default=timezone.now(
     ) + timedelta(days=30), validators=[validate_vencimento])
 
+    def __unicode__(self):
+        return str(self.id)
+
     def clean(self):
         if transacao.objects.filter(Q(cliente=self.cliente) & Q(produto=self.produto) & ~Q(id=self.id)).exists():
             raise ValidationError(_('Produto já existe para esse cliente'))
@@ -206,7 +209,10 @@ class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
     sisbrcsv = models.ForeignKey(
         'sisbrcsv', verbose_name='Data de referência', on_delete=models.CASCADE)
+    transacao = models.ForeignKey(
+        'transacao', verbose_name='Transação', on_delete=models.CASCADE, null=True, blank=True)
     numcpfcpnj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO)
     status = models.BooleanField('Status',)
+

@@ -399,11 +399,8 @@ class sisbrprocessalist(ListView):
     template_name = 'sisbrprocessalist.html'
 
     def get_queryset(self):
-        if self.request.GET.get('datareferencia'):
-            datareferencia = self.request.GET.get('datareferencia')
-        else:
-            datareferencia = ''
-        context = sisbrprocessa.objects.filter(sisbrcsv.datareferencia=datareferencia,).order_by('numcpfcpnj')
+        datareferencia_val = self.request.GET.get('datareferencia')
+        context = sisbrprocessa.objects.filter(sisbrcsv__datareferencia=datareferencia_val).order_by('numcpfcpnj')
         return context
 
     def get_context_data(self, **kwargs):
