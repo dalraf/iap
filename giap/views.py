@@ -401,9 +401,7 @@ class sisbrprocessalist(ListView):
     def get_queryset(self):
         filter_val = self.request.GET.get('filter', '')
         order = self.request.GET.get('orderby', 'numcpfcpnj')
-        new_context = sisbrprocessa.objects.filter(
-            numcpfcpnj=filter_val,
-        ).order_by(order)
+        new_context = sisbrprocessa.objects.filter(numcpfcpnj__contains=filter_val,).order_by(order)
         return new_context
 
     def get_context_data(self, **kwargs):
