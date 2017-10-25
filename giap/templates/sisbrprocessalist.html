@@ -1,0 +1,30 @@
+{% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
+<div class="row">
+    <div class="col-md-1">
+    </div>
+    <div class="col-md-8">
+        <table class="table table-bordered table-striped table-condensed table-responsive">
+            <tbody>
+                {% for sisbrprocessa in object_list %}    
+                <tr>
+                    <td>
+                        {{ sisbrprocessa.sisbrcsv }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.numcpfcpnj }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.produto }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.status }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+</div>
+{% endblock content %}

@@ -394,6 +394,8 @@ class sisbrprocessalist(ListView):
     
     model = sisbrprocessa
 
+    template_name = 'sisbrprocessalist.html'
+
     def get_context_data(self, **kwargs):
         context = super(sisbrprocessalist, self).get_context_data(**kwargs)
         return context
