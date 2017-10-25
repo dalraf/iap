@@ -13,6 +13,8 @@ from django.views.generic.edit import FormView
 
 from django.contrib.auth.decorators import login_required, permission_required
 
+from django.utils.decorators import method_decorator
+
 from collections import OrderedDict
 
 from django.utils import timezone
@@ -387,7 +389,7 @@ def listarsisbrcsv(request):
     return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
 
 
-@login_required
+@method_decorator(login_required, name='dispatch')
 class sisbrprocessalist(ListView):
     
     model = sisbrprocessa
