@@ -32,6 +32,9 @@
                             <th>
                                 <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "status" %}</b></h5>
                             </th>
+                            <th>
+                                    <h5 class="text-center"><b>Trancação</b></h5>
+                            </th>
                         </tr>
                     </thead>
             <tbody>
@@ -49,6 +52,9 @@
                     <td>
                         <p class="text-center">{{ sisbrprocessa.status }}</p>
                     </td>
+                    <td>
+                        <p class="text-center">{{ sisbrprocessa.transacao }}</p>
+                    </td>    
                 </tr>
                 {% if forloop.last %}
             </tbody>

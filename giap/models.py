@@ -199,10 +199,12 @@ class sisbrcsv(models.Model):
                     if line[value] == '1':
                         produto = key
                         if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
+                            transacao_val = transacao.objects.get(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key))
                             status = True
                         else:
-                            status = False  
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,status=status)
+                            transacao_val = None
+                            status = False
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,status=status,transacao=transacao_val)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
