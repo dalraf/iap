@@ -208,5 +208,5 @@ class sisbrprocessa(models.Model):
         'sisbrcsv', verbose_name='Data de referência', on_delete=models.CASCADE)
     numcpfcpnj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
-    produto = models.IntegerField('Produto',)
+    produto = models.IntegerField('Produto', choices=TIPOPRODUTO)
     status = models.BooleanField('Status',)
