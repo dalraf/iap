@@ -19,6 +19,10 @@ import uuid
 
 import os
 
+from django.conf import settings
+
+import csv
+
 
 def validate_cpfcpnj(value):
     if not cpfcnpj.validate(str(value)):
@@ -164,9 +168,35 @@ class sisbrcsv(models.Model):
 
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
-        
-        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv)
-
+        produtodict = dict(transacao._meta.get_field('produto').flatchoices)
+            sisbrtipodeproduto = {
+        0: 'TEM_EMPRESTIMO',
+        2: 'TEM_FINANCIAMENTO',
+        3: 'TEM_PREAPROVADO',
+        4: 'TEM_CREDITORURAL',
+        5: 'TEM_CHEQUEESPECIAL',
+        6: 'TEM_CARTAOCREDITO',
+        7: 'TEM_CARTAODEBITO',
+        8: 'TEM_RDC',
+        9: 'TEM_POUPANCA',
+        10: 'TEM_CONSORCIO',
+        11: 'TEM_SICOOBPREVI',
+        12: 'TEM_SIPAG',
+        13: 'TEM_DEMAISSEGUROS',
+        14: 'TEM_SEGUROVIDA',
+        15: 'TEM_DEBITOAUTOMATICO',
+        }
+        csvfile = settings.MEDIA_ROOT + "/" + self.sisbrcsvfile.name
+        csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','), dialect=csv.excel)
+        for line in csvfileopen:
+           if line['NUMCPFCNPJ'] != '':
+                if len(line['NUMCPFCNPJ']) == 11:
+                    numcpfcpnj = "%s.%s.%s-%s" % ( line['NUMCPFCNPJ'][0:3], line['NUMCPFCNPJ'][3:6], line['NUMCPFCNPJ'][6:9], line['NUMCPFCNPJ'][9:11])
+                for key, value in sisbrtipodeproduto.items():
+                    if line[value] == '1':
+                        produto = produtodict[key]
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self.sisbrcsv,numcpfcpnj=numcpfcpnj,produto=produto)
+                        sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
