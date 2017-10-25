@@ -406,7 +406,7 @@ class sisbrprocessalist(ListView):
             filtro = self.request.GET.get('filtro')
         else:
             filtro = ''
-        context = sisbrprocessa.objects.filter(numcpfcpnj__contains=filtro,)
+        context = sisbrprocessa.objects.filter(numcpfcpnj__contains=filtro,).order_by('numcpfcpnj')
         return context
 
     def get_context_data(self, **kwargs):
