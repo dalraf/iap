@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %}
+{% extends 'base.html' %} {% block content %}{% load bootstrap3 %}{% bootstrap_messages %}
 <form method="get" class="form">
         {% csrf_token %}
         <div class="row">
@@ -16,7 +16,43 @@
     <div class="col-md-1">
     </div>
     <div class="col-md-8">
-            {% render_table object_list %}
+        <table class="table table-bordered table-striped table-condensed table-responsive">
+                <thead class="thead-inverse">
+                        <tr>
+                            <th>
+                                Data
+                            </th>
+                            <th>
+                                CPF/CNPF
+                            </th>
+                            <th>
+                                Produto
+                            </th>
+                            <th>
+                                Status
+                            </th>
+                        </tr>
+                    </thead>
+            <tbody>
+                {% for sisbrprocessa in object_list %}    
+                <tr>
+                    <td>
+                        {{ sisbrprocessa.sisbrcsv }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.numcpfcpnj }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.produto }}
+                    </td>
+                    <td>
+                        {{ sisbrprocessa.status }}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
     </div>
 
 </div>
