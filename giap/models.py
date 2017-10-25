@@ -195,7 +195,7 @@ class sisbrcsv(models.Model):
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
                         produto = produtodict[key]
-                        if transacao.objects.filter(Q(cliente__numcpfcpnj=lineshow['CPF/CNPJ']) & Q(produto=key)).exists():
+                        if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
                             status = True
                         else:
                             status = False  
