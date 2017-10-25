@@ -396,9 +396,6 @@ def listarsisbrcsv(request):
 class sisbrprocessalist(ListView):
     
     model = sisbrprocessa
-
-    paginate_by = 10
-
     template_name = 'sisbrprocessalist.html'
 
     def get_queryset(self):
