@@ -169,7 +169,7 @@ class sisbrcsv(models.Model):
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
         produtodict = dict(transacao._meta.get_field('produto').flatchoices)
-            sisbrtipodeproduto = {
+        sisbrtipodeproduto = {
         0: 'TEM_EMPRESTIMO',
         2: 'TEM_FINANCIAMENTO',
         3: 'TEM_PREAPROVADO',
