@@ -30,9 +30,6 @@
                                 <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
                             </th>
                             <th>
-                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "status" %}</b></h5>
-                            </th>
-                            <th>
                                     <h5 class="text-center"><b>Transação</b></h5>
                             </th>
                             <th>
@@ -47,13 +44,14 @@
                         <p class="text-center">{{ sisbrprocessa.sisbrcsv }}</p>
                     </td>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.numcpfcpnj }}</p>
+                        <p class="text-center">{{ sisbrprocessa.numcpfcpnj }}
+                        {% if not sisbrprocessa.statuscpjcnpj %}
+                        <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                        {% endif %}
+                        </p>
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.get_produto_display }}</p>
-                    </td>
-                    <td>
-                        <p class="text-center">{{ sisbrprocessa.status }}</p>
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.transacao }}</p>

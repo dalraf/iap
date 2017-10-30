@@ -216,5 +216,12 @@ class sisbrprocessa(models.Model):
     numcpfcpnj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO)
-    status = models.BooleanField('Status',)
+
+    @property
+    def statuscpjcnpj(self):
+        if cliente.objects.filter(numcpfcpnj=self.numcpfcpnj).exists():
+            return True
+        else:
+            return False
+    
 
