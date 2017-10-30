@@ -224,4 +224,9 @@ class sisbrprocessa(models.Model):
         else:
             return False
     
-
+    @property
+    def statustransacao(self):
+        if cliente.objects.filter(transacao=self.transacao).exists():
+            return True
+        else:
+            return False

@@ -45,16 +45,20 @@
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.numcpfcpnj }}
-                        {% if not sisbrprocessa.statuscpjcnpj %}
-                        <a href=""><span class="glyphicon glyphicon-plus"></span></a>
-                        {% endif %}
+                            {% if not sisbrprocessa.statuscpjcnpj %}
+                            <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                            {% endif %}
                         </p>
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.get_produto_display }}</p>
                     </td>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.transacao }}</p>
+                        <p class="text-center">{{ sisbrprocessa.transacao }}
+                            {% if not sisbrprocessa.transacao %}
+                            <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                            {% endif %}
+                        </p>
                     </td>   
                     <td>
                         <p class="text-center">{{ sisbrprocessa.transacao.usuario }}</p>
