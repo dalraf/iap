@@ -401,7 +401,10 @@ class sisbrprocessalist(ListView):
     template_name = 'sisbrprocessalist.html'
 
     def get_queryset(self):
-        sisbrcsv_val = self.request.GET.get('sisbrcsv')
+        if self.request.GET.get('sisbrcsv'):
+            sisbrcsv_val = self.request.GET.get('sisbrcsv')
+        else:
+            sisbrcsv_val = sisbrcsv.objects.all().first()
         context = sisbrprocessa.objects.filter(sisbrcsv=sisbrcsv_val).order_by('numcpfcnpj')
         return context
 
@@ -421,7 +424,7 @@ class addtransacao(CreateView):
     model = transacao
     success_url=reverse_lazy('sisbrprocessalist')
     template_name = 'addtransacao.html'
-    fields = ['cliente','produto','usuario','data','vencimento']
+    fields = ['cliente','produto','usuario','data','vencimento','grupo']
     def get_initial(self):
         initial = {}
         initial['cliente'] = self.kwargs['cliente']
