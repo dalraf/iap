@@ -198,39 +198,29 @@ class sisbrcsv(models.Model):
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
                         produto = key
-                        if transacao.objects.filter(Q(cliente__numcpfcnpj=numcpfcnpj) & Q(produto=key)).exists():
-                            transacao_val = transacao.objects.filter(Q(cliente__numcpfcnpj=numcpfcnpj) & Q(produto=key)).first()
-                        else:
-                            transacao_val = None
-                        if cliente.objects.filter(Q(numcpfcnpj=numcpfcnpj)).exists():
-                            cliente_val = cliente.objects.filter(Q(numcpfcnpj=numcpfcnpj)).first()
-                        else:
-                            cliente_val = None
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcnpj=numcpfcnpj,produto=produto,transacao=transacao_val,cliente=cliente_val)
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcnpj=numcpfcnpj,produto=produto,)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
     sisbrcsv = models.ForeignKey(
         'sisbrcsv', verbose_name='Data de referência', on_delete=models.CASCADE)
-    cliente = models.ForeignKey(
-        'cliente', verbose_name='Cliente', on_delete=models.CASCADE, null=True, blank=True)
-    transacao = models.ForeignKey(
-        'transacao', verbose_name='Transação', on_delete=models.CASCADE, null=True, blank=True)
     numcpfcnpj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO)
 
     @property
-    def statuscpfcnpj(self):
+    def cliente(self):
         if cliente.objects.filter(numcpfcnpj=self.numcpfcnpj).exists():
-            return True
+            cliente_val = cliente.objects.filter(numcpfcnpj=self.numcpfcnpj).first()            
         else:
-            return False
+            cliente_val = None
+        return cliente_val
     
     @property
-    def statustransacao(self):
-        if cliente.objects.filter(transacao=self.transacao).exists():
-            return True
+    def transacao(self):
+        if transacao.objects.filter(Q(cliente__numcpfcnpj=self.numcpfcnpj) & Q(produto=self.produto)).exists():
+            transacao_val = transacao.objects.filter(Q(cliente__numcpfcnpj=self.numcpfcnpj) & Q(produto=self.produto)).first()            
         else:
-            return False
+            transacao_val = None
+        return transacao_val
