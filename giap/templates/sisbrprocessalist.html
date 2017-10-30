@@ -55,8 +55,8 @@
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.transacao }}
-                            {% if not sisbrprocessa.transacao %}
-                            <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                            {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
+                            <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-plus"></span></a>
                             {% endif %}
                         </p>
                     </td>   

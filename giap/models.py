@@ -200,17 +200,21 @@ class sisbrcsv(models.Model):
                         produto = key
                         if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
                             transacao_val = transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).first()
-                            status = True
                         else:
                             transacao_val = None
-                            status = False
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,status=status,transacao=transacao_val)
+                        if cliente.objects.filter(Q(numcpfcpnj=numcpfcpnj)).exists():
+                            cliente_val = cliente.objects.filter(Q(numcpfcpnj=numcpfcpnj)).first()
+                        else:
+                            cliente_val = None
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,transacao=transacao_val,cliente=cliente_val)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
     sisbrcsv = models.ForeignKey(
         'sisbrcsv', verbose_name='Data de referência', on_delete=models.CASCADE)
+    cliente = models.ForeignKey(
+        'cliente', verbose_name='Cliente', on_delete=models.CASCADE, null=True, blank=True)
     transacao = models.ForeignKey(
         'transacao', verbose_name='Transação', on_delete=models.CASCADE, null=True, blank=True)
     numcpfcpnj = models.CharField(

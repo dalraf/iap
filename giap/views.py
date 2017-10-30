@@ -25,11 +25,11 @@ from django.db.models import Q
 
 from django.views.generic.list import ListView
 
+from django.views.generic.edit import CreateView
+
 from django.conf import settings
 
 import csv
-
-from django.views.generic.list import ListView
 
 # Create your views here.
 
@@ -410,3 +410,18 @@ class sisbrprocessalist(ListView):
         else:
             context['form'] = formprocessarsisbr
         return context
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('giap.add_sisbrcsv', raise_exception=True),name='dispatch')
+@method_decorator(permission_required('giap.change_sisbrcsv', raise_exception=True), name='dispatch')
+@method_decorator(permission_required('giap.delete_sisbrcsv', raise_exception=True), name='dispatch')
+class addtransacao(CreateView):
+    model = transacao
+    template_name = 'addtransacao.html'
+    fields = ['cliente','produto','usuario','data','vencimento']
+    def get_initial(self):
+        initial = {}
+        initial['cliente'] = self.kwargs['cliente']
+        initial['produto'] = self.kwargs['produto']
+        initial['usuario'] = self.request.user.username
+        return initial

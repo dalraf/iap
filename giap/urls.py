@@ -21,4 +21,5 @@ urlpatterns = [
     url(r'^editaddsisbrcsv/(?P<id>[0-9]+|new)/$', editaddsisbrcsv, name='editaddsisbrcsv'),
     url(r'^listarsisbrcsv/$', listarsisbrcsv, name='listarsisbrcsv'),
     url(r'^sisbrprocessalist/$', sisbrprocessalist.as_view(), name='sisbrprocessalist'),
+    url(r'^addtransacao/(?P<cliente>[0-9]+)/(?P<produto>[0-9]+)/$', addtransacao.as_view(), name='addtransacao'),
 ]
