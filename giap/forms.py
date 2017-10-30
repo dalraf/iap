@@ -19,7 +19,7 @@ formpa = modelform_factory(pa,
                            )
 
 formcliente = modelform_factory(cliente,
-                                fields=("nome_cliente", "numcpfcpnj",
+                                fields=("nome_cliente", "numcpfcnpj",
                                         "tipodepessoa", "pa"),
                                 )
 

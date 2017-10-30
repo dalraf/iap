@@ -28,7 +28,7 @@
         width: 300px;
     }
 
-    #id_numcpfcpnj {
+    #id_numcpfcnpj {
         width: 150px;
     }
 
@@ -102,18 +102,18 @@
         $('#id_vencimento').datepicker();
         $('#id_datareferencia').datepicker();
         if ($('#id_tipodepessoa').val() == '0') {
-            $("#id_numcpfcpnj").mask('000.000.000-00', { reverse: true });
+            $("#id_numcpfcnpj").mask('000.000.000-00', { reverse: true });
         }
         if ($('#id_tipodepessoa').val() == '1') {
-            $("#id_numcpfcpnj").mask('00.000.000/0000-00', { reverse: true });
+            $("#id_numcpfcnpj").mask('00.000.000/0000-00', { reverse: true });
         }
     });
     $('#id_tipodepessoa').change(function () {
         if ($(this).val() == '0') {
-            $("#id_numcpfcpnj").mask('000.000.000-00', { reverse: true });
+            $("#id_numcpfcnpj").mask('000.000.000-00', { reverse: true });
         }
         if ($(this).val() == '1') {
-            $("#id_numcpfcpnj").mask('00.000.000/0000-00', { reverse: true });
+            $("#id_numcpfcnpj").mask('00.000.000/0000-00', { reverse: true });
         }
     });
 

@@ -24,7 +24,7 @@
                                 <h5 class="text-center"><b>Data Ref.</b></h5>
                             </th>
                             <th>
-                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "numcpfcpnj" %}</b></h5>
+                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "numcpfcnpj" %}</b></h5>
                             </th>
                             <th>
                                 <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
@@ -44,9 +44,9 @@
                         <p class="text-center">{{ sisbrprocessa.sisbrcsv }}</p>
                     </td>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.numcpfcpnj }}
-                            {% if not sisbrprocessa.statuscpjcnpj %}
-                            <a href=""><span class="glyphicon glyphicon-plus"></span></a>
+                        <p class="text-center">{{ sisbrprocessa.numcpfcnpj }}
+                            {% if not sisbrprocessa.statuscpfcnpj %}
+                            <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-plus"></span></a>
                             {% endif %}
                         </p>
                     </td>
@@ -55,7 +55,7 @@
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.transacao }}
-                            {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
+                            {% if not sisbrprocessa.statustransacao and sisbrprocessa.statuscpjcnpj %}
                             <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-plus"></span></a>
                             {% endif %}
                         </p>

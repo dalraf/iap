@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import get_object_or_404, redirect, render, reverse
 
+from django.core.urlresolvers import reverse_lazy
+
 from django.forms import modelformset_factory
 
 from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr
@@ -288,7 +290,7 @@ def listarcliente(request):
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
             listaget = list(cliente.objects.filter(
-                Q(nome_cliente__contains=filtro) | Q(numcpfcpnj__contains=filtro)).values())
+                Q(nome_cliente__contains=filtro) | Q(numcpfcnpj__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(cliente.objects.all().values())
@@ -300,7 +302,7 @@ def listarcliente(request):
         j['id'] = i['id']
         j[cliente._meta.get_field(
             'nome_cliente').verbose_name] = i['nome_cliente']
-        j[cliente._meta.get_field('numcpfcpnj').verbose_name] = i['numcpfcpnj']
+        j[cliente._meta.get_field('numcpfcnpj').verbose_name] = i['numcpfcnpj']
         j[cliente._meta.get_field(
             'tipodepessoa').verbose_name] = tipodepessoadict[i['tipodepessoa']]
         idpa = i['pa_id']
@@ -331,7 +333,7 @@ def listartransacao(request):
         if form.is_valid():
             filtro = form.cleaned_data['filtro']
             listaget = list(transacao.objects.filter(Q(cliente__nome_cliente__contains=filtro) | Q(
-                cliente__numcpfcpnj__contains=filtro)).values())
+                cliente__numcpfcnpj__contains=filtro)).values())
     else:
         form = pesquisa()
         listaget = list(transacao.objects.all().values())
@@ -400,7 +402,7 @@ class sisbrprocessalist(ListView):
 
     def get_queryset(self):
         sisbrcsv_val = self.request.GET.get('sisbrcsv')
-        context = sisbrprocessa.objects.filter(sisbrcsv=sisbrcsv_val).order_by('numcpfcpnj')
+        context = sisbrprocessa.objects.filter(sisbrcsv=sisbrcsv_val).order_by('numcpfcnpj')
         return context
 
     def get_context_data(self, **kwargs):
@@ -417,6 +419,7 @@ class sisbrprocessalist(ListView):
 @method_decorator(permission_required('giap.delete_sisbrcsv', raise_exception=True), name='dispatch')
 class addtransacao(CreateView):
     model = transacao
+    success_url=reverse_lazy('sisbrprocessalist')
     template_name = 'addtransacao.html'
     fields = ['cliente','produto','usuario','data','vencimento']
     def get_initial(self):
@@ -425,3 +428,20 @@ class addtransacao(CreateView):
         initial['produto'] = self.kwargs['produto']
         initial['usuario'] = self.request.user.username
         return initial
+
+@method_decorator(login_required, name='dispatch')
+@method_decorator(permission_required('giap.add_sisbrcsv', raise_exception=True),name='dispatch')
+@method_decorator(permission_required('giap.change_sisbrcsv', raise_exception=True), name='dispatch')
+@method_decorator(permission_required('giap.delete_sisbrcsv', raise_exception=True), name='dispatch')
+class addcliente(CreateView):
+    model = cliente
+    success_url=reverse_lazy('sisbrprocessalist')
+    template_name = 'addtransacao.html'
+    fields = ['pa','tipodepessoa','numcpfcnpj','nome_cliente','usuario']
+    def get_initial(self):
+        initial = {}
+        initial['numcpfcnpj'] = self.kwargs['numcpfcnpj']
+        initial['usuario'] = self.request.user.username
+        return initial
+
+    

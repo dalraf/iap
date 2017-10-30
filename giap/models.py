@@ -24,7 +24,7 @@ from django.conf import settings
 import csv
 
 
-def validate_cpfcpnj(value):
+def validate_cpfcnpj(value):
     if not cpfcnpj.validate(str(value)):
         raise ValidationError(
             _('%(value)s inválido (CPF/CNPJ Inválido)'),
@@ -102,8 +102,8 @@ class cliente(models.Model):
         'pa', verbose_name='Cooperativa/PA', on_delete=models.CASCADE)
     tipodepessoa = models.IntegerField(
         'Tipo de Pessoa', choices=PFPJ, default=0)
-    numcpfcpnj = models.CharField(
-        'Número do CPF/CNPJ', max_length=18, validators=[validate_cpfcpnj])
+    numcpfcnpj = models.CharField(
+        'Número do CPF/CNPJ', max_length=18, validators=[validate_cpfcnpj])
     nome_cliente = models.CharField('Nome', max_length=50,)
     usuario = models.CharField('Usuario', max_length=150,)
     data = models.DateTimeField(
@@ -194,19 +194,19 @@ class sisbrcsv(models.Model):
         for line in csvfileopen:
            if line['NUMCPFCNPJ'] != '':
                 if len(line['NUMCPFCNPJ']) == 11:
-                    numcpfcpnj = "%s.%s.%s-%s" % ( line['NUMCPFCNPJ'][0:3], line['NUMCPFCNPJ'][3:6], line['NUMCPFCNPJ'][6:9], line['NUMCPFCNPJ'][9:11])
+                    numcpfcnpj = "%s.%s.%s-%s" % ( line['NUMCPFCNPJ'][0:3], line['NUMCPFCNPJ'][3:6], line['NUMCPFCNPJ'][6:9], line['NUMCPFCNPJ'][9:11])
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
                         produto = key
-                        if transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).exists():
-                            transacao_val = transacao.objects.filter(Q(cliente__numcpfcpnj=numcpfcpnj) & Q(produto=key)).first()
+                        if transacao.objects.filter(Q(cliente__numcpfcnpj=numcpfcnpj) & Q(produto=key)).exists():
+                            transacao_val = transacao.objects.filter(Q(cliente__numcpfcnpj=numcpfcnpj) & Q(produto=key)).first()
                         else:
                             transacao_val = None
-                        if cliente.objects.filter(Q(numcpfcpnj=numcpfcpnj)).exists():
-                            cliente_val = cliente.objects.filter(Q(numcpfcpnj=numcpfcpnj)).first()
+                        if cliente.objects.filter(Q(numcpfcnpj=numcpfcnpj)).exists():
+                            cliente_val = cliente.objects.filter(Q(numcpfcnpj=numcpfcnpj)).first()
                         else:
                             cliente_val = None
-                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcpnj=numcpfcpnj,produto=produto,transacao=transacao_val,cliente=cliente_val)
+                        sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcnpj=numcpfcnpj,produto=produto,transacao=transacao_val,cliente=cliente_val)
                         sisbrprocessainst.save()
 
 class sisbrprocessa(models.Model):
@@ -217,13 +217,13 @@ class sisbrprocessa(models.Model):
         'cliente', verbose_name='Cliente', on_delete=models.CASCADE, null=True, blank=True)
     transacao = models.ForeignKey(
         'transacao', verbose_name='Transação', on_delete=models.CASCADE, null=True, blank=True)
-    numcpfcpnj = models.CharField(
+    numcpfcnpj = models.CharField(
         'Número do CPF/CNPJ', max_length=18,)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO)
 
     @property
-    def statuscpjcnpj(self):
-        if cliente.objects.filter(numcpfcpnj=self.numcpfcpnj).exists():
+    def statuscpfcnpj(self):
+        if cliente.objects.filter(numcpfcnpj=self.numcpfcnpj).exists():
             return True
         else:
             return False
