@@ -30,9 +30,6 @@
                                 <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
                             </th>
                             <th>
-                                    <h5 class="text-center"><b>Transação</b></h5>
-                            </th>
-                            <th>
                                 <h5 class="text-center"><b>Usuário</b></h5>
                             </th>
                         </tr>
@@ -51,15 +48,12 @@
                         </p>
                     </td>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.get_produto_display }}</p>
-                    </td>
-                    <td>
-                        <p class="text-center">{{ sisbrprocessa.transacao }}
-                            {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
-                            <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-plus"></span></a>
-                            {% endif %}
+                        <p class="text-center">{{ sisbrprocessa.get_produto_display }}
+                        {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
+                        <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+                        {% endif %}
                         </p>
-                    </td>   
+                    </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.transacao.usuario }}</p>
                     </td>  
