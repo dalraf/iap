@@ -50,7 +50,7 @@ class central(models.Model):
         'Nome', unique=True, help_text='Nome da Central', max_length=50,)
     numcentral = models.DecimalField(
         'Número', unique=True, help_text='Número da Central, máx. 4 dígitos', max_digits=4, decimal_places=0, )
-    usuario = models.CharField('Usuario', max_length=150,)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
 
@@ -66,7 +66,7 @@ class cooperativa(models.Model):
         'Número', unique=True, help_text='Número da Cooperativa, máx. 4 dígitos', max_digits=4, decimal_places=0)
     central = models.ForeignKey(
         'central', verbose_name='Central', on_delete=models.CASCADE)
-    usuario = models.CharField('Usuario', max_length=150,)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
 
@@ -80,7 +80,7 @@ class pa(models.Model):
     numpa = models.DecimalField('Número do PA', max_digits=4, decimal_places=0)
     cooperativa = models.ForeignKey(
         'cooperativa', verbose_name='Cooperativa', on_delete=models.CASCADE)
-    usuario = models.CharField('Usuario', max_length=150,)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
 
@@ -107,7 +107,7 @@ class cliente(models.Model):
     numcpfcnpj = models.CharField(
         'Número do CPF/CNPJ', max_length=18, validators=[validate_cpfcnpj])
     nome_cliente = models.CharField('Nome', max_length=50,)
-    usuario = models.CharField('Usuario', max_length=150,)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
 
@@ -160,6 +160,7 @@ def update_filename(instance, filename):
 class sisbrcsv(models.Model):
     id = models.AutoField(primary_key=True)
     datareferencia = models.DateField('Data de referência',default=timezone.now().date().replace(day=1),)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     sisbrcsvfile = models.FileField('Arquivo csv',upload_to=update_filename)
 
     def __unicode__(self):
@@ -168,23 +169,7 @@ class sisbrcsv(models.Model):
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
         sisbrprocessa.objects.filter(sisbrcsv=self).delete()
-        sisbrtipodeproduto = {
-        0: 'TEM_EMPRESTIMO',
-        2: 'TEM_FINANCIAMENTO',
-        3: 'TEM_PREAPROVADO',
-        4: 'TEM_CREDITORURAL',
-        5: 'TEM_CHEQUEESPECIAL',
-        6: 'TEM_CARTAOCREDITO',
-        7: 'TEM_CARTAODEBITO',
-        8: 'TEM_RDC',
-        9: 'TEM_POUPANCA',
-        10: 'TEM_CONSORCIO',
-        11: 'TEM_SICOOBPREVI',
-        12: 'TEM_SIPAG',
-        13: 'TEM_DEMAISSEGUROS',
-        14: 'TEM_SEGUROVIDA',
-        15: 'TEM_DEBITOAUTOMATICO',
-        }
+        sisbrtipodeproduto = dict(TIPOPRODUTO)
         csvfile = settings.MEDIA_ROOT + "/" + self.sisbrcsvfile.name
         csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','), dialect=csv.excel)
         for line in csvfileopen:
@@ -202,7 +187,7 @@ class sisbrcsv(models.Model):
                     nome_cliente = line['NOME_CLIENTE']
                     numpa = pa.objects.filter(numpa=line['NUMPA'].cooperativa.numcooperativa=line['NUMCOOPERATIVA'])
                     tipodepessoa = dict((v,k) for k, v in dict(PFPJ).iteritems())[line['TIPO DE PESSOA']]
-                    clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,numpa=numpa,tipodepesso=tipodepessoa)
+                    clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,numpa=numpa,tipodepesso=tipodepessoa,usuario=sisbrcsv.usuario,)
                     clientinst.save()
                     
 class sisbrprocessa(models.Model):
