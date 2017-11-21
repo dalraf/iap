@@ -7,7 +7,7 @@ from django.core.urlresolvers import reverse_lazy
 
 from django.forms import modelformset_factory
 
-from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr, formclientecorrecao
+from giap.forms import formcentral, formcooperativa, formpa, formcliente, formtransacao, pesquisa, formsisbrcsv, formprocessarsisbr, formclientecorrecao, formtransacaocorrecao
 
 from giap.models import central, cooperativa, pa, cliente, transacao, sisbrcsv, sisbrprocessa
 
@@ -419,9 +419,9 @@ class sisbrprocessalist(ListView):
 @method_decorator(permission_required('giap.delete_sisbrcsv', raise_exception=True), name='dispatch')
 class addtransacao(CreateView):
     model = transacao
+    form_class = formtransacaocorrecao
     success_url=reverse_lazy('sisbrprocessalist')
     template_name = 'addtransacao.html'
-    fields = ['cliente','produto','usuario','data','vencimento',]
     def get_initial(self):
         initial = {}
         initial['cliente'] = self.kwargs['cliente']

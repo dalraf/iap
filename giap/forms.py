@@ -34,6 +34,12 @@ formtransacao = modelform_factory(transacao,
                                           "vencimento"),
                                   )
 
+formtransacaocorrecao = modelform_factory(transacao,
+                                  fields=("cliente", "produto",
+                                          "vencimento"),
+                                  widgets={"cliente": forms.HiddenInput(), "produto": forms.HiddenInput()},
+                                  )
+
 
 formsisbrcsv = modelform_factory(sisbrcsv,
                                   fields=("datareferencia", "sisbrcsvfile",
