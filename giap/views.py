@@ -338,7 +338,6 @@ def listartransacao(request):
         form = pesquisa()
         listaget = list(transacao.objects.all().values())
     produtodict = dict(transacao._meta.get_field('produto').flatchoices)
-    grupodict = dict(transacao._meta.get_field('grupo').flatchoices)
     lista = []
     for i in listaget:
         j = OrderedDict()
@@ -348,8 +347,6 @@ def listartransacao(request):
             id=idcliente).nome_cliente
         j[transacao._meta.get_field(
             'produto').verbose_name] = produtodict[i['produto']]
-        j[transacao._meta.get_field(
-            'grupo').verbose_name] = grupodict[i['grupo']]
         j['Dias para vencer'] = (i['vencimento'] - timezone.now().date()).days
         j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
         j[transacao._meta.get_field('data').verbose_name] = i['data']
@@ -424,7 +421,7 @@ class addtransacao(CreateView):
     model = transacao
     success_url=reverse_lazy('sisbrprocessalist')
     template_name = 'addtransacao.html'
-    fields = ['cliente','produto','usuario','data','vencimento','grupo']
+    fields = ['cliente','produto','usuario','data','vencimento',]
     def get_initial(self):
         initial = {}
         initial['cliente'] = self.kwargs['cliente']

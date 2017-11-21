@@ -113,11 +113,6 @@ class cliente(models.Model):
         return self.nome_cliente
 
 
-GRUPOPRODUTOS = (
-    (0, 'Menor de 4000'),
-    (1, 'Mais de 4000'),
-)
-
 TIPOPRODUTO = (
     (0, 'Empréstimo'),
     (2, 'Financiamento'),
@@ -142,7 +137,6 @@ class transacao(models.Model):
     cliente = models.ForeignKey(
         'Cliente', verbose_name='Cliente', on_delete=models.CASCADE)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO,)
-    grupo = models.IntegerField('Grupo', choices=GRUPOPRODUTOS,)
     usuario = models.CharField('Usuario', max_length=150,)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
