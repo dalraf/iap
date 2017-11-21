@@ -206,11 +206,12 @@ class sisbrcsv(models.Model):
                     numcentral = line['NUMCENTRAL']
                     sigla_central = line['SIGLA_CENTRAL']
                     centralinst = central(numcentral=numcentral,sigla_central=sigla_central,usuario=self.usuario)
-
+                    centralinst.save()
+                    
                 if not cooperativa.objects.filter(numcooperativa=line['NUMCOOPERATIVA']).exists():
                     numcentral = line['NUMCENTRAL']
                     numcooperativa = line['NUMCOOPERATIVA']
-                    sigla_cooperativa = line['SIGLA_COOPERATIVA']
+                    sigla_cooperativa = line['SIGLA_SINGULAR']
                     centralinst = central.objects.get(numcentral=numcentral)
                     cooperativainst = cooperativa(central=centralinst,numcooperativa=numcooperativa,sigla_cooperativa=sigla_cooperativa,usuario=self.usuario)
                     cooperativainst.save()
