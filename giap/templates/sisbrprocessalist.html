@@ -29,9 +29,6 @@
                             <th>
                                 <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
                             </th>
-                            <th>
-                                <h5 class="text-center"><b>Usuário</b></h5>
-                            </th>
                         </tr>
                     </thead>
             <tbody>
@@ -55,9 +52,6 @@
                         {% endif %}
                         </p>
                     </td>
-                    <td>
-                        <p class="text-center">{{ sisbrprocessa.transacao.usuario }}</p>
-                    </td>  
                 </tr>
                 {% endif %}
                 {% if forloop.last %}

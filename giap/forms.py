@@ -36,7 +36,7 @@ formtransacao = modelform_factory(transacao,
 
 formtransacaocorrecao = modelform_factory(transacao,
                                   fields=("cliente", "produto",
-                                          "vencimento"),
+                                          "vencimento", "usuario"),
                                   widgets={"cliente": forms.HiddenInput(), "produto": forms.HiddenInput()},
                                   )
 
