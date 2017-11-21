@@ -36,7 +36,7 @@
                     </thead>
             <tbody>
                     {% endif %}
-                {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
+                {% if not sisbrprocessa.transacao or not sisbrprocessa.cliente %}
                  <tr>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.sisbrcsv }}</p>
