@@ -185,7 +185,7 @@ class sisbrcsv(models.Model):
                         sisbrprocessainst.save()
                 if not cliente.objects.filter(numcpfcnpj=numcpfcnpj).exists():
                     nome_cliente = line['NOME_CLIENTE']
-                    numpa = pa.objects.filter(numpa=line['NUMPA'].cooperativa.numcooperativa=line['NUMCOOPERATIVA'])
+                    numpa = pa.objects.filter(numpa=line['NUMPA'],cooperativa__numcooperativa=line['NUMCOOPERATIVA'])
                     tipodepessoa = dict((v,k) for k, v in dict(PFPJ).iteritems())[line['TIPO DE PESSOA']]
                     clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,numpa=numpa,tipodepesso=tipodepessoa,usuario=sisbrcsv.usuario,)
                     clientinst.save()
