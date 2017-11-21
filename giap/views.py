@@ -54,7 +54,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     resultfilter = savefilter(form)
                     if resultfilter.saida:
                         inst = form.save(commit=False)
-                        inst.usuario = request.user.username
+                        inst.usuario = request.user
                         inst.save()
                         return redirect(urlretorno)
                     else:
@@ -83,7 +83,7 @@ def editadd(request, id, modelo, formmodel, templateedit, urlretorno, savefilter
                     resultfilter = savefilter(form)
                     if resultfilter.saida:
                         inst = form.save(commit=False)
-                        inst.usuario = request.user.username
+                        inst.usuario = request.user
                         inst.save()
                         return redirect(urlretorno)
                     else:
@@ -348,7 +348,6 @@ def listartransacao(request):
         j[transacao._meta.get_field(
             'produto').verbose_name] = produtodict[i['produto']]
         j['Dias para vencer'] = (i['vencimento'] - timezone.now().date()).days
-        j[transacao._meta.get_field('usuario').verbose_name] = i['usuario']
         j[transacao._meta.get_field('data').verbose_name] = i['data']
         lista.append(j)
     return render(request, templatelist, {'form': form, 'editurl': editurl, 'lista': lista})
@@ -426,7 +425,7 @@ class addtransacao(CreateView):
         initial = {}
         initial['cliente'] = self.kwargs['cliente']
         initial['produto'] = self.kwargs['produto']
-        initial['usuario'] = self.request.user.username
+        initial['usuario'] = self.request.user
         return initial
 
 @method_decorator(login_required, name='dispatch')
@@ -441,7 +440,7 @@ class addcliente(CreateView):
     def get_initial(self):
         initial = {}
         initial['numcpfcnpj'] = self.kwargs['numcpfcnpj']
-        initial['usuario'] = self.request.user.username
+        initial['usuario'] = self.request.user
         return initial
 
     

@@ -23,6 +23,8 @@ from django.conf import settings
 
 import csv
 
+from django.contrib.auth.models import User
+
 
 def validate_cpfcnpj(value):
     if not cpfcnpj.validate(str(value)):
@@ -137,7 +139,7 @@ class transacao(models.Model):
     cliente = models.ForeignKey(
         'Cliente', verbose_name='Cliente', on_delete=models.CASCADE)
     produto = models.IntegerField('Produto', choices=TIPOPRODUTO,)
-    usuario = models.CharField('Usuario', max_length=150,)
+    usuario = models.ForeignKey(User, verbose_name='Usuário', on_delete=models.CASCADE)
     data = models.DateTimeField(
         'Data e Hora de inclusão', default=timezone.now)
     vencimento = models.DateField('Vencimento', default=timezone.now(
