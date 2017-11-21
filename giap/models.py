@@ -191,6 +191,8 @@ class sisbrcsv(models.Model):
            if line['NUMCPFCNPJ'] != '':
                 if len(line['NUMCPFCNPJ']) == 11:
                     numcpfcnpj = "%s.%s.%s-%s" % ( line['NUMCPFCNPJ'][0:3], line['NUMCPFCNPJ'][3:6], line['NUMCPFCNPJ'][6:9], line['NUMCPFCNPJ'][9:11])
+                if len(line['NUMCPFCNPJ']) == 14:
+                    numcpfcnpj = "%s.%s.%s/%s-%s" % ( line['NUMCPFCNPJ'][0:2], line['NUMCPFCNPJ'][2:5], line['NUMCPFCNPJ'][5:8], line['NUMCPFCNPJ'][8:12],line['NUMCPFCNPJ'][12:14])
                 for key, value in sisbrtipodeproduto.items():
                     if line[value] == '1':
                         produto = key
