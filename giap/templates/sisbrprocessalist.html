@@ -44,14 +44,14 @@
                     <td>
                         <p class="text-center">{{ sisbrprocessa.numcpfcnpj }}
                             {% if not sisbrprocessa.cliente %}
-                            <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-plus"></span></a>
+                            <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
                             {% endif %}
                         </p>
                     </td>
                     <td>
                         <p class="text-center">{{ sisbrprocessa.get_produto_display }}
                         {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
-                        <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-plus"></span></a>
+                        <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
                         {% endif %}
                         </p>
                     </td>
