@@ -133,6 +133,25 @@ TIPOPRODUTO = (
     (15, 'Débito Automático'),
 )
 
+sisbrtipodeproduto = {
+    0: 'TEM_EMPRESTIMO',
+    2: 'TEM_FINANCIAMENTO',
+    3: 'TEM_PREAPROVADO',
+    4: 'TEM_CREDITORURAL',
+    5: 'TEM_CHEQUEESPECIAL',
+    6: 'TEM_CARTAOCREDITO',
+    7: 'TEM_CARTAODEBITO',
+    8: 'TEM_RDC',
+    9: 'TEM_POUPANCA',
+    10: 'TEM_CONSORCIO',
+    11: 'TEM_SICOOBPREVI',
+    12: 'TEM_SIPAG',
+    13: 'TEM_DEMAISSEGUROS',
+    14: 'TEM_SEGUROVIDA',
+        15: 'TEM_DEBITOAUTOMATICO',
+    }
+
+
 
 class transacao(models.Model):
     id = models.AutoField(primary_key=True)
@@ -169,7 +188,6 @@ class sisbrcsv(models.Model):
     def save(self, *args, **kwargs):
         super(sisbrcsv, self).save(*args, **kwargs)
         sisbrprocessa.objects.filter(sisbrcsv=self).delete()
-        sisbrtipodeproduto = dict(TIPOPRODUTO)
         csvfile = settings.MEDIA_ROOT + "/" + self.sisbrcsvfile.name
         csvfileopen = csv.DictReader(open(csvfile), delimiter=str(u','), dialect=csv.excel)
         for line in csvfileopen:
@@ -185,9 +203,9 @@ class sisbrcsv(models.Model):
                         sisbrprocessainst.save()
                 if not cliente.objects.filter(numcpfcnpj=numcpfcnpj).exists():
                     nome_cliente = line['NOME_CLIENTE']
-                    numpa = pa.objects.filter(numpa=line['NUMPA'],cooperativa__numcooperativa=line['NUMCOOPERATIVA'])
+                    painst = pa.objects.filter(numpa=line['NUMPA'],cooperativa__numcooperativa=line['NUMCOOPERATIVA']).first()
                     tipodepessoa = dict((v,k) for k, v in dict(PFPJ).iteritems())[line['TIPO DE PESSOA']]
-                    clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,numpa=numpa,tipodepesso=tipodepessoa,usuario=sisbrcsv.usuario,)
+                    clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,pa=painst,tipodepessoa=tipodepessoa,usuario=self.usuario,)
                     clientinst.save()
                     
 class sisbrprocessa(models.Model):
