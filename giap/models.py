@@ -201,9 +201,31 @@ class sisbrcsv(models.Model):
                         produto = key
                         sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcnpj=numcpfcnpj,produto=produto,)
                         sisbrprocessainst.save()
+                
+                if not central.objects.filter(numcentral=line['NUMCENTRAL']).exists():
+                    numcentral = line['NUMCENTRAL']
+                    sigla_central = line['SIGLA_CENTRAL']
+                    centralinst = central(numcentral=numcentral,sigla_central=sigla_central,usuario=self.usuario)
+
+                if not cooperativa.objects.filter(numcooperativa=line['NUMCOOPERATIVA']).exists():
+                    numcentral = line['NUMCENTRAL']
+                    numcooperativa = line['NUMCOOPERATIVA']
+                    sigla_cooperativa = line['SIGLA_COOPERATIVA']
+                    centralinst = central.objects.get(numcentral=numcentral)
+                    cooperativainst = cooperativa(central=centralinst,numcooperativa=numcooperativa,sigla_cooperativa=sigla_cooperativa,usuario=self.usuario)
+                    cooperativainst.save()
+
+                if not pa.objects.filter(numpa=line['NUMPA']).exists():
+                    numcooperativa = line['NUMCOOPERATIVA']
+                    numpa = line['NUMPA']
+                    sigla_pa = 'PA' + str(line['NUMPA'])
+                    cooperativainst = cooperativa.objects.get(numcooperativa=numcooperativa)
+                    painst = pa(cooperativa=cooperativainst,numpa=numpa,sigla_pa=sigla_pa,usuario=self.usuario)
+                    painst.save()
+
                 if not cliente.objects.filter(numcpfcnpj=numcpfcnpj).exists():
                     nome_cliente = line['NOME_CLIENTE']
-                    painst = pa.objects.filter(numpa=line['NUMPA'],cooperativa__numcooperativa=line['NUMCOOPERATIVA']).first()
+                    painst = pa.objects.get(numpa=line['NUMPA'],cooperativa__numcooperativa=line['NUMCOOPERATIVA'])
                     tipodepessoa = dict((v,k) for k, v in dict(PFPJ).iteritems())[line['TIPO DE PESSOA']]
                     clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,pa=painst,tipodepessoa=tipodepessoa,usuario=self.usuario,)
                     clientinst.save()
