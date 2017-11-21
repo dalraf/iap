@@ -21,38 +21,31 @@
             <thead class="thead-inverse">
                         <tr>
                             <th>
-                                <h5 class="text-center"><b>Data Ref.</b></h5>
-                            </th>
-                            <th>
-                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "numcpfcnpj" %}</b></h5>
-                            </th>
-                            <th>
-                                <h5 class="text-center"><b>{% get_verbose_field_name sisbrprocessa "produto" %}</b></h5>
+                                <h5 class="text-center"><b>Erros de importação</b></h5>
                             </th>
                         </tr>
                     </thead>
             <tbody>
                     {% endif %}
                 {% if not sisbrprocessa.transacao or not sisbrprocessa.cliente %}
+                {% if not sisbrprocessa.cliente %}
                  <tr>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.sisbrcsv }}</p>
-                    </td>
-                    <td>
-                        <p class="text-center">{{ sisbrprocessa.numcpfcnpj }}
-                            {% if not sisbrprocessa.cliente %}
+                        <p class="text-center">{{ sisbrprocessa.numcpfcnpj }} (Falta cadastro do usuário)
                             <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
-                            {% endif %}
-                        </p>
-                    </td>
-                    <td>
-                        <p class="text-center">{{ sisbrprocessa.get_produto_display }}
-                        {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
-                        <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
-                        {% endif %}
                         </p>
                     </td>
                 </tr>
+                {% endif %}
+                {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
+                <tr>
+                    <td>
+                        <p class="text-center">{{ sisbrprocessa.get_produto_display }} (Falta cadastro do produto)
+                        <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
+                        </p>
+                    </td>
+                </tr>
+                {% endif %}
                 {% endif %}
                 {% if forloop.last %}
             </tbody>
