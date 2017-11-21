@@ -198,7 +198,13 @@ class sisbrcsv(models.Model):
                         produto = key
                         sisbrprocessainst = sisbrprocessa(sisbrcsv=self,numcpfcnpj=numcpfcnpj,produto=produto,)
                         sisbrprocessainst.save()
-
+                if not cliente.objects.filter(numcpfcnpj=numcpfcnpj).exists():
+                    nome_cliente = line['NOME_CLIENTE']
+                    numpa = pa.objects.filter(numpa=line['NUMPA'].cooperativa.numcooperativa=line['NUMCOOPERATIVA'])
+                    tipodepessoa = dict((v,k) for k, v in dict(PFPJ).iteritems())[line['TIPO DE PESSOA']]
+                    clientinst = cliente(nome_cliente=nome_cliente,numcpfcnpj=numcpfcnpj,numpa=numpa,tipodepesso=tipodepessoa)
+                    clientinst.save()
+                    
 class sisbrprocessa(models.Model):
     id = models.AutoField(primary_key=True)
     sisbrcsv = models.ForeignKey(
