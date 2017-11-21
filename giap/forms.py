@@ -23,6 +23,12 @@ formcliente = modelform_factory(cliente,
                                         "tipodepessoa", "pa"),
                                 )
 
+formclientecorrecao = modelform_factory(cliente,
+                                fields=("nome_cliente", "numcpfcnpj",
+                                        "tipodepessoa", "pa"),
+                                widgets={"numcpfcnpj": forms.HiddenInput()},
+                                )                                
+
 formtransacao = modelform_factory(transacao,
                                   fields=("cliente", "produto",
                                           "vencimento"),
