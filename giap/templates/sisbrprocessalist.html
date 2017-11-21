@@ -21,6 +21,9 @@
             <thead class="thead-inverse">
                         <tr>
                             <th>
+                                <h5 class="text-center"><b>Campo importado</b></h5>
+                            </th>
+                            <th>
                                 <h5 class="text-center"><b>Erros de importação</b></h5>
                             </th>
                         </tr>
@@ -31,8 +34,12 @@
                 {% if not sisbrprocessa.cliente %}
                  <tr>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.numcpfcnpj }} <i>(Falta cadastro do Nome, Tipo de pessoa e Cooperativa)</i>
-                            <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
+                        <p class="text-center">{{ sisbrprocessa.numcpfcnpj }}</p>
+                    </td>
+                    <td>
+                        <p class="text-center">
+                        <i>(Falta cadastro do Nome, Tipo de pessoa e Cooperativa)</i>
+                        <a href="{% url 'addcliente' numcpfcnpj=sisbrprocessa.numcpfcnpj %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
                         </p>
                     </td>
                 </tr>
@@ -40,7 +47,11 @@
                 {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
                 <tr>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.get_produto_display }} <i>(Falta cadastro do vencimento e usuário relacionado)</i>
+                        <p class="text-center">{{ sisbrprocessa.get_produto_display }} 
+                    </td>
+                    <td>
+                        <p class="text-center">
+                        <i>(Falta cadastro do vencimento e usuário relacionado)</i>
                         <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
                         </p>
                     </td>
