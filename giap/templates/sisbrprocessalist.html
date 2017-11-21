@@ -40,7 +40,7 @@
                 {% if not sisbrprocessa.transacao and sisbrprocessa.cliente %}
                 <tr>
                     <td>
-                        <p class="text-center">{{ sisbrprocessa.get_produto_display }} <i>(Falta cadastro do vencimento e usuário)</i>
+                        <p class="text-center">{{ sisbrprocessa.get_produto_display }} <i>(Falta cadastro do vencimento e usuário relacionado)</i>
                         <a href="{% url 'addtransacao' produto=sisbrprocessa.produto cliente=sisbrprocessa.cliente.id %}"><span class="glyphicon glyphicon-wrench" style="color:red"></span></a>
                         </p>
                     </td>
